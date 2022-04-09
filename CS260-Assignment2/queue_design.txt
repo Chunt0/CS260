@@ -33,9 +33,12 @@ class Queue:
         enqueue
         dequeue
 
-Test:
+
+Tests:
 =====
-Can the input value 
+Can the input value be neg? char? string? float? etc.
+What happens when we try to remove when list is empty?
+Does having nodes with matching values have any effect?
 
 
 Queue in action:
