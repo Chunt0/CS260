@@ -1,0 +1,136 @@
+# Christopher Hunt
+# CS260
+# Assignment 2
+
+Queue Design
+============
+A queue is a type of dynamic list that, at the most basic level, is like a 
+checkout line at a grocery store. The first in is the first out and when adding
+to the queue it will always be in the last position.
+
+My queue design will be based off a Linked List design.
+
+The structures that will be queued are the Linked List nodes
+
+node =
+| val  |
+| next |
+
+and the queue it self will be the list.
+
+In this instance the nodes will just hold one data value, but this
+can be modified to suit any number of values.
+
+class Queue:
+    attributes:
+        struct node
+            value, next*
+        node* end, current, temp
+
+    methods:
+        constructor
+        destructor
+        enqueue
+        dequeue
+
+
+Tests:
+=====
+Can the input value be neg? char? string? float? etc.
+What happens when we try to remove when list is empty?
+Does having nodes with matching values have any effect?
+
+
+Queue in action:
+================
+EX:
+
+Step 1:
+Construct Queue
+
+Queue:
+  
+----------------------------------------
+                NULL
+
+----------------------------------------
+end = current = temp = NULL
+
+
+Step 2:
+Enqueue
+
+Queue:
+  0    | 
+----------------------------------------
+| val1 |
+| NULL |
+----------------------------------------
+ ^end current = temp = NULL
+
+
+Step 3:
+Enqueue
+
+Queue:
+  0    |  1    | 
+----------------------------------------
+| val2 || val1 |
+|next->|| NULL |
+----------------------------------------
+ ^end current = temp = NULL
+
+
+Step 4:
+Enqueue
+
+Queue:
+  0    |  1   |  2   |  
+----------------------------------------
+| val3 | val2 | val1 |
+|next->|next->| NULL |
+----------------------------------------
+ ^end current = temp = NULL
+
+
+Step 5:
+Dequeue
+
+Queue:
+  0    |  1   |  2    |  
+----------------------------------------
+| val3 | val2 | val1 |
+|next->|next->| NULL |
+----------------------------------------
+ ^end
+ ^current
+ ^temp
+Is current->next != NULL? True: ++current
+
+Queue:
+  0    |  1   |  2   |
+----------------------------------------
+| val3 | val2 | val1 |
+|next->|next->| NULL |
+----------------------------------------
+^end    ^current
+^temp   
+Is current->next != NULL? True: ++current
+
+Queue:
+  0    |  1   |  2   |  
+----------------------------------------
+| val3 | val2 | val1 |
+|next->|next->| NULL |
+----------------------------------------
+^end    ^temp   ^current
+Is current->next != NULL? False: delete current and temp->next = NULL
+Reset helped pointers: temp = current = NULL
+
+Queue:
+  0    |  1   | 
+----------------------------------------
+| val3 | val2 |
+|next->| NULL |
+----------------------------------------
+^end   temp = current = NULL
