@@ -54,7 +54,7 @@ Queue:
                 NULL
 
 ----------------------------------------
-end = current = temp = NULL
+head = current = temp = NULL
 
 
 Step 2:
@@ -66,7 +66,7 @@ Queue:
 | val1 |
 | NULL |
 ----------------------------------------
- ^end current = temp = NULL
+ ^head current = temp = NULL
 
 
 Step 3:
@@ -78,7 +78,7 @@ Queue:
 | val2 || val1 |
 |next->|| NULL |
 ----------------------------------------
- ^end current = temp = NULL
+ ^head current = temp = NULL
 
 
 Step 4:
@@ -90,7 +90,7 @@ Queue:
 | val3 | val2 | val1 |
 |next->|next->| NULL |
 ----------------------------------------
- ^end current = temp = NULL
+ ^head current = temp = NULL
 
 
 Step 5:
@@ -102,7 +102,7 @@ Queue:
 | val3 | val2 | val1 |
 |next->|next->| NULL |
 ----------------------------------------
- ^end
+ ^head
  ^current
  ^temp
 Is current->next != NULL? True: ++current
@@ -113,7 +113,7 @@ Queue:
 | val3 | val2 | val1 |
 |next->|next->| NULL |
 ----------------------------------------
-^end    ^current
+^head    ^current
 ^temp   
 Is current->next != NULL? True: ++current
 
@@ -123,7 +123,7 @@ Queue:
 | val3 | val2 | val1 |
 |next->|next->| NULL |
 ----------------------------------------
-^end    ^temp   ^current
+^head    ^temp   ^current
 Is current->next != NULL? False: delete current and temp->next = NULL
 Reset helped pointers: temp = current = NULL
 
@@ -133,4 +133,4 @@ Queue:
 | val3 | val2 |
 |next->| NULL |
 ----------------------------------------
-^end   temp = current = NULL
+^head   temp = current = NULL

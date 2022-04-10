@@ -7,7 +7,17 @@
 class Queue{
     
     private:  
-    Node* end;
+    // Attributes
+    Node* head;
+    int position;
+
+    // Constructor/Destructor
+    Queue();
+    ~Queue();
+
+    // Methods
+    void enqueue();
+    void dequeue();
 };
 
 #endif
