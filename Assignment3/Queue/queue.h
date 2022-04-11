@@ -11,6 +11,7 @@ class Queue{
     Node* head;
     int position;
 
+    public:
     // Constructor/Destructor
     Queue();
     ~Queue();
@@ -18,6 +19,7 @@ class Queue{
     // Methods
     void enqueue();
     void dequeue();
+    void printQueue();
     void menu();
 };
 
