@@ -18,6 +18,7 @@ class Queue{
     // Methods
     void enqueue();
     void dequeue();
+    void menu();
 };
 
 #endif
