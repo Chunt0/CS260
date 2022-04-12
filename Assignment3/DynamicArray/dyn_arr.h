@@ -1,12 +1,12 @@
 #ifndef DYN_ARR.H
 #define DYN_ARR.H
 
-#include "node.h"
+#include "dyn_node.h"
 
 class DynArr{
     private:
     // Attributes
-    Node* head;
+    DynNode* head;
     int size;
 
     public:
