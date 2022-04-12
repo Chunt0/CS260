@@ -15,6 +15,7 @@ class DynArr{
     ~DynArr();
 
     // Methods
+    
     void printArr();
 };
 

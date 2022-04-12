@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <iostream>
-#include "node.h"
+#include "queue_node.h"
 
 class Queue{
     

@@ -2,8 +2,8 @@
 // CS260
 // node.h
 
-#ifndef NODE_H
-#define NODE_H
+#ifndef STACK_NODE_H
+#define STACK_NODE_H
 
 #include <iostream>
 

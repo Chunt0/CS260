@@ -6,7 +6,7 @@
 #define STACK_H
 
 #include <iostream>
-#include "node.h"
+#include "stack_node.h"
 
 // A Stack is a type of list that is of type: Last In, First Out
 class Stack{
