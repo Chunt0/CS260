@@ -2,8 +2,8 @@
 // CS260
 // node.h
 
-#ifndef NODE_H
-#define NODE_H
+#ifndef QUEUE_NODE_H
+#define QUEUE_NODE_H
 
 #include <iostream>
 
