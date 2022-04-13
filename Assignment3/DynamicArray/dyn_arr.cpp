@@ -27,7 +27,7 @@ void DynArr::appendList(int item){
         int *new_array = new int[2*m_init_size];
         ++resize;
      
-        for(int i = 0; i < (m_size-1); i++){
+        for(int i = 0; i < m_size; i++){
             new_array[i] = m_array[i];
         }
      
@@ -80,7 +80,7 @@ void DynArr::menu(){
     int value {0};
     int item{0};
     while(select_on){
-        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Print Array.\n4. Exit\n" << std::endl;
+        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Print Array.\n4. Dev Options\n5. Exit\n" << std::endl;
         std::cin >> selection;
         std::cout << "\n\n";
         switch(selection){
@@ -103,6 +103,10 @@ void DynArr::menu(){
             break;
 
             case 4:
+            std::cout << "sizeof(m_array): " << sizeof(m_array) << std::endl;
+            break;
+
+            case 5:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
         }    
