@@ -1,13 +1,13 @@
-#ifndef DYN_ARR.H
-#define DYN_ARR.H
+#ifndef DYN_ARR_H
+#define DYN_ARR_H
 
-#include "dyn_node.h"
+#include <iostream>
 
 class DynArr{
     private:
     // Attributes
-    DynNode* head;
-    int size;
+    int *m_array;
+    int m_size;
 
     public:
     // Constructor and Destructor
@@ -15,8 +15,12 @@ class DynArr{
     ~DynArr();
 
     // Methods
-    
+    void appendList(int item);
+    void removeItem(int item);
     void printArr();
+    bool isFull();
+    bool isEmpty();
+    void menu();
 };
 
 #endif
