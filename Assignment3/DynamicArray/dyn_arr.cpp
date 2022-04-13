@@ -31,7 +31,23 @@ void DynArr::appendList(int item){
 }
 
 void DynArr::removeItem(int item){
-
+    if(!isEmpty()){
+        for(int i = 0; i < m_size; i++){
+            if(m_array[i] == item){
+                for(int j = 0; j < (m_size - i); j++){
+                    m_array[i+j] = m_array[i+j+1];
+                }
+                --m_size;
+                break;
+            }
+            else{
+                continue;
+            }
+        }
+    }
+    else{
+        std::cout << "List is already empty." << std::endl;
+    }
 }
 
 void DynArr::printArr(){
@@ -45,13 +61,9 @@ void DynArr::printArr(){
     }
 }
 
-bool DynArr::isFull(){
-    return (m_size == 10);
-}
+bool DynArr::isFull(){return (m_size == sizeof(m_array));}
 
-bool DynArr::isEmpty(){
-    return (m_size == 0);
-}
+bool DynArr::isEmpty(){return (m_size == 0);}
 
 void DynArr::menu(){
     bool select_on {true};
