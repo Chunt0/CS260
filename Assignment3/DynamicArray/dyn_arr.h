@@ -8,6 +8,8 @@ class DynArr{
     // Attributes
     int *m_array;
     int m_size;
+    int m_init_size;
+    int resize;
 
     public:
     // Constructor and Destructor

@@ -2,8 +2,10 @@
 
 
 DynArr::DynArr(){
-    m_array[10];
+    m_array = nullptr;
     m_size = 0;
+    m_init_size = 10;
+    resize = 1;
 }
 
 DynArr::~DynArr(){
@@ -11,13 +13,19 @@ DynArr::~DynArr(){
 }
 
 void DynArr::appendList(int item){
-    if(!isFull()){
+    if(isEmpty()){
+        m_array = new int[m_init_size];
+        m_array[m_size] = item;
+        ++m_size;
+    }
+    else if(!isFull()){
         m_array[m_size] = item;
         ++m_size;
     }
     else{
         int *deletePtr = m_array;
-        int *new_array = new int[2*m_size];
+        int *new_array = new int[2*m_init_size];
+        ++resize;
      
         for(int i = 0; i < (m_size-1); i++){
             new_array[i] = m_array[i];
@@ -54,6 +62,7 @@ void DynArr::printArr(){
     if(!isEmpty()){
         for(int i = 0; i < m_size; i++){
             std::cout << "m_array[" << i << "]: " << m_array[i] << std::endl;
+            std::cout << "m_size: " << m_size << std::endl;
         }    
     }
     else{
@@ -61,7 +70,7 @@ void DynArr::printArr(){
     }
 }
 
-bool DynArr::isFull(){return (m_size == sizeof(m_array));}
+bool DynArr::isFull(){return (m_size == m_init_size*resize);}
 
 bool DynArr::isEmpty(){return (m_size == 0);}
 
@@ -83,7 +92,7 @@ void DynArr::menu(){
             break;
             
             case 2:
-            std::cout << "Enter item to value to store [must be an integer]: ";
+            std::cout << "Enter item to store [must be an integer]: ";
             std::cin >> item;
             removeItem(item);
             item = 0;
