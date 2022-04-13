@@ -85,14 +85,14 @@ void DynArr::menu(){
         std::cout << "\n\n";
         switch(selection){
             case 1:
-            std::cout << "Enter item to value to store [must be an integer]: ";
+            std::cout << "Enter value to store [must be an integer]: ";
             std::cin >> item;
             appendList(item);
             item = 0;
             break;
             
             case 2:
-            std::cout << "Enter item to store [must be an integer]: ";
+            std::cout << "Enter value to store [must be an integer]: ";
             std::cin >> item;
             removeItem(item);
             item = 0;
