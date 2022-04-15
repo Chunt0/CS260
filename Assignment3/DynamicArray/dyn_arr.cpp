@@ -54,7 +54,7 @@ void DynArr::removeItem(int item){
         }
     }
     else{
-        std::cout << "List is already empty." << std::endl;
+        std::cout << "DynArray is already empty." << std::endl;
     }
 }
 
