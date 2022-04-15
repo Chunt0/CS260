@@ -8,7 +8,7 @@ class DynArr{
     // Attributes
     int *m_array;
     int m_size;
-    int m_init_size;
+    int m_capacity;
     int resize;
 
     public:

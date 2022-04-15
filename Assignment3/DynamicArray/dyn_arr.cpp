@@ -4,17 +4,17 @@
 DynArr::DynArr(){
     m_array = nullptr;
     m_size = 0;
-    m_init_size = 10;
+    m_capacity = 2;
     resize = 1;
 }
 
 DynArr::~DynArr(){
-    delete m_array;
+    delete [] m_array;
 }
 
 void DynArr::appendList(int item){
     if(isEmpty()){
-        m_array = new int[m_init_size];
+        m_array = new int[m_capacity];
         m_array[m_size] = item;
         ++m_size;
     }
@@ -24,7 +24,8 @@ void DynArr::appendList(int item){
     }
     else{
         int *deletePtr = m_array;
-        int *new_array = new int[2*m_init_size];
+        m_capacity *= 2; 
+        int *new_array = new int[m_capacity];
         ++resize;
      
         for(int i = 0; i < m_size; i++){
@@ -34,7 +35,7 @@ void DynArr::appendList(int item){
         new_array[m_size] = item;
         ++m_size;
         m_array = new_array;
-        delete deletePtr;
+        delete [] deletePtr;
     }
 }
 
@@ -70,7 +71,7 @@ void DynArr::printArr(){
     }
 }
 
-bool DynArr::isFull(){return (m_size == m_init_size*resize);}
+bool DynArr::isFull(){return (m_size == m_capacity);}
 
 bool DynArr::isEmpty(){return (m_size == 0);}
 
