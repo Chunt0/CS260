@@ -19,14 +19,14 @@ class PyList:
         int size
 
     Methods:
-        *constructor
-        *destructor
-        *append
-        *count
-        *index
-        *insert
-        *pop
-        *remove
+        *constructor ~
+        *destructor ~
+        *append ~
+        *count ~
+        *index ~
+        *insert ~
+        *pop ~
+        *remove ~
         clear
         copy
         extend

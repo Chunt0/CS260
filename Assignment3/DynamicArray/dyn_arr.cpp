@@ -106,6 +106,18 @@ void DynArr::insertItem(int item, int index){
     }
 }
 
+int DynArr::countItem(int item){
+
+}
+
+int DynArr::indexItem(int item){
+
+}
+
+void DynArr::popItem(int item){
+    
+}
+
 void DynArr::printArr(){
     if(!isEmpty()){
         for(int i = 0; i < m_size; i++){

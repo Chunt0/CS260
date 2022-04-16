@@ -20,6 +20,9 @@ class DynArr{
     void appendList(int item);
     void removeItem(int item);
     void insertItem(int item, int index);
+    int countItem(int item); 
+    int indexItem(int item); 
+    void popItem(int item); 
     void printArr();
     bool isFull();
     bool isEmpty();
