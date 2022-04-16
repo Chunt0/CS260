@@ -60,6 +60,11 @@ void DynArr::removeItem(int item){
 }
 
 void DynArr::insertItem(int item, int index){
+    if(index > (m_size-1)){
+        std::cout << "Index is out of range." << std::endl;
+        return;
+    }
+    
     if(isEmpty()){
         std::cout << "Dynamic Array is empty. Insert at index 0 instead? [y/n] ";
         char answer;
@@ -136,7 +141,7 @@ void DynArr::menu(){
             break;
             
             case 2:
-            std::cout << "Enter value to store [must be an integer]: ";
+            std::cout << "Enter value to remove [must be an integer]: ";
             std::cin >> item;
             removeItem(item);
             item = 0;
