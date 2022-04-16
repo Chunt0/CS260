@@ -23,10 +23,10 @@ class DynArr{
     int countItem(int item); 
     int indexItem(int item); 
     void popItem(int index);
-    void clearList(); //
-    void copyList(); //
+    void clearList(); 
+    int* copyList();
     void extendList(int* list_to_add); //
-    void reverseList(); //
+    void reverseList();
     void sortList(); // 
     void printArr();
     bool isFull();

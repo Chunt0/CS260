@@ -140,11 +140,17 @@ void DynArr::popItem(int index){
 }
 
 void DynArr::clearList(){
-
+    int* deletePtr = m_array;
+    m_array = nullptr;
+    delete [] deletePtr;
 }
 
-void DynArr::copyList(){
-
+int* DynArr::copyList(){
+    int* new_list = new int[m_capacity];
+    for(int i = 0; i < m_size; i++){
+        new_list[i] = m_array[i];
+    }
+    return new_list;
 }
 
 void DynArr::extendList(int* list_to_add){
@@ -152,7 +158,14 @@ void DynArr::extendList(int* list_to_add){
 } 
 
 void DynArr::reverseList(){
-
+    int* new_list = new int[m_capacity];
+    int* deletePtr = m_array;
+    int count = 0;
+    for(int i = (m_size-1); i >= 0; i--){
+        new_list[count] = m_array[i];
+    }
+    m_array = new_list;
+    delete [] deletePtr;
 }
 
 void DynArr::sortList(){
