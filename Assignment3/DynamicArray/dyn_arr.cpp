@@ -107,15 +107,34 @@ void DynArr::insertItem(int item, int index){
 }
 
 int DynArr::countItem(int item){
-
+    int count = 0;
+    for(int i = 0; i < m_size; i++){
+        if(m_array[i] == item){
+            count++;
+        }
+    }
+    return count;
 }
 
 int DynArr::indexItem(int item){
-
+    int index = NULL;
+    for(int i = 0; i < m_size; i++){
+        if(m_array[i] == item){
+            index = i;
+        }
+    }
+    return index;
 }
 
-void DynArr::popItem(int item){
-    
+void DynArr::popItem(int index){
+    if(index > (m_size-1)){
+        std::cout << "Index is out of range." << std::endl;
+        return;
+    }
+    for(int i = index; i < m_size; i++){
+        m_array[i] = m_array[i+1];
+    }
+    --m_size;   
 }
 
 void DynArr::printArr(){
@@ -140,7 +159,7 @@ void DynArr::menu(){
     int item{0};
     int index{0};
     while(select_on){
-        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Insert Item.\n4. Print Array.\n5. Dev Options.\n6. Exit\n" << std::endl;
+        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Insert Item.\n4. Count Item.\n5. Index Item\n6. Pop Item\n7. Print Array.\n8. Dev Options.\n9. Exit\n" << std::endl;
         std::cin >> selection;
         std::cout << "\n\n";
         switch(selection){
@@ -172,13 +191,39 @@ void DynArr::menu(){
             break;
 
             case 4:
+            std::cout << "Enter value to count [must be an integer]: ";
+            std::cin >> item;
+            int amount = countItem(item);
+            std::cout << "There are " << amount << " items of value " << item << std::endl;
+            item = 0;
             printArr();
             break;
 
             case 5:
+            std::cout << "Enter value to index [must be an integer]: ";
+            std::cin >> item;
+            int location = indexItem(item);
+            item = 0;
+            std::cout << "The index is: " << location << std::endl;
+            printArr();
             break;
 
             case 6:
+            std::cout << "Enter index to pop [must be an integer]: ";
+            std::cin >> index;
+            popItem(index);
+            index = 0;
+            printArr();
+            break;
+
+            case 7:
+            printArr();
+            break;
+
+            case 8:
+            break;
+
+            case 9:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
         }    

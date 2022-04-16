@@ -22,7 +22,7 @@ class DynArr{
     void insertItem(int item, int index);
     int countItem(int item); 
     int indexItem(int item); 
-    void popItem(int item); 
+    void popItem(int index); 
     void printArr();
     bool isFull();
     bool isEmpty();
