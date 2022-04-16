@@ -27,7 +27,7 @@ class DynArr{
     void copyList(); //
     void extendList(int* list_to_add); //
     void reverseList(); //
-    void sortList(); 
+    void sortList(); // 
     void printArr();
     bool isFull();
     bool isEmpty();
