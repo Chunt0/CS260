@@ -117,10 +117,12 @@ int DynArr::countItem(int item){
 }
 
 int DynArr::indexItem(int item){
-    int index = NULL;
+    int index = -1;
+    bool found = false;
     for(int i = 0; i < m_size; i++){
-        if(m_array[i] == item){
+        if(m_array[i] == item && !found){
             index = i;
+            found = true;
         }
     }
     return index;
@@ -158,6 +160,8 @@ void DynArr::menu(){
     int selection {0};
     int item{0};
     int index{0};
+    int location{0};
+    int amount{0};
     while(select_on){
         std::cout << "\n1. Append List.\n2. Remove Item.\n3. Insert Item.\n4. Count Item.\n5. Index Item\n6. Pop Item\n7. Print Array.\n8. Dev Options.\n9. Exit\n" << std::endl;
         std::cin >> selection;
@@ -193,7 +197,7 @@ void DynArr::menu(){
             case 4:
             std::cout << "Enter value to count [must be an integer]: ";
             std::cin >> item;
-            int amount = countItem(item);
+            amount = countItem(item);
             std::cout << "There are " << amount << " items of value " << item << std::endl;
             item = 0;
             printArr();
@@ -202,7 +206,7 @@ void DynArr::menu(){
             case 5:
             std::cout << "Enter value to index [must be an integer]: ";
             std::cin >> item;
-            int location = indexItem(item);
+            location = indexItem(item);
             item = 0;
             std::cout << "The index is: " << location << std::endl;
             printArr();
