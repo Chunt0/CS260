@@ -1,7 +1,7 @@
 #include "dyn_arr.h"
 
 int main(){
-   DynArr arr; 
+    DynArr arr; 
 
     arr.menu();
 
