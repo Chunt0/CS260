@@ -139,6 +139,26 @@ void DynArr::popItem(int index){
     --m_size;   
 }
 
+void DynArr::clearList(){
+
+}
+
+void DynArr::copyList(){
+
+}
+
+void DynArr::extendList(int* list_to_add){
+
+} 
+
+void DynArr::reverseList(){
+
+}
+
+void DynArr::sortList(){
+
+}
+
 void DynArr::printArr(){
     if(!isEmpty()){
         for(int i = 0; i < m_size; i++){
