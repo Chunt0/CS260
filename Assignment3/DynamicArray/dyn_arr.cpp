@@ -1,6 +1,14 @@
+/*
+ CHRISTOPHER HUNT
+ CS260
+*/
+
 #include "dyn_arr.h"
 
-
+/*
+Constructor: DynArr()
+Description: Builds DynArr object. Sets intitial attributes.
+*/
 DynArr::DynArr(){
     m_array = nullptr;
     m_size = 0;
@@ -8,10 +16,23 @@ DynArr::DynArr(){
     resize = 1;
 }
 
+/*
+Destructor: ~DynArr()
+Description: Manages the deallocation of heap memory.
+*/
 DynArr::~DynArr(){
     delete [] m_array;
 }
 
+/*
+Method: appendList()
+Description: Adds an int to the end of the list in the array. Utilizes several
+    if clauses to manage different cases that may occur - whether the list is empty
+    or if it contains values but is not full or if it is full. If the list is full
+    there will be steps taken to create a new list with double the capacity, the list
+    will be copied and the object will now be pointing to this new list, the old one
+    will be deleted.
+*/
 void DynArr::appendList(int item){
     if(isEmpty()){
         m_array = new int[m_capacity];
@@ -39,10 +60,17 @@ void DynArr::appendList(int item){
     }
 }
 
+/*
+Method: removeItem()
+Description: If the list is not empty it will search through the array, the 
+    first value to match will then be removed and the list will shift to fill
+    the void.
+*/
 void DynArr::removeItem(int item){
     if(!isEmpty()){
         for(int i = 0; i < m_size; i++){
             if(m_array[i] == item){
+                // Close the gap
                 for(int j = 0; j < (m_size - i); j++){
                     m_array[i+j] = m_array[i+j+1];
                 }
@@ -59,8 +87,13 @@ void DynArr::removeItem(int item){
     }
 }
 
+/*
+Method: insertItem()
+Description: Takes a value and an index, inserts that value at the indexed location.
+    the list shifts one to the right to make room for the addition.
+*/
 void DynArr::insertItem(int item, int index){
-    if(index > (m_size-1)){
+    if(index > (m_size-1) || index < 0){
         std::cout << "Index is out of range." << std::endl;
         return;
     }
@@ -106,6 +139,12 @@ void DynArr::insertItem(int item, int index){
     }
 }
 
+/*
+Method: countItem()
+Description: Loops through the array. When a value in the array matches the
+    value inputed by the user a counter is incremented by one. Returns 
+    count.
+*/
 int DynArr::countItem(int item){
     int count = 0;
     for(int i = 0; i < m_size; i++){
@@ -116,6 +155,11 @@ int DynArr::countItem(int item){
     return count;
 }
 
+/*
+Method: indexItem()
+Description: Loops through the array. When the value is found, the index is recorded
+    and returned.
+*/
 int DynArr::indexItem(int item){
     int index = -1;
     bool found = false;
@@ -128,8 +172,13 @@ int DynArr::indexItem(int item){
     return index;
 }
 
+/*
+Method: popItem()
+Description: User inputs an index. Starting from the index location specified
+    the values are made equal to that which proceeds it.
+*/
 void DynArr::popItem(int index){
-    if(index > (m_size-1)){
+    if(index > (m_size-1) || index < 0){
         std::cout << "Index is out of range." << std::endl;
         return;
     }
@@ -139,12 +188,21 @@ void DynArr::popItem(int index){
     --m_size;   
 }
 
+/*
+Method: clearList()
+Description: Deletes list and makes the array point to a nullpointer.
+*/
 void DynArr::clearList(){
     int* deletePtr = m_array;
     m_array = nullptr;
     delete [] deletePtr;
 }
 
+/*
+Method: copyList()
+Description: A new int array is created with the same capacity. The values from DynArr
+    are copied to the new list. That list is returned.
+*/
 int* DynArr::copyList(){
     int* new_list = new int[m_capacity];
     for(int i = 0; i < m_size; i++){
@@ -153,10 +211,21 @@ int* DynArr::copyList(){
     return new_list;
 }
 
+/*
+Method: extendList()
+Description:
+*/
 void DynArr::extendList(int* list_to_add){
 
 } 
 
+/*
+Method: reverseList()
+Description: Creates a new list the same size as m_array. The m_array is looped 
+    from last to first while being placed in the first position to the last in
+    the new list. m_array is made to point to the new list, the old list is
+    deleted.
+*/
 void DynArr::reverseList(){
     int* new_list = new int[m_capacity];
     int* deletePtr = m_array;
@@ -168,10 +237,18 @@ void DynArr::reverseList(){
     delete [] deletePtr;
 }
 
+/*
+Method: sortList()
+Description:
+*/
 void DynArr::sortList(){
 
 }
 
+/*
+Method: printArr()
+Description: Loops through the array and prints associated values.
+*/
 void DynArr::printArr(){
     if(!isEmpty()){
         for(int i = 0; i < m_size; i++){
@@ -184,10 +261,23 @@ void DynArr::printArr(){
     }
 }
 
+/*
+Method: isFull()
+Description: Checks if the size is equal to the capacity.
+*/
 bool DynArr::isFull(){return (m_size == m_capacity);}
 
+/*
+Method: isEmpty()
+Description: True if m_size is zero.
+*/
 bool DynArr::isEmpty(){return (m_size == 0);}
 
+/*
+Method: menu()
+Description: A simple menu interface to allow the user to test functionality
+    of the object.
+*/
 void DynArr::menu(){
     bool select_on {true};
     int selection {0};

@@ -1,3 +1,8 @@
+/*
+ CHRISTOPHER HUNT
+ CS260
+*/
+
 #include "dyn_arr.h"
 
 int main(){
