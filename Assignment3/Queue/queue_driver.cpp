@@ -1,3 +1,8 @@
+/*
+Christopher Hunt
+CS 260
+*/
+
 #include "queue.h"
 
 int main(){

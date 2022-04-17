@@ -1,3 +1,8 @@
+/*
+Christopher Hunt
+CS 260
+*/
+
 #ifndef QUEUE_H
 #define QUEUE_H
 

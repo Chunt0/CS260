@@ -1,10 +1,24 @@
+/*
+Christopher Hunt
+CS 260
+*/
+
 #include "queue.h"
 
+/*
+Constructor: Queue()
+Description: Constructs Queue object, assigns attributes. 
+*/
 Queue::Queue(){
     head = nullptr;
     position = 0;
 }
 
+/*
+Destructor: ~Queue()
+Description: Handles garbage collection when the Queue object goes out of scope.
+    A Node* helper is used to cycle through the linked list and delete each.
+*/
 Queue::~Queue(){
     Node* current;
     while(head != nullptr){
@@ -14,6 +28,13 @@ Queue::~Queue(){
     }
 }
 
+/*
+Method: enqueue()
+Description: Creates a Node on the heap. Uses helper pointers to move through
+    the linked list and assigns the node whose next value is NULL to be pointing
+    at this new Node. This is considered the back of the list. If the head is
+    NULL, head will now be pointing to the new Node.
+*/
 void Queue::enqueue(){
     Node* n = new Node;
     Node* current = head;
@@ -30,6 +51,13 @@ void Queue::enqueue(){
     }
 }
 
+/*
+Method: dequeue()
+Description: A helper pointer is made equal to the head node. The head node
+    is made to point to the next node in the list. The object the helper node
+    points to is then deleted. Only the head (or First In) will ever be able
+    to be removed.
+*/
 void Queue::dequeue(){
     Node* deletePtr;
     if(head != nullptr){
@@ -42,6 +70,11 @@ void Queue::dequeue(){
     }
 }
 
+/*
+Method: printQueue()
+Description: Uses helper pointer to move through the linked list from the head
+    to the back and print their associated values.
+*/
 void Queue::printQueue(){
     Node* current = head;
     while(current != nullptr){
@@ -51,6 +84,11 @@ void Queue::printQueue(){
     std::cout << std::endl;
 }
 
+/*
+Method: menu()
+Description: A simple menu interface that allows a user to test the functionality
+    of the Queue object.
+*/
 void Queue::menu(){
     bool select_on {true};
     int selection {0};

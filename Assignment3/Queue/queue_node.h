@@ -1,6 +1,7 @@
-// CHRISTOPHER HUNT
-// CS260
-// node.h
+/*
+Christopher Hunt
+CS 260
+*/
 
 #ifndef QUEUE_NODE_H
 #define QUEUE_NODE_H
