@@ -204,7 +204,6 @@ void DynArr::clearList(){
 Method: copyList()
 Description: A new int array is created with the same capacity. The values from DynArr
     are copied to the new list. That list is returned.
-####BROKEN####
 */
 void DynArr::copyList(int* new_list){
     //new_list = new int[m_capacity];
@@ -215,8 +214,8 @@ void DynArr::copyList(int* new_list){
 
 /*
 Method: extendList()
-Description:
-####BROKEN####
+Description: When given a list to add and it's corresponding length, each item is appended
+    to the DynArr. In this iteration, the deals with memory alloc and dealloc. Can be tweaked.
 */
 void DynArr::extendList(int* list_to_add, int length){
     for(int i = 0; i < length; i++){
