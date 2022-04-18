@@ -218,8 +218,10 @@ Method: extendList()
 Description:
 ####BROKEN####
 */
-void DynArr::extendList(int* list_to_add){
-
+void DynArr::extendList(int* list_to_add, int length){
+    for(int i = 0; i < length; i++){
+        appendList(list_to_add[i]);
+    }
 } 
 
 /*
@@ -305,6 +307,8 @@ void DynArr::menu(){
     int location{0};
     int amount{0};
     int* new_list = nullptr;
+    int extend_test[] = {100, 200, 300};
+    int length = (sizeof(extend_test)/sizeof(extend_test[0]));
     while(select_on){
         std::cout << "\n1. Append List\n2. Remove Item\n3. Insert Item\n4. Count Item\n5. Index Item\n6. Pop Item\n7. Clear List\n8. Copy List\n9. Extend List\n10. Reverse List\n11. Sort List\n12. Print Array\n13. Dev Options\n14. Exit\n" << std::endl;
         std::cin >> selection;
@@ -378,7 +382,8 @@ void DynArr::menu(){
             break;
 
             case 9:
-            // extendList() # Broken
+            extendList(extend_test, length);
+            printArr();
             break;
 
             case 10:
