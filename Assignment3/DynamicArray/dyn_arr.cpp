@@ -207,6 +207,7 @@ Description: A new int array is created with the same capacity. The values from 
 ####BROKEN####
 */
 void DynArr::copyList(int* new_list){
+    //new_list = new int[m_capacity];
     for(int i = 0; i < m_size; i++){
         new_list[i] = m_array[i];
     }
@@ -303,6 +304,7 @@ void DynArr::menu(){
     int index{0};
     int location{0};
     int amount{0};
+    int* new_list = nullptr;
     while(select_on){
         std::cout << "\n1. Append List\n2. Remove Item\n3. Insert Item\n4. Count Item\n5. Index Item\n6. Pop Item\n7. Clear List\n8. Copy List\n9. Extend List\n10. Reverse List\n11. Sort List\n12. Print Array\n13. Dev Options\n14. Exit\n" << std::endl;
         std::cin >> selection;
@@ -366,7 +368,13 @@ void DynArr::menu(){
             break;
 
             case 8:
-            // copyList() # Broken
+            delete [] new_list;
+            new_list = new int[m_capacity];
+            copyList(new_list);
+            for(index = 0; index < m_size; index++){
+                std::cout << "new_list[" << index << "]: " << new_list[index] << std::endl;
+            }
+            index = 0;
             break;
 
             case 9:
@@ -395,6 +403,9 @@ void DynArr::menu(){
             case 14:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
+            if(new_list != nullptr){
+                delete [] new_list;
+            }
         }    
     }
 }
