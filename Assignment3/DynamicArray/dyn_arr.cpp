@@ -111,11 +111,11 @@ void DynArr::insertItem(int item, int index){
         }        
     }
     else if(!isFull()){
+        ++m_size;
         for(int i = m_size; i > index; i--){
             m_array[i] = m_array[i-1];
         }
         m_array[index] = item;
-        ++m_size;
     }
     else{
     int *deletePtr = m_array;
