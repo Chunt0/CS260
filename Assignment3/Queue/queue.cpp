@@ -100,10 +100,12 @@ void Queue::menu(){
         switch(selection){
             case 1:
             enqueue();
+            printQueue();
             break;
             
             case 2:
             dequeue();
+            printQueue();
             break;
 
             case 3:
