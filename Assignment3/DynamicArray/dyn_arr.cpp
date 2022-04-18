@@ -234,6 +234,7 @@ void DynArr::reverseList(){
     int count = 0;
     for(int i = (m_size-1); i >= 0; i--){
         new_list[count] = m_array[i];
+        count++;
     }
     m_array = new_list;
     delete [] deletePtr;
@@ -371,8 +372,8 @@ void DynArr::menu(){
             break;
 
             case 10:
-            //reverseList(); # Broken
-            //printArr();
+            reverseList();
+            printArr();
             break;
 
             case 11:
