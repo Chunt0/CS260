@@ -249,16 +249,18 @@ Description: Uses a selection sort algorithm to sort from minimum to maximum.
 */
 void DynArr::sortList(){
     int min, temp;
-    for(int i = 0; i < m_size; i++){
-        min = i;
-        for(int j = i + 1; j < m_size; j++){
-            if (m_array[j] < m_array[min]){
-                min = j;
+    if(m_size > 1){
+        for(int i = 0; i < m_size; i++){
+            min = i;
+            for(int j = i + 1; j < m_size; j++){
+                if (m_array[j] < m_array[min]){
+                    min = j;
+                }
             }
+            temp = m_array[i];
+            m_array[i] = m_array[min];
+            m_array[min] = temp;
         }
-        temp = m_array[i];
-        m_array[i] = m_array[min];
-        m_array[min] = temp;
     }
 }
 
