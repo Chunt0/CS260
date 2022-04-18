@@ -303,7 +303,7 @@ void DynArr::menu(){
     int location{0};
     int amount{0};
     while(select_on){
-        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Insert Item.\n4. Count Item.\n5. Index Item\n6. Pop Item\n7. Clear List\n8. Copy List\n9. Extend List\n10. Reverse List\n11. Sort List\n12. Print Array.\n13. Dev Options.\n14. Exit\n" << std::endl;
+        std::cout << "\n1. Append List\n2. Remove Item\n3. Insert Item\n4. Count Item\n5. Index Item\n6. Pop Item\n7. Clear List\n8. Copy List\n9. Extend List\n10. Reverse List\n11. Sort List\n12. Print Array\n13. Dev Options\n14. Exit\n" << std::endl;
         std::cin >> selection;
         std::cout << "\n\n";
         switch(selection){
