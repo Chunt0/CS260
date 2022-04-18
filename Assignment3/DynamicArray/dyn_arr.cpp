@@ -227,7 +227,6 @@ Description: Creates a new list the same size as m_array. The m_array is looped
     from last to first while being placed in the first position to the last in
     the new list. m_array is made to point to the new list, the old list is
     deleted.
-####BROKEN####
 */
 void DynArr::reverseList(){
     int* new_list = new int[m_capacity];
@@ -375,7 +374,9 @@ void DynArr::menu(){
             break;
 
             case 10:
-            reverseList();
+            if(m_size > 1){
+                reverseList();
+            }
             printArr();
             break;
 
