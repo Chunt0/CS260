@@ -13,7 +13,6 @@ DynArr::DynArr(){
     m_array = nullptr;
     m_size = 0;
     m_capacity = 2;
-    resize = 1;
 }
 
 /*
@@ -196,6 +195,8 @@ Description: Deletes list and makes the array point to a nullpointer.
 void DynArr::clearList(){
     int* deletePtr = m_array;
     m_array = nullptr;
+    m_size = 0;
+    m_capacity = 2;
     delete [] deletePtr;
 }
 
@@ -360,7 +361,7 @@ void DynArr::menu(){
             break;
 
             case 7:
-            //clearList(); # Broken
+            clearList(); 
             break;
 
             case 8:
