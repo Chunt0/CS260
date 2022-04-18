@@ -191,6 +191,7 @@ void DynArr::popItem(int index){
 /*
 Method: clearList()
 Description: Deletes list and makes the array point to a nullpointer.
+####BROKEN####
 */
 void DynArr::clearList(){
     int* deletePtr = m_array;
@@ -202,18 +203,18 @@ void DynArr::clearList(){
 Method: copyList()
 Description: A new int array is created with the same capacity. The values from DynArr
     are copied to the new list. That list is returned.
+####BROKEN####
 */
-int* DynArr::copyList(){
-    int* new_list = new int[m_capacity];
+void DynArr::copyList(int* new_list){
     for(int i = 0; i < m_size; i++){
         new_list[i] = m_array[i];
     }
-    return new_list;
 }
 
 /*
 Method: extendList()
 Description:
+####BROKEN####
 */
 void DynArr::extendList(int* list_to_add){
 
@@ -225,6 +226,7 @@ Description: Creates a new list the same size as m_array. The m_array is looped
     from last to first while being placed in the first position to the last in
     the new list. m_array is made to point to the new list, the old list is
     deleted.
+####BROKEN####
 */
 void DynArr::reverseList(){
     int* new_list = new int[m_capacity];
@@ -239,10 +241,23 @@ void DynArr::reverseList(){
 
 /*
 Method: sortList()
-Description:
+Description: Uses a selection sort algorithm to sort from minimum to maximum.
+    Steps through each element of the array, compares it's value to those proceeding
+    it, if smaller, swap places. 
 */
 void DynArr::sortList(){
-
+    int min, temp;
+    for(int i = 0; i < m_size; i++){
+        min = i;
+        for(int j = i + 1; j < m_size; j++){
+            if (m_array[j] < m_array[min]){
+                min = j;
+            }
+        }
+        temp = m_array[i];
+        m_array[i] = m_array[min];
+        m_array[min] = temp;
+    }
 }
 
 /*
@@ -286,7 +301,7 @@ void DynArr::menu(){
     int location{0};
     int amount{0};
     while(select_on){
-        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Insert Item.\n4. Count Item.\n5. Index Item\n6. Pop Item\n7. Print Array.\n8. Dev Options.\n9. Exit\n" << std::endl;
+        std::cout << "\n1. Append List.\n2. Remove Item.\n3. Insert Item.\n4. Count Item.\n5. Index Item\n6. Pop Item\n7. Clear List\n8. Copy List\n9. Extend List\n10. Reverse List\n11. Sort List\n12. Print Array.\n13. Dev Options.\n14. Exit\n" << std::endl;
         std::cin >> selection;
         std::cout << "\n\n";
         switch(selection){
@@ -344,13 +359,35 @@ void DynArr::menu(){
             break;
 
             case 7:
-            printArr();
+            //clearList(); # Broken
             break;
 
             case 8:
+            // copyList() # Broken
             break;
 
             case 9:
+            // extendList() # Broken
+            break;
+
+            case 10:
+            //reverseList(); # Broken
+            //printArr();
+            break;
+
+            case 11:
+            sortList();
+            printArr();
+            break;
+
+            case 12:
+            printArr();
+            break;
+
+            case 13:
+            break;
+
+            case 14:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
         }    

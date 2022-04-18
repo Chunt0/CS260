@@ -29,7 +29,7 @@ class DynArr{
     int indexItem(int item); 
     void popItem(int index);
     void clearList(); 
-    int* copyList();
+    void copyList(int* new_list);
     void extendList(int* list_to_add); //
     void reverseList();
     void sortList(); // 
