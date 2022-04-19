@@ -8,12 +8,12 @@ CS 260
 
 #include <iostream>
 #include "queue_node.h"
-
+template<typename T>
 class Queue{
     
     private:  
     // Attributes
-    Node* head;
+    Node<T>* head;
     int position;
 
     public:

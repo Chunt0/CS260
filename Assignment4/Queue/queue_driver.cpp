@@ -3,10 +3,10 @@ Christopher Hunt
 CS 260
 */
 
-#include "queue.h"
+#include "queue.hpp"
 
 int main(){
-    Queue queue;
+    Queue<int> queue;
 
     queue.menu();
 
