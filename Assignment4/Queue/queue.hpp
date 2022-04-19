@@ -45,11 +45,10 @@ Description: Creates a Node on the heap. Uses helper pointers to move through
     at this new Node. This is considered the back of the list. If the head is
     NULL, head will now be pointing to the new Node.
 */
-    void enqueue(){
-        Node<T>* n = new Node<int>;
+    void enqueue(T value){
+        Node<T>* n = new Node<T>;
         Node<T>* current = head;
-        position++;
-        n->value = position;
+        n->value = value;
         if(head != nullptr){
             while(current->next != nullptr){
                 current = current->next;
@@ -109,7 +108,9 @@ Description: A simple menu interface that allows a user to test the functionalit
             std::cout << "\n\n";
             switch(selection){
                 case 1:
-                enqueue();
+                std::cout << "Enter value to store: ";
+                std::cin >> value;
+                enqueue(value);
                 printQueue();
                 break;
 

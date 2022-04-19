@@ -9,9 +9,9 @@ CS 260
 #include <iostream>
 
 // A node holds a value and points to the next element in a linked-list structure
-template<typename T>
+template<typename N>
 struct Node{
-    T value;
+    N value;
     Node* next = nullptr;
 };
 
