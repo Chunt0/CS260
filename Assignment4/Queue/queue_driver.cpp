@@ -10,7 +10,7 @@ int main(){
     Queue<int> queue1;
     Queue<float> queue2;
     Queue<char> queue3;
-    Queue<std::string> queue4; // Some errors here
+    Queue<std::string> queue4;
     int selection{0};
     std::cout << "\n1. int\n2. float\n3. char\n4. string\n\n";
     std::cin >> selection;
