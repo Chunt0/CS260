@@ -12,7 +12,7 @@ int main(){
     Queue<char> queue3;
     Queue<std::string> queue4; // Some errors here
     int selection{0};
-    std::cout << "\n1. int\n2. float\n3. char\n4. string\n";
+    std::cout << "\n1. int\n2. float\n3. char\n4. string\n\n";
     std::cin >> selection;
     std::cout << "\n\n";
     switch(selection){

@@ -16,10 +16,11 @@ class Queue{
     struct Node{
         T value;
         Node* next = nullptr;
+        int node_index;
     };
 
-    Node* head;
-    int position; 
+    Node* m_head;
+    int m_size; 
 
     public:   
 /*
@@ -27,8 +28,8 @@ Constructor: Queue()
 Description: Constructs Queue object, assigns attributes. 
 */
     Queue(){
-        head = nullptr;
-        position = 0;
+        m_head = nullptr;
+        m_size = 0;
     }
 
 /*
@@ -38,15 +39,15 @@ Description: Handles garbage collection when the Queue object goes out of scope.
 */
     ~Queue(){
         Node* current;
-        while(head != nullptr){
-            current = head;
-            head = head->next;
+        while(m_head != nullptr){
+            current = m_head;
+            m_head = m_head->next;
             delete current;
     }
 }
 
 /*
-Method: enqueue()
+Method: enqueue(T value)
 Description: Creates a Node on the heap. Uses helper pointers to move through
     the linked list and assigns the node whose next value is NULL to be pointing
     at this new Node. This is considered the back of the list. If the head is
@@ -54,16 +55,20 @@ Description: Creates a Node on the heap. Uses helper pointers to move through
 */
     void enqueue(T value){
         Node* n = new Node;
-        Node* current = head;
+        Node* current = m_head;
+        
         n->value = value;
-        if(head != nullptr){
+        n->node_index = m_size;
+        m_size++;
+
+        if(m_head != nullptr){
             while(current->next != nullptr){
                 current = current->next;
             }
             current->next = n;
         }
         else{
-            head = n;
+            m_head = n;
         }
     }
 
@@ -76,10 +81,11 @@ Description: A helper pointer is made equal to the head node. The head node
 */
     void dequeue(){
         Node* deletePtr;
-        if(head != nullptr){
-            deletePtr = head;
-            head = head->next;
+        if(m_head != nullptr){
+            deletePtr = m_head;
+            m_head = m_head->next;
             delete deletePtr;
+            m_size--;
         }
         else{
             std::cout << "The queue is empty." << std::endl;
@@ -87,14 +93,81 @@ Description: A helper pointer is made equal to the head node. The head node
     }
 
 /*
+Method: insertItem(T value, int index)
+Description:
+*/
+    void insertItem(T value, int index){
+        Node* n = new Node;
+        Node* current = m_head;
+        Node* temp = m_head;
+
+        n->value = value;
+        n->node_index = index;
+        m_size++;
+
+        if(m_head != nullptr){
+            while(current->next != nullptr && current->node_index != index){
+                temp = current;
+                current = current->next;
+            }
+            if(current->node_index == index){
+                temp->next = n;
+                n->next = current;
+
+                while(current != nullptr){
+                    index++;
+                    current->node_index = index;
+                    current = current->next;
+                }
+            }
+            else{
+                std::cout << "####INDEX NOT IN RANGE####" << std::endl;
+            }
+        }
+        else{
+            std::cout << "####LIST EMPTY####";
+        }
+    }
+
+/*
+Method: removeItem(int index)
+Description: 
+*/
+    void removeItem(int index){
+        Node* deletePtr;
+        Node* current = m_head;
+        Node* temp = m_head;
+        if(m_head != nullptr){
+            while(current->node_index != index){
+                temp = current;
+                current = current->next;
+            }
+                deletePtr = current;
+                current = current->next;
+                temp->next = current;
+                delete deletePtr;
+                m_size--;
+                while(current != nullptr){
+                    current->node_index = index;
+                    current = current->next;
+                    index++;
+                }
+        }
+        else{
+            std::cout << "The queue is empty." << std::endl;
+        }
+    }
+
+
+/*
 Method: printQueue()
 Description: Uses helper pointer to move through the linked list from the head
     to the back and print their associated values.
 */
     void printQueue(){
-        Node* current = head;
+        Node* current = m_head;
         while(current != nullptr){
-            std::cout << "####VALUE: " << current->value << "####" << std::endl;
+            std::cout << "####VALUE: " << current->value << "####INDEX: " << current->node_index << "####"<< std::endl;
             current = current->next;
         }
         std::cout << std::endl;
@@ -109,8 +182,10 @@ Description: A simple menu interface that allows a user to test the functionalit
         bool select_on {true};
         int selection {0};
         T value;
+        int index{0};
+
         while(select_on){
-            std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Print list.\n4. Exit\n" << std::endl;
+            std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Insert Value\n4. Remove by Index\n5. Print list.\n6. Exit\n" << std::endl;
             std::cin >> selection;
             std::cout << "\n\n";
             switch(selection){
@@ -127,10 +202,26 @@ Description: A simple menu interface that allows a user to test the functionalit
                 break;
 
                 case 3:
+                std::cout << "Enter value to insert: ";
+                std::cin >> value;
+                std::cout << "Enter index to insert: ";
+                std::cin >> index;
+                insertItem(value, index);
                 printQueue();
                 break;
 
                 case 4:
+                std::cout << "Enter index to remove: ";
+                std::cin >> index;
+                removeItem(index);
+                printQueue();
+                break;
+
+                case 5:
+                printQueue();
+                break;
+
+                case 6:
                 std::cout << "#########################\n" << std::endl;
                 select_on = false;
             }    
