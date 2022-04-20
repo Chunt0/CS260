@@ -15,7 +15,7 @@ class Queue{
     private:
     struct Node{
         T value;
-        Node* next;
+        Node* next = nullptr;
     };
 
     Node* head;
