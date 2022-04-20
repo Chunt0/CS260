@@ -94,7 +94,7 @@ Description: A helper pointer is made equal to the head node. The head node
 
 /*
 Method: insertItem(T value, int index)
-Description:
+Description: Inserts value at given index.
 */
     void insertItem(T value, int index){
         Node* n = new Node;
@@ -131,7 +131,7 @@ Description:
 
 /*
 Method: removeItem(int index)
-Description: 
+Description: Removes value at given index.
 */
     void removeItem(int index){
         Node* deletePtr;
@@ -158,6 +158,27 @@ Description:
         }
     }
 
+/*
+Method: getIndex(T value)
+Description: Returns index of node that contains the value searched.
+*/
+    int getIndex(T value){
+        Node* current = m_head;
+        if(m_head != nullptr){
+            while(current != nullptr && current->value != value){
+                current = current->next;
+            }
+            if(current == nullptr){
+                std::cout << "####VALUE NOT IN LIST####" << std::endl;
+                return -1;
+            }
+        }
+        else{
+            std::cout << "####LIST IS EMPTY####" << std::endl;
+            return -1;
+        }
+        return current->node_index;
+    }
 
 /*
 Method: printQueue()
@@ -185,7 +206,7 @@ Description: A simple menu interface that allows a user to test the functionalit
         int index{0};
 
         while(select_on){
-            std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Insert Value\n4. Remove by Index\n5. Print list.\n6. Exit\n" << std::endl;
+            std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Insert Value\n4. Remove by Index\n5. Get Index\n6. Print list.\n7. Exit\n" << std::endl;
             std::cin >> selection;
             std::cout << "\n\n";
             switch(selection){
@@ -218,10 +239,22 @@ Description: A simple menu interface that allows a user to test the functionalit
                 break;
 
                 case 5:
+                std::cout << "Enter value to find index for: ";
+                std::cin >> value;
+                index = 0;
+                index = getIndex(value);
                 printQueue();
+                if(index != -1){
+                    std::cout << "THe Index of Value " << value << " is " << index << std::endl;
+                }
+                index = 0;
                 break;
 
                 case 6:
+                printQueue();
+                break;
+
+                case 7:
                 std::cout << "#########################\n" << std::endl;
                 select_on = false;
             }    
