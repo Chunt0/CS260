@@ -46,7 +46,6 @@ void DynArr::appendList(int item){
         int *deletePtr = m_array;
         m_capacity *= 2; 
         int *new_array = new int[m_capacity];
-        ++resize;
      
         for(int i = 0; i < m_size; i++){
             new_array[i] = m_array[i];
@@ -121,7 +120,6 @@ void DynArr::insertItem(int item, int index){
     int *deletePtr = m_array;
         m_capacity *= 2; 
         int *new_array = new int[m_capacity];
-        ++resize;
      
         for(int i = 0; i < m_size; i++){
             new_array[i] = m_array[i];
