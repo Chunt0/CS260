@@ -25,7 +25,8 @@ class Queue{
     public:   
 /*
 Constructor: Queue()
-Description: Constructs Queue object, assigns attributes. 
+Description: Constructs Queue object, assigns attributes.
+Analysis: O(1) 
 */
     Queue(){
         m_head = nullptr;
@@ -36,6 +37,7 @@ Description: Constructs Queue object, assigns attributes.
 Destructor: ~Queue()
 Description: Handles garbage collection when the Queue object goes out of scope.
     A Node* helper is used to cycle through the linked list and delete each.
+Analysis: O(n)
 */
     ~Queue(){
         Node* current;
@@ -52,6 +54,7 @@ Description: Creates a Node on the heap. Uses helper pointers to move through
     the linked list and assigns the node whose next value is NULL to be pointing
     at this new Node. This is considered the back of the list. If the head is
     NULL, head will now be pointing to the new Node.
+Analysis: O(n)
 */
     void enqueue(T value){
         Node* n = new Node;
@@ -78,6 +81,7 @@ Description: A helper pointer is made equal to the head node. The head node
     is made to point to the next node in the list. The object the helper node
     points to is then deleted. Only the head (or First In) will ever be able
     to be removed.
+Analysis: O(n)
 */
     void dequeue(){
         Node* deletePtr;
@@ -101,6 +105,7 @@ Description: A helper pointer is made equal to the head node. The head node
 /*
 Method: insertItem(T value, int index)
 Description: Inserts value at given index.
+Analysis: O(n)
 */
     void insertItem(T value, int index){
         Node* n = new Node;
@@ -138,26 +143,32 @@ Description: Inserts value at given index.
 /*
 Method: removeItem(int index)
 Description: Removes value at given index.
+Analysis: O(n)
 */
     void removeItem(int index){
         Node* deletePtr;
         Node* current = m_head;
         Node* temp = m_head;
         if(m_head != nullptr){
-            while(current->node_index != index){
+            // Search for the node that matches the index
+            while(current->node_index != index && current != nullptr){
                 temp = current;
                 current = current->next;
             }
+            // If found, delete the node and fix linked list
+            if (current->node_index == index){
                 deletePtr = current;
                 current = current->next;
                 temp->next = current;
                 delete deletePtr;
                 m_size--;
+                // Continue looping through list to adjust node_index value
                 while(current != nullptr){
                     current->node_index = index;
                     current = current->next;
                     index++;
                 }
+            }
         }
         else{
             std::cout << "The queue is empty." << std::endl;
@@ -167,6 +178,7 @@ Description: Removes value at given index.
 /*
 Method: getIndex(T value)
 Description: Returns index of node that contains the value searched.
+Analysis: O(n)
 */
     int getIndex(T value){
         Node* current = m_head;
@@ -190,6 +202,7 @@ Description: Returns index of node that contains the value searched.
 Method: printQueue()
 Description: Uses helper pointer to move through the linked list from the head
     to the back and print their associated values.
+Analysis: O(n)
 */
     void printQueue(){
         Node* current = m_head;
