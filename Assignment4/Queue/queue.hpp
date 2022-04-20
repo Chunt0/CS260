@@ -117,14 +117,16 @@ Analysis: O(n)
         m_size++;
 
         if(m_head != nullptr){
+            // Look for the node_index that matches index
             while(current->next != nullptr && current->node_index != index){
                 temp = current;
                 current = current->next;
             }
+            // If the index is matched insert node
             if(current->node_index == index){
                 temp->next = n;
                 n->next = current;
-
+                // Fix list indeces
                 while(current != nullptr){
                     index++;
                     current->node_index = index;
@@ -133,10 +135,12 @@ Analysis: O(n)
             }
             else{
                 std::cout << "####INDEX NOT IN RANGE####" << std::endl;
+                delete n; 
             }
         }
         else{
             std::cout << "####LIST EMPTY####";
+            delete n;
         }
     }
 
