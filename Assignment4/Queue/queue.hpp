@@ -81,11 +81,17 @@ Description: A helper pointer is made equal to the head node. The head node
 */
     void dequeue(){
         Node* deletePtr;
+        Node* current;
         if(m_head != nullptr){
             deletePtr = m_head;
             m_head = m_head->next;
             delete deletePtr;
             m_size--;
+            current = m_head;
+            while(current != nullptr){
+                current->node_index--;
+                current = current->next;
+            }
         }
         else{
             std::cout << "The queue is empty." << std::endl;
