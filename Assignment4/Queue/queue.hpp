@@ -203,6 +203,30 @@ Analysis: O(n)
     }
 
 /*
+Method: getValue(int index)
+Description: Returns index of node that contains the value searched.
+Analysis: O(n)
+*/
+    T getValue(int index){
+        Node* current = m_head;
+        if(m_head != nullptr){
+            while(current != nullptr && current->node_index != index){
+                current = current->next;
+            }
+            if(current == nullptr){
+                std::cout << "####INDEX NOT IN RANGE####" << std::endl;
+                return -1;
+            }
+        }
+        else{
+            std::cout << "####LIST IS EMPTY####" << std::endl;
+            return -1;
+        }
+        return current->value;
+    }
+
+
+/*
 Method: printQueue()
 Description: Uses helper pointer to move through the linked list from the head
     to the back and print their associated values.
@@ -229,7 +253,7 @@ Description: A simple menu interface that allows a user to test the functionalit
         int index{0};
 
         while(select_on){
-            std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Insert Value\n4. Remove by Index\n5. Get Index\n6. Print list.\n7. Exit\n" << std::endl;
+            std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Insert Value\n4. Remove by Index\n5. Get Index\n6. Get Value\n7. Print list.\n8. Exit\n" << std::endl;
             std::cin >> selection;
             std::cout << "\n\n";
             switch(selection){
@@ -268,16 +292,27 @@ Description: A simple menu interface that allows a user to test the functionalit
                 index = getIndex(value);
                 printQueue();
                 if(index != -1){
-                    std::cout << "THe Index of Value " << value << " is " << index << std::endl;
+                    std::cout << "The Index of Value " << value << " is " << index << std::endl;
                 }
                 index = 0;
                 break;
 
                 case 6:
+                std::cout << "Enter index to find value of: ";
+                std::cin >> index;
+                value = getValue(index);
                 printQueue();
+                if(value != -1){
+                    std::cout << "The Value at index " << index << " is " << value << std::endl;
+                }
+                index = 0;
                 break;
 
                 case 7:
+                printQueue();
+                break;
+
+                case 8:
                 std::cout << "#########################\n" << std::endl;
                 select_on = false;
             }    
