@@ -5,13 +5,20 @@ CS 260
 #ifndef QUEUE_HPP
 #define QUEUE_HPP
 
-#include "./queue_node.hpp"
+#include <iostream>
 
 template<typename T>
+
 class Queue{
 
+
     private:
-    Node<T>* head;
+    struct Node{
+        T value;
+        Node* next;
+    };
+
+    Node* head;
     int position; 
 
     public:   
@@ -30,7 +37,7 @@ Description: Handles garbage collection when the Queue object goes out of scope.
     A Node* helper is used to cycle through the linked list and delete each.
 */
     ~Queue(){
-        Node<T>* current;
+        Node* current;
         while(head != nullptr){
             current = head;
             head = head->next;
@@ -46,8 +53,8 @@ Description: Creates a Node on the heap. Uses helper pointers to move through
     NULL, head will now be pointing to the new Node.
 */
     void enqueue(T value){
-        Node<T>* n = new Node<T>;
-        Node<T>* current = head;
+        Node* n = new Node;
+        Node* current = head;
         n->value = value;
         if(head != nullptr){
             while(current->next != nullptr){
@@ -68,7 +75,7 @@ Description: A helper pointer is made equal to the head node. The head node
     to be removed.
 */
     void dequeue(){
-        Node<T>* deletePtr;
+        Node* deletePtr;
         if(head != nullptr){
             deletePtr = head;
             head = head->next;
@@ -85,7 +92,7 @@ Description: Uses helper pointer to move through the linked list from the head
     to the back and print their associated values.
 */
     void printQueue(){
-        Node<T>* current = head;
+        Node* current = head;
         while(current != nullptr){
             std::cout << "####VALUE: " << current->value << "####" << std::endl;
             current = current->next;
@@ -101,7 +108,7 @@ Description: A simple menu interface that allows a user to test the functionalit
     void menu(){
         bool select_on {true};
         int selection {0};
-        int value {0};
+        T value;
         while(select_on){
             std::cout << "\n1. Enqueue.\n2. Dequeue.\n3. Print list.\n4. Exit\n" << std::endl;
             std::cin >> selection;
