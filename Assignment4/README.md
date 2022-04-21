@@ -9,6 +9,6 @@ Must Contain:
 2. A remove function
     - args: index
     - returns: removes value at index
-3. A get function
-    - args: index
-    - returns: value at index
+3. A get function from value
+    - args: value
+    - returns: index of value
