@@ -203,7 +203,9 @@ Analysis: O(n)
     }
 
 /*
-Method: getValue(int index)
+####CURRENTLY BROKEN####
+####NEED TO FIGURE OUT HOW TO DEAL WITH RETURN VALUES IF OUT OF RANGE####
+Method: getValue(int index) 
 Description: Returns index of node that contains the value searched.
 Analysis: O(n)
 */
@@ -215,12 +217,10 @@ Analysis: O(n)
             }
             if(current == nullptr){
                 std::cout << "####INDEX NOT IN RANGE####" << std::endl;
-                return -1;
             }
         }
         else{
             std::cout << "####LIST IS EMPTY####" << std::endl;
-            return -1;
         }
         return current->value;
     }
@@ -297,14 +297,13 @@ Description: A simple menu interface that allows a user to test the functionalit
                 index = 0;
                 break;
 
+                // This is broken.
                 case 6:
                 std::cout << "Enter index to find value of: ";
                 std::cin >> index;
                 value = getValue(index);
                 printQueue();
-                if(value != -1){
-                    std::cout << "The Value at index " << index << " is " << value << std::endl;
-                }
+                std::cout << "The Value at index " << index << " is " << value << std::endl;
                 index = 0;
                 break;
 
