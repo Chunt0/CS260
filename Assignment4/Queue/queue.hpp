@@ -122,8 +122,18 @@ Analysis: O(n)
                 temp = current;
                 current = current->next;
             }
+            // If the index is matched insert node and that node is the head
+            if(current->node_index == index && current == m_head){
+                n->next = m_head;
+                m_head = n;
+                while(current != nullptr){
+                    index++;
+                    current->node_index = index;
+                    current = current->next;
+                }
+            }
             // If the index is matched insert node
-            if(current->node_index == index){
+            else if(current->node_index == index && current != m_head){
                 temp->next = n;
                 n->next = current;
                 // Fix list indeces
@@ -160,7 +170,21 @@ Analysis: O(n)
                 current = current->next;
             }
             // If found, delete the node and fix linked list
-            if (current->node_index == index){
+            if (current->node_index == index && current == m_head){
+                deletePtr = current;
+                current = current->next;
+                m_head = current;
+                delete deletePtr;
+                m_size--;
+                // Continue looping through list to adjust node_index value
+                while(current != nullptr){
+                    current->node_index = index;
+                    current = current->next;
+                    index++;
+                }
+            }
+            // If found, delete the node and fix linked list
+            else if (current->node_index == index && current != m_head){
                 deletePtr = current;
                 current = current->next;
                 temp->next = current;
