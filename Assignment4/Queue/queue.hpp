@@ -169,7 +169,7 @@ Analysis: O(n)
                 temp = current;
                 current = current->next;
             }
-            // If found, delete the node and fix linked list
+            // If found and current equals head, delete the node and fix linked list
             if (current->node_index == index && current == m_head){
                 deletePtr = current;
                 current = current->next;
@@ -183,7 +183,7 @@ Analysis: O(n)
                     index++;
                 }
             }
-            // If found, delete the node and fix linked list
+            // If found and current is not head, delete the node and fix linked list
             else if (current->node_index == index && current != m_head){
                 deletePtr = current;
                 current = current->next;
