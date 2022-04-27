@@ -265,6 +265,17 @@ Analysis: O(n)
         std::cout << std::endl;
     }
 
+/* Testing
+ */
+    void sortQueue(){
+        Node* current = m_head;
+        while(current != nullptr){
+            std::cout << "" << std::endl;
+
+        }
+    }
+
+
 /*
 Method: menu()
 Description: A simple menu interface that allows a user to test the functionality
