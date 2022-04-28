@@ -24,6 +24,16 @@ class LinkList{
         // Methods
         void addValue(int value);
         void removeValue(int index);
+        void bubbleSort();
+        void selectionSort();
+        void insertionSort();
+        void mergeSort();
+        void quickSort();
+        void randomQuickSort();
+        void countingSort();
+        void radixSort();
+        void printList();
+        void menu();
 
 };
 
