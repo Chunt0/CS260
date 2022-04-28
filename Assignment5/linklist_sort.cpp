@@ -29,14 +29,16 @@ void LinkList::addValue(int value){
             current = current->next;
         }
         current->next = n;
+        m_size++;
     }
     else{
         m_head = n;
+        m_size++;
     }
 }
 
 void LinkList::removeValue(int value){
-    Node* delete_ptr;
+    Node* delete_ptr = nullptr;
     Node* current = m_head;
     Node* temp = m_head;
     if(m_head != nullptr){
@@ -53,7 +55,7 @@ void LinkList::removeValue(int value){
             m_size--;
             }
         // If the value searched for is any other value but the last node in the list
-        else if (current->value == value && current != m_head && current->next != nullptr){
+        else if(current->value == value && current != m_head && current->next != nullptr){
             delete_ptr = current;
             current = current->next;
             temp->next = current;
@@ -77,8 +79,30 @@ void LinkList::removeValue(int value){
 }
 
 void LinkList::bubbleSort(){
-
+    Node* left = nullptr;
+    Node* right = nullptr;
+    int lval, rval;
+    int steps = m_size;
+    bool swapped = true;
+    while(swapped == true){
+        swapped = false;
+        left = m_head;
+        right = left->next;
+        for(int i = 1; i < steps; i++){
+            if(left->value > right->value){
+                lval = left->value;
+                rval = right->value;
+                left->value = rval;
+                right->value = lval;
+                swapped = true;
+            }
+            left = left->next;
+            right = right->next;
+        }
+        steps--;
+    }
 }
+
     
 void LinkList::selectionSort(){
 
@@ -109,7 +133,12 @@ void LinkList::radixSort(){
 }
 
 void LinkList::printList(){
-
+    Node* current = m_head;
+    while(current != nullptr){
+        std::cout << "Value: " << current->value << std::endl;
+        current = current->next;
+        
+    }
 }
 
 void LinkList::menu(){
@@ -130,38 +159,46 @@ void LinkList::menu(){
             case 2:
                 std::cout << "Enter value to remove [must be an integer]: ";
                 std::cin >> value;
-                addValue(value);
+                removeValue(value);
                 printList();
                 break;
             case 3:
+                std::cout << "BUBBLE SORT" << std::endl;
                 bubbleSort();
                 printList();
                 break;
             case 4:
+                std::cout << "SELECTION SORT" << std::endl;
                 selectionSort();
                 printList();
                 break;
             case 5:
+                std::cout << "INSERTION SORT" << std::endl;
                 insertionSort();
                 printList();
                 break;
             case 6:
+                std::cout << "MERGE SORT" << std::endl;
                 mergeSort();
                 printList();
                 break;
             case 7:
+                std::cout << "QUICK SORT" << std::endl;
                 quickSort();
                 printList();
                 break;
             case 8:
+                std::cout << "RANDOM QUICK SORT" << std::endl;
                 randomQuickSort();
                 printList();
                 break;
             case 9:
+                std::cout << "COUNTING SORT" << std::endl;
                 countingSort();
                 printList();
                 break;
             case 10:
+                std::cout << "RADIX SORT" << std::endl;
                 radixSort();
                 printList();
                 break;
