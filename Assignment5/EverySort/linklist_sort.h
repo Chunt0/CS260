@@ -13,6 +13,10 @@ class LinkList{
         Node* m_head;
         int m_size;
 
+        int get_size();
+        int get_position(int value);
+        int get_value(int position);
+
     public:
         // Constructor Destructor
         LinkList();
