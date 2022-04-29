@@ -5,14 +5,11 @@
 #define LINKLIST_SORT_H
 
 #include <iostream>
+#include "./node.h"
 
 class LinkList{
     private:
         // Attributes
-        struct Node{
-            int value;
-            Node* next = nullptr;
-        };
         Node* m_head;
         int m_size;
 

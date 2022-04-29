@@ -105,6 +105,10 @@ void LinkList::bubbleSort(){
 
     
 void LinkList::selectionSort(){
+    Node* smallest;
+    Node* current;
+    Node* temp_head;
+    
 
 }
   
