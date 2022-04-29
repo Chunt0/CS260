@@ -46,6 +46,30 @@ void AutoSortList::add_node(int value){
     Node* new_node = new Node;
     Node* current;
     Node* temp;
+
+    new_node->value = value;
+
+    if(m_head != nullptr){
+        // If the value being added is smaller than head
+        if(value <= m_head->value){
+            temp = m_head;
+            m_head = new_node;
+            m_head->next = temp;
+        }
+        // If the value is larger than head
+        else if(value > m_head->value){
+            current = m_head;
+            temp = current;
+            while(current->next != nullptr && value <= current->next->value){
+                temp = current;
+                current = current->next;
+            }
+            
+        }
+    }
+    else{
+        m_head = new_node;
+    }
     
 
 }
