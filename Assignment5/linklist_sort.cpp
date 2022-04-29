@@ -4,6 +4,8 @@
 
 #include "linklist_sort.h"
 
+void swap(Node*, Node*){};
+
 LinkList::LinkList(){
     m_head = nullptr;
     m_size = 0;
