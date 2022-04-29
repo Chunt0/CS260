@@ -11,7 +11,7 @@ class LinkList{
         // Attributes
         struct Node{
             int value;
-            Node* next;
+            Node* next = nullptr;
         };
         Node* m_head;
         int m_size;

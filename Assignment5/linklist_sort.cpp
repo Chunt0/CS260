@@ -10,7 +10,7 @@ LinkList::LinkList(){
 }
 
 LinkList::~LinkList(){
-    Node* delete_ptr;
+    Node* delete_ptr = m_head;
     while(m_head != nullptr){
         delete_ptr = m_head;
         m_head = m_head->next;
