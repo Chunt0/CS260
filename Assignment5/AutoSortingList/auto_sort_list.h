@@ -13,9 +13,9 @@ class AutoSortList{
     private:
         // Attributes
         Node* m_head;
+        int m_size;
         
         // Getters
-        int get_size();
         int get_position(int value);
         int get_value(int index);
 

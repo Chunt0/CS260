@@ -7,6 +7,7 @@
 
 AutoSortList::AutoSortList(){
     m_head = nullptr;
+    m_size = 0;
 }
 
 AutoSortList::~AutoSortList(){
@@ -18,19 +19,34 @@ AutoSortList::~AutoSortList(){
     }
 }
 
-int AutoSortList::get_size(){
-    return -1;
-}
-
 int AutoSortList::get_position(int value){
-    return -1;
+    Node* current = m_head;
+    int position = -1;
+    if(current != nullptr){
+        position = 0;
+        while(current != nullptr && current->value != value){
+            position++;
+            current = current->next;
+        }
+    } 
+    return position;
 }
 
 int AutoSortList::get_value(int index){
-    return -1;
+    Node* current = m_head;
+    int value = -1;
+    if(current != nullptr)
+        for(int i = 0; i <= index; i++)
+            current = current->next;
+        value = current->value;
+    return value;
 }
 
 void AutoSortList::add_node(int value){
+    Node* new_node = new Node;
+    Node* current;
+    Node* temp;
+    
 
 }
 
