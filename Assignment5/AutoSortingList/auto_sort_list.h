@@ -20,10 +20,14 @@ class AutoSortList{
         int get_value(int index);
 
     public:
+        // Constructor and Destructor
+        AutoSortList();
+        ~AutoSortList();
+
         // Methods
-        void addNode(int value); // Auto Sort algorithm lives here ^_^
-        void removeNode(int index);
-        void printList();
+        void add_node(int value); // Auto Sort algorithm lives here ^_^
+        void remove_node(int index);
+        void print_list();
         void menu();
 
 
