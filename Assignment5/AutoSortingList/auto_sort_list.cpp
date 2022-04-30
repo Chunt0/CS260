@@ -5,11 +5,19 @@
 
 #include "auto_sort_list.h"
 
+/* Constructor: AutoSortList()
+ * Description: Initializes list.
+ * Analysis: O(1)
+ */
 AutoSortList::AutoSortList(){
     m_head = nullptr;
     m_size = 0;
 }
 
+/* Destructor: ~AutoSortList()
+ * Description: Traverses list and deletes each nodes
+ * Analysis: O(n)
+ */
 AutoSortList::~AutoSortList(){
     Node* deletePtr;
     while(m_head != nullptr){
@@ -19,6 +27,10 @@ AutoSortList::~AutoSortList(){
     }
 }
 
+/* Function: add_node(int value)
+ * Description: Adds a node to the list in sorted order, smallest to largest.
+ * Analysis: O(n)
+ */
 void AutoSortList::add_node(int value){
     Node* new_node = new Node;
     Node* current;
@@ -57,10 +69,12 @@ void AutoSortList::add_node(int value){
         m_head = new_node;
         m_size++;
     }
-    
-
 }
 
+/* Function: remove_node(int index)
+ * Description: Removes node at given index.
+ * Analysis: O(n)
+ */
 void AutoSortList::remove_node(int index){
     Node* deletePtr;
     Node* current;
@@ -102,6 +116,10 @@ void AutoSortList::remove_node(int index){
     }
 }
 
+/* Function: print_list()
+ * Description: Prints list to screen, index and value.
+ * Analysis: O(n)
+ */
 void AutoSortList::print_list(){
     Node* current = m_head;
     int index = 0;
@@ -113,23 +131,27 @@ void AutoSortList::print_list(){
 
 }
 
+/* Function: menu()
+ * Description: Allows user to access class methods and exit cleanly.
+ * Analysis: O(1)
+ */
 void AutoSortList::menu(){
     bool select_on = true;
     int value;
     int index;
     int selection;
     while(select_on){
-        std::cout << "1. Add Node\n2. Remove Node\n3. Print List\n4. Exit" << std::endl;
+        std::cout << "\n1. Add Node\n2. Remove Node\n3. Print List\n4. Exit" << std::endl;
         std::cin >> selection;
         switch(selection){
             case 1:
-                std::cout << "Enter a positive integer: " << std::endl;
+                std::cout << "\nEnter a positive integer: " << std::endl;
                 std::cin >> value;
                 add_node(value);
                 print_list();
                 break;
             case 2:
-                std::cout << "Enter index of the value you want to remove: " << std::endl;
+                std::cout << "\nEnter index of the value you want to remove: " << std::endl;
                 std::cin >> index;
                 remove_node(index);
                 print_list();
@@ -138,7 +160,7 @@ void AutoSortList::menu(){
                 print_list();
                 break;
             case 4:
-                std::cout << "Bye Bye" << std::endl;
+                std::cout << "\nBye Bye" << std::endl;
                 select_on = false;
                 break;
         }
