@@ -74,16 +74,55 @@ void AutoSortList::add_node(int value){
                 new_node->next = current;
             }
         }
+        m_size++;
     }
     else{
         m_head = new_node;
+        m_size++;
     }
     
 
 }
 
 void AutoSortList::remove_node(int index){
+    Node* deletePtr;
+    Node* current;
+    Node* temp;
+    if(m_head != nullptr && index < m_size){
+        // If index is the first element of the list
+        if(index == 0){
+            deletePtr = m_head;
+            m_head = m_head->next;
+            delete deletePtr;
+            m_size--;
+        }
+        else{
+            current = m_head;
+            for(int i = 0; i < index; i++){
+                temp = current;
+                current = current->next;
+            }
+            // If the index searched for is in the last position
+            if(current->next == nullptr){
+                deletePtr = current;
+                temp->next = nullptr;
+                delete deletePtr;
+                m_size--;
+            }
+            // Else if 
+            else if(current->next != nullptr && current != nullptr){
+                deletePtr = current;
+                temp->next = current->next;
+                delete deletePtr;
+                m_size--;
+            }
+        }
 
+    }
+
+    else{
+        std::cout << "List is empty." << std::endl;
+    }
 }
 
 void AutoSortList::print_list(){
