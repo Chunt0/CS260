@@ -15,10 +15,6 @@ class AutoSortList{
         Node* m_head;
         int m_size;
         
-        // Getters
-        int get_position(int value);
-        int get_value(int index);
-
     public:
         // Constructor and Destructor
         AutoSortList();
@@ -29,8 +25,6 @@ class AutoSortList{
         void remove_node(int index);
         void print_list();
         void menu();
-
-
 };
 
 
