@@ -60,11 +60,19 @@ void AutoSortList::add_node(int value){
         else if(value > m_head->value){
             current = m_head;
             temp = current;
-            while(current->next != nullptr && value <= current->next->value){
+            while(current->next != nullptr && value > current->value){
                 temp = current;
                 current = current->next;
             }
-            
+            // If the value is larger than the largest value in the list
+            if(current->next == nullptr && value > current->value){
+                current->next = new_node;
+            }
+            // If value fits in between the largest and smallest of the list
+            else if(value <= current->value){
+                temp->next = new_node;
+                new_node->next = current;
+            }
         }
     }
     else{
@@ -79,9 +87,45 @@ void AutoSortList::remove_node(int index){
 }
 
 void AutoSortList::print_list(){
+    Node* current = m_head;
+    int index = 0;
+    while(current != nullptr){
+        std::cout << "Index: " << index << "## Value: " << current->value << std::endl;
+        current = current->next;
+        index++;
+    }
 
 }
 
 void AutoSortList::menu(){
-
+    bool select_on = true;
+    int value;
+    int index;
+    int selection;
+    while(select_on){
+        std::cout << "1. Add Node\n2. Remove Node\n3. Print List\n4. Exit" << std::endl;
+        std::cin >> selection;
+        switch(selection){
+            case 1:
+                std::cout << "Enter a positive integer: " << std::endl;
+                std::cin >> value;
+                add_node(value);
+                print_list();
+                break;
+            case 2:
+                std::cout << "Enter index of the value you want to remove: " << std::endl;
+                std::cin >> index;
+                remove_node(index);
+                print_list();
+                break;
+            case 3:
+                print_list();
+                break;
+            case 4:
+                std::cout << "Bye Bye" << std::endl;
+                select_on = false;
+                break;
+        }
+            
+    }
 }
