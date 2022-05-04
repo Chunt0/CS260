@@ -13,7 +13,7 @@ class Btree{
     public:
         Btree();
         ~Btree();
-        void insertNode(int value);
+        Node* insertNode(Node* node, int value);
         void removeNode(int value);
         void printTree();
         void menu();

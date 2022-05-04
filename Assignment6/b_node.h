@@ -4,8 +4,10 @@
  */
 #include <iostream>
 
-class Node{
-    int value;
-    Node* left;
-    Node* right;
+struct Node{
+    int value = 0;
+    int balance = 0;
+    Node* left = nullptr;
+    Node* right = nullptr;
+
 };
