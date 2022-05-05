@@ -3,7 +3,7 @@
  * b_tree_driver.cpp
  */
 
-#include "b_tree.h"
+#include "bin_tree.h"
 
 int main(){
     Btree b_tree;

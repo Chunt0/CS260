@@ -3,7 +3,7 @@
  * b_node.cpp
  */
 
-#include "b_tree.h"
+#include "bin_tree.h"
 
 Btree::Btree(){
     m_size = 0;
@@ -17,17 +17,20 @@ Btree::~Btree(){
     }
 }
 
-Node* Btree::insertNode(Node* node, int value){
+Node* Btree::insertNode(Node* node, Node* temp, int value){
     Node* new_node = new Node;
     new_node->value = value;
     if(node == nullptr){
+        new_node->parent = temp;
         node = new_node;
     }
     else if(new_node->value <= node->value){
-        node->left = insertNode(node->left, value);
+        temp = node;
+        node->left = insertNode(node->left, temp, value);
     }
     else{
-        node->right = insertNode(node->right, value);
+        temp = node;
+        node->right = insertNode(node->right, temp, value);
     }
     return node;
 }
@@ -62,6 +65,7 @@ void Btree::menu(){
     bool select_on {true};
     int selection {0};
     int value {0};
+    Node* temp = nullptr;
     while(select_on){
         std::cout << "\n1. Insert.\n2. Remove.\n3. Print list.\n4. Exit\n" << std::endl;
         std::cin >> selection;
@@ -71,7 +75,7 @@ void Btree::menu(){
             std::cout << "Enter integer value to store: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            m_root = insertNode(m_root, value);
+            m_root = insertNode(m_root, temp, value);
             printTree();
             break;
             

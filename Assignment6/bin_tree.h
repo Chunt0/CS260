@@ -3,7 +3,7 @@
  * CS260
  * b_tree.h
  */
-#include "b_node.h"
+#include "bin_node.h"
 
 class Btree{
     private:
@@ -14,7 +14,7 @@ class Btree{
     public:
         Btree();
         ~Btree();
-        Node* insertNode(Node* node, int value);
+        Node* insertNode(Node* node, Node* temp, int value);
         void removeNode(int value);
         void printTree();
         void menu();
