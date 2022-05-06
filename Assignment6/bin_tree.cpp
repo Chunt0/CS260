@@ -12,19 +12,25 @@ Btree::Btree(){
 
 Btree::~Btree(){
     Node* deletePtr = nullptr;
-    while(m_root != nullptr){
-        deletePtr = m_root;
+    Node* current = nullptr;
+    if(m_root != nullptr){
+        current = min(m_root);
+        while(current != nullptr){
+            deletePtr = current;
+            current = successor(current);
+            delete deletePtr;
+        }
     }
 }
 
 Node* Btree::insertNode(Node* node, Node* temp, int value){
-    Node* new_node = new Node;
-    new_node->value = value;
     if(node == nullptr){
+        Node* new_node = new Node;
+        new_node->value = value;
         new_node->parent = temp;
         node = new_node;
     }
-    else if(new_node->value <= node->value){
+    else if(value <= node->value){
         temp = node;
         node->left = insertNode(node->left, temp, value);
     }
@@ -36,49 +42,86 @@ Node* Btree::insertNode(Node* node, Node* temp, int value){
 }
 
 
-void Btree::removeNode(int value){
-
+void Btree::removeNode(Node* node, int value){
+    Node* deletePtr;
+    Node* current = node;
+    if(current != nullptr){
+        if(current->value == value){
+            deletePtr = current;
+            deletePtr = successor(deletePtr);
+            current->value = deletePtr->value;
+            delete deletePtr;
+        }
+        else if(current->value > value){
+            current = current->left;
+            removeNode(current, value);
+        }
+        else if(current->value < value){
+            current = current->right;
+            removeNode(current, value);
+        }
+    }
+    else{
+        std::cout << "Value is not in tree or tree is empty" << std::endl;
+    }
 }
 
 Node* Btree::min(Node* node){
-    while(node->left != nullptr){
+    if(node->left != nullptr){
         node = node->left;
     }
     return node;
 }
 
 Node* Btree::max(Node* node){
-    while(node->right != nullptr){
+    if(node->right != nullptr){
         node = node->right;
     }
     return node;
 }
 
 Node* Btree::successor(Node* node){
-    Node* current;
-    Node* successor;
     if(node->right != nullptr){
-        current = node->right;
-        successor = min(current);
+        node = node->right;
+        node = min(node);
     }
-    else if(node->right == nullptr && node->parent != nullptr){
-        successor = node->parent;
+    else if(node->right == nullptr && node->parent != nullptr && node->value <= node->parent->value){
+        node = node->parent;
+    }
+    else if(node->right == nullptr && node->parent != nullptr && node->value > node->parent->value){
+        int value;
+        value = node->value;
+        node = node->parent;
+        while(node != nullptr && value > node->value){
+            node = node->parent;
+        }
     }
     else{
-        successor = nullptr;
+        node = nullptr;
     }
-    return successor;
+    return node;
 }
 
 Node* Btree::predecessor(Node* node){
-    Node* current;
-    Node* predecessor;
     if(node->left != nullptr){
-        current = node->left;
-        predecessor = max(current);
+        node = node->left;
+        node = max(node);
     }
-    else if(node->left == nullptr){}
-    return predecessor;
+    else if(node->left == nullptr && node->parent != nullptr && node->value >= node->parent->value){
+        node = node->parent;
+    }
+    else if(node->right == nullptr && node->parent != nullptr && node->value < node->parent->value){
+        int value;
+        value = node->value;
+        node = node->parent;
+        while(node != nullptr && value < node->value){
+            node = node->parent;
+        }
+    }
+    else{
+        node = nullptr;
+    }
+    return node;
 }
 
 void Btree::printTree(){
@@ -89,6 +132,9 @@ void Btree::printTree(){
             std::cout << "Value: " << current->value << std::endl;
             current = successor(current);
         }
+    }
+    else{
+        std::cout << "Tree is empty!" << std::endl;
     }
 }
 
@@ -114,7 +160,7 @@ void Btree::menu(){
             std::cout << "Enter integer value to remove: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            removeNode(value);
+            removeNode(m_root, value);
             printTree();
             break;
 
