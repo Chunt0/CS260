@@ -61,7 +61,7 @@ Node* Btree::successor(Node* node){
         current = node->right;
         successor = min(current);
     }
-    else if(node->right == nullptr && node->parent != nullptr && node->value < node->parent->value){
+    else if(node->right == nullptr && node->parent != nullptr){
         successor = node->parent;
     }
     else{
