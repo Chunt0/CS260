@@ -40,23 +40,54 @@ void Btree::removeNode(int value){
 
 }
 
-void Btree::printTree(){
-    Node* current_L = nullptr;
-    Node* current_R = nullptr;
-    if(m_root != nullptr){
-        std::cout << "Value: " << m_root->value << std::endl;
-        current_L = m_root->left;
-        current_R = m_root->right;
-        while(current_L != nullptr || current_R != nullptr){
-            if(current_L != nullptr){
-                std::cout << "Value: " << current_L->value << std::endl;
-                current_L = current_L->left;
-            }
-            if(current_R != nullptr){
-                std::cout << "Value: " << current_R->value << std::endl;
-                current_R = current_R->right;
-            }
+Node* Btree::min(Node* node){
+    while(node->left != nullptr){
+        node = node->left;
+    }
+    return node;
+}
 
+Node* Btree::max(Node* node){
+    while(node->right != nullptr){
+        node = node->right;
+    }
+    return node;
+}
+
+Node* Btree::successor(Node* node){
+    Node* current;
+    Node* successor;
+    if(node->right != nullptr){
+        current = node->right;
+        successor = min(current);
+    }
+    else if(node->right == nullptr && node->parent != nullptr && node->value < node->parent->value){
+        successor = node->parent;
+    }
+    else{
+        successor = nullptr;
+    }
+    return successor;
+}
+
+Node* Btree::predecessor(Node* node){
+    Node* current;
+    Node* predecessor;
+    if(node->left != nullptr){
+        current = node->left;
+        predecessor = max(current);
+    }
+    else if(node->left == nullptr){}
+    return predecessor;
+}
+
+void Btree::printTree(){
+    Node* current;
+    if(m_root != nullptr){
+        current = min(m_root);
+        while(current != nullptr){
+            std::cout << "Value: " << current->value << std::endl;
+            current = successor(current);
         }
     }
 }
@@ -94,6 +125,7 @@ void Btree::menu(){
             case 4:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
+            break;
         }    
     }
 }

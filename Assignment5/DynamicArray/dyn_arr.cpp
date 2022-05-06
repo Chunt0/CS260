@@ -263,6 +263,10 @@ void DynArr::sortList(){
     }
 }
 
+void DynArr::mergeSort(){
+
+}
+
 /*
 Method: printArr()
 Description: Loops through the array and prints associated values.
