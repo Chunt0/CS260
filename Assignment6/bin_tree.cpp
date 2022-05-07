@@ -23,22 +23,27 @@ Btree::~Btree(){
     }
 }
 
-Node* Btree::insertNode(Node* node, Node* temp, int value){
-    if(node == nullptr){
+void Btree::insertNode(Node* node, Node* parent, int value){
+    if(m_root == nullptr){
         Node* new_node = new Node;
         new_node->value = value;
-        new_node->parent = temp;
+        new_node->parent = parent;
+        m_root = new_node;
+    }
+    else if(node == nullptr){
+        Node* new_node = new Node;
+        new_node->value = value;
+        new_node->parent = parent;
         node = new_node;
     }
-    else if(value <= node->value){
-        temp = node;
-        node->left = insertNode(node->left, temp, value);
+    else if(node != nullptr && value <= node->value){
+        parent = node;
+        insertNode(node->left, parent, value);
     }
-    else{
-        temp = node;
-        node->right = insertNode(node->right, temp, value);
+    else if(node != nullptr && value > node->value){
+        parent = node;
+        insertNode(node->right, parent, value);
     }
-    return node;
 }
 
 
@@ -68,14 +73,19 @@ void Btree::removeNode(Node* node, int value){
 
 Node* Btree::min(Node* node){
     if(node->left != nullptr){
-        node = node->left;
+        while(node->left != nullptr){
+            node = node->left;
+        }
     }
+
     return node;
 }
 
 Node* Btree::max(Node* node){
     if(node->right != nullptr){
-        node = node->right;
+        while(node->right != nullptr){
+            node = node->right;
+        }
     }
     return node;
 }
@@ -89,8 +99,7 @@ Node* Btree::successor(Node* node){
         node = node->parent;
     }
     else if(node->right == nullptr && node->parent != nullptr && node->value > node->parent->value){
-        int value;
-        value = node->value;
+        int value = node->value;
         node = node->parent;
         while(node != nullptr && value > node->value){
             node = node->parent;
@@ -142,7 +151,7 @@ void Btree::menu(){
     bool select_on {true};
     int selection {0};
     int value {0};
-    Node* temp = nullptr;
+    Node* temp_parent {nullptr};
     while(select_on){
         std::cout << "\n1. Insert.\n2. Remove.\n3. Print list.\n4. Exit\n" << std::endl;
         std::cin >> selection;
@@ -152,7 +161,7 @@ void Btree::menu(){
             std::cout << "Enter integer value to store: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            m_root = insertNode(m_root, temp, value);
+            insertNode(m_root, temp_parent, value);
             printTree();
             break;
             

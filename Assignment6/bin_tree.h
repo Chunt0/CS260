@@ -14,7 +14,7 @@ class Btree{
     public:
         Btree();
         ~Btree();
-        Node* insertNode(Node* node, Node* temp, int value);
+        void insertNode(Node* node, Node* parent, int value);
         void removeNode(Node* node, int value);
         Node* min(Node* node);
         Node* max(Node* node);
