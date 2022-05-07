@@ -1,4 +1,3 @@
-
 /* Christopher Hunt
  * CS260
  * b_tree.h
@@ -14,8 +13,8 @@ class Btree{
     public:
         Btree();
         ~Btree();
-        void insertNode(Node* node, Node* parent, int value);
-        void removeNode(Node* node, int value);
+        void insertNode(int value);
+        void removeNode(int value);
         Node* min(Node* node);
         Node* max(Node* node);
         Node* successor(Node* node);
