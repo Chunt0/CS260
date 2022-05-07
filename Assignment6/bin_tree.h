@@ -6,19 +6,28 @@
 
 class Btree{
     private:
-        int m_size;
-        Node* m_root;
+        // Attributes
+        int value;
+        Btree* left;
+        Btree* right;
+        Btree* parent;
+        
+        // Private Methods
+        Btree* min(Btree* node);
+        Btree* max(Btree* node);
+        Btree* successor(Btree* node);
+        Btree* predecessor(Btree* node); 
 
 
     public:
+        // Constructor and Destructor
         Btree();
+        Btree(int value);
         ~Btree();
-        void insertNode(int value);
-        void removeNode(int value);
-        Node* min(Node* node);
-        Node* max(Node* node);
-        Node* successor(Node* node);
-        Node* predecessor(Node* node); 
-        void printTree();
+
+        // Public Methods
+        Btree* insertNode(Btree* root, int value);
+        Btree* removeNode(Btree* root, int value);
+        void printTreeSmall(Btree* node);
         void menu();
 };
