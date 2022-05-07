@@ -72,6 +72,7 @@ void Btree::insertNode(int value){
 
 void Btree::removeNode(int value){
     Node* deletePtr = nullptr;
+    Node* temp = nullptr;
     Node* current = nullptr;
     if(m_root != nullptr){
         current = m_root;
@@ -79,6 +80,11 @@ void Btree::removeNode(int value){
             if(current->value == value){
                 deletePtr = successor(current);
                 current->value = deletePtr->value;
+                while(!deletePtr->left && !deletePtr->right){
+                    temp = deletePtr;
+                    deletePtr = successor(temp);
+                    temp->value = deletePtr->value;
+                }
                 delete deletePtr;
                 return;
             }
