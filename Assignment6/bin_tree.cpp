@@ -6,52 +6,110 @@
 #include "bin_tree.h"
 
 Btree::Btree(){
-    value = 0;
-    right = nullptr;
-    left = nullptr;
-    parent = nullptr;
-}
-
-Btree::Btree(int value){
-    value = value;
-    right = nullptr;
-    left = nullptr;
-    parent = nullptr;
+    m_root = nullptr;
 }
 
 Btree::~Btree(){
 }
 
 
-Btree* Btree::insertNode(Btree* root, int value){
-    return root;
+void Btree::insertNode(int value){
+    Node* new_node = new Node;
+    Node* current = nullptr;
+    Node* parent = nullptr;
+
+    new_node->value = value;
+    
+    if(m_root == nullptr){
+        new_node->parent = parent;
+        m_root = new_node;
+    }
+    else{
+        current = m_root;
+        parent = m_root->parent;
+
+        while(true){
+            parent = current;
+            if(value <= current->value){
+                current = current->left;
+                if(current == nullptr){
+                    new_node->parent = parent;
+                    parent->left = new_node;
+                    return;
+                }
+            }
+            else{
+                current = current->right;
+                if(current == nullptr){
+                    new_node->parent = parent;
+                    parent->right = new_node;
+                    return;
+                }
+            }
+        }
+    }
 }
 
-Btree* Btree::removeNode(Btree* root, int value){
-    return root;
+void Btree::removeNode(int value){
 }
 
-Btree* Btree::min(Btree* node){
+Node* Btree::min(Node* node){
     while(node->left){
         node = node->left;
     }
     return node;
 }
 
-Btree* Btree::max(Node* node){
+Node* Btree::max(Node* node){
     while(node->right != nullptr){
         node = node->right;
     }
     return node;
 }
 
-Btree* Btree::successor(Btree* node){
+Node* Btree::successor(Node* node){
+    int value = 0;
+    if(node->right != nullptr){
+        node = min(node->right);
+    }
+    else if(node->right == nullptr && node->parent != nullptr && node->value <= node->parent->value){
+        node = node->parent;
+    }
+    else if(node->right == nullptr && node->parent != nullptr && node->value > node->parent->value){
+        value = node->value;
+        node = node->parent;
+        while(node != nullptr && value > node->value){
+            node = node->parent;
+        }
+    }
+    else{
+        node = nullptr;
+    }
+    return node;
 }
 
-Btree* Btree::predecessor(Btree* node){
+Node* Btree::predecessor(Node* node){
+    if(node->left != nullptr){
+        node = max(node->left);
+    }
+    else if(node->left == nullptr && node->parent != nullptr && node->value >= node->parent->value){
+        node = node->parent;
+    }
+    else if(node->right == nullptr && node->parent != nullptr && node->value < node->parent->value){
+        int value;
+        value = node->value;
+        node = node->parent;
+        while(node != nullptr && value < node->value){
+            node = node->parent;
+        }
+    }
+    else{
+        node = nullptr;
+    }
+    return node;
 }
 
-void Btree::printTreeSmall(Btree* node){
+void Btree::printTreeSmall(Node* node){
     if(!node){
         return;
     }
