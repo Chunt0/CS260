@@ -91,47 +91,6 @@ Node* Btree::max(Node* node){
     return current;
 }
 
-Node* Btree::successor(Node* node){
-    int value = 0;
-    if(node->right != nullptr){
-        node = min(node->right);
-    }
-    else if(node->right == nullptr && node->parent != nullptr && node->value <= node->parent->value){
-        node = node->parent;
-    }
-    else if(node->right == nullptr && node->parent != nullptr && node->value > node->parent->value){
-        value = node->value;
-        node = node->parent;
-        while(node != nullptr && value > node->value){
-            node = node->parent;
-        }
-    }
-    else{
-        node = nullptr;
-    }
-    return node;
-}
-
-Node* Btree::predecessor(Node* node){
-    if(node->left != nullptr){
-        node = max(node->left);
-    }
-    else if(node->left == nullptr && node->parent != nullptr && node->value >= node->parent->value){
-        node = node->parent;
-    }
-    else if(node->right == nullptr && node->parent != nullptr && node->value < node->parent->value){
-        int value;
-        value = node->value;
-        node = node->parent;
-        while(node != nullptr && value < node->value){
-            node = node->parent;
-        }
-    }
-    else{
-        node = nullptr;
-    }
-    return node;
-}
 
 void Btree::printTreeSmall(Node* node){
     if(!node){
@@ -143,7 +102,6 @@ void Btree::printTreeSmall(Node* node){
         printTreeSmall(node->right);
     }
 }
-
 
 void Btree::menu(){
     bool select_on {true};

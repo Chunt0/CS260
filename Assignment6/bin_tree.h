@@ -12,8 +12,6 @@ class Btree{
         // Private Methods
         Node* min(Node* node);
         Node* max(Node* node);
-        Node* successor(Node* node);
-        Node* predecessor(Node* node); 
         void printTreeSmall(Node* node);
 
 
