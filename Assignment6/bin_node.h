@@ -6,7 +6,6 @@
 
 struct Node{
     int value = 0;
-    Node* parent = nullptr;
     Node* left = nullptr;
     Node* right = nullptr;
 

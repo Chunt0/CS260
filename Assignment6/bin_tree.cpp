@@ -13,21 +13,18 @@ Btree::~Btree(){
 }
 
 
-Node* Btree::insertNode(Node* root, Node* parent, int value){
+Node* Btree::insertNode(Node* root, int value){
     if(!root){
         Node* new_node = new Node;
         new_node->value = value;
-        new_node->parent = parent;
         root = new_node;
     }
     else{
         if(value <= root->value){
-            parent = root;
-            root->left = insertNode(root->left, root, value);
+            root->left = insertNode(root->left, value);
         }
         else{
-            parent = root;
-            root->right = insertNode(root->right, root, value);
+            root->right = insertNode(root->right, value);
         }
     }
     return root;
@@ -105,7 +102,6 @@ void Btree::printTreeSmall(Node* node){
 
 void Btree::menu(){
     bool select_on {true};
-    Node* temp {nullptr};
     int selection {0};
     int value {0};
     while(select_on){
@@ -117,9 +113,8 @@ void Btree::menu(){
             std::cout << "Enter integer value to store: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            m_root = insertNode(m_root, temp, value);
+            m_root = insertNode(m_root, value);
             printTreeSmall(m_root);
-            temp = nullptr;
             break;
             
             case 2:
