@@ -13,7 +13,7 @@ class Btree{
         Node* min(Node* node);
         Node* max(Node* node);
         void postOrderDelete(Node* root);
-        void printTreeSmall(Node* node);
+        void printTreeInOrder(Node* node);
 
 
     public:

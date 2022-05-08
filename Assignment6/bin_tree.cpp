@@ -97,14 +97,14 @@ Node* Btree::max(Node* node){
 }
 
 
-void Btree::printTreeSmall(Node* node){
+void Btree::printTreeInOrder(Node* node){
     if(!node){
         return;
     }
     else{
-        printTreeSmall(node->left);
+        printTreeInOrder(node->left);
         std::cout << "Value: " << node->value << std::endl;
-        printTreeSmall(node->right);
+        printTreeInOrder(node->right);
     }
 }
 
