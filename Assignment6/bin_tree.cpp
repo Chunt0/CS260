@@ -122,7 +122,7 @@ void Btree::menu(){
             std::cin >> value;
             std::cout << std::endl;
             m_root = insertNode(m_root, value);
-            printTreeSmall(m_root);
+            printTreeInOrder(m_root);
             break;
             
             case 2:
@@ -130,11 +130,11 @@ void Btree::menu(){
             std::cin >> value;
             std::cout << std::endl;
             m_root = removeNode(m_root, value);
-            printTreeSmall(m_root);
+            printTreeInOrder(m_root);
             break;
 
             case 3:
-            printTreeSmall(m_root);
+            printTreeInOrder(m_root);
             break;
 
             case 4:
