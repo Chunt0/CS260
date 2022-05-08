@@ -12,6 +12,7 @@ class Btree{
         // Private Methods
         Node* min(Node* node);
         Node* max(Node* node);
+        void postOrderDelete(Node* root);
         void printTreeSmall(Node* node);
 
 

@@ -10,8 +10,17 @@ Btree::Btree(){
 }
 
 Btree::~Btree(){
+    postOrderDelete(m_root);
 }
 
+void Btree::postOrderDelete(Node* root){
+    if(!root){
+        return;
+    }
+    postOrderDelete(root->left);
+    postOrderDelete(root->right);
+    delete root;
+}
 
 Node* Btree::insertNode(Node* root, int value){
     if(!root){
