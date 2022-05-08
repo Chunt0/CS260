@@ -117,8 +117,7 @@ void Btree::menu(){
             std::cout << "Enter integer value to store: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            if(!m_root){m_root = insertNode(m_root, temp, value);}
-            else{insertNode(m_root, temp, value);}
+            m_root = insertNode(m_root, temp, value);
             printTreeSmall(m_root);
             temp = nullptr;
             break;
