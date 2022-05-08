@@ -6,8 +6,10 @@
 
 class Btree{
     private:
-        int m_value;
+        // Attributes
         Node* m_root;
+
+        // Private Methods
         Node* min(Node* node);
         Node* max(Node* node);
         Node* successor(Node* node);
@@ -16,9 +18,12 @@ class Btree{
 
 
     public:
+        // Constructor and Destructor
         Btree();
         ~Btree();
-        void insertNode(int value);
-        void removeNode(int value);
+
+        // Public Methods
+        Node* insertNode(Node* root, Node* parent, int value);
+        Node* removeNode(Node* root, int value);
         void menu();
 };

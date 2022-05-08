@@ -13,58 +13,82 @@ Btree::~Btree(){
 }
 
 
-void Btree::insertNode(int value){
-    Node* new_node = new Node;
-    Node* current = nullptr;
-    Node* parent = nullptr;
-
-    new_node->value = value;
-    
-    if(m_root == nullptr){
+Node* Btree::insertNode(Node* root, Node* parent, int value){
+    if(!root){
+        Node* new_node = new Node;
+        new_node->value = value;
         new_node->parent = parent;
-        m_root = new_node;
+        root = new_node;
     }
     else{
-        current = m_root;
-        parent = m_root->parent;
-
-        while(true){
-            parent = current;
-            if(value <= current->value){
-                current = current->left;
-                if(current == nullptr){
-                    new_node->parent = parent;
-                    parent->left = new_node;
-                    return;
-                }
-            }
-            else{
-                current = current->right;
-                if(current == nullptr){
-                    new_node->parent = parent;
-                    parent->right = new_node;
-                    return;
-                }
-            }
+        if(value <= root->value){
+            parent = root;
+            root->left = insertNode(root->left, root, value);
+        }
+        else{
+            parent = root;
+            root->right = insertNode(root->right, root, value);
         }
     }
+    return root;
 }
 
-void Btree::removeNode(int value){
+Node* Btree::removeNode(Node* root, int value){
+    if(!root){
+        std::cout << "Tree is empty" << std::endl;
+        return root;
+    }
+    else{
+        if(value < root->value){
+            root->left = removeNode(root->left, value);
+        }
+        else if(value > root->value){
+            root->right = removeNode(root->right, value);
+        }
+        else{
+            // Node has no child, just delete node.
+            if(!root->left && !root->right){
+                delete root;
+                return nullptr; 
+            }
+
+            // Has right child
+            else if(!root->left){
+                Node* temp = root->right;
+                delete root;
+                return temp;
+            }
+
+            // Has left child
+            else if(!root->right){
+                Node* temp = root->left;
+                delete root;
+                return temp;
+            }
+            
+            // Has both left and right children
+            Node* temp = min(root->right); // Move right and find successor
+            root->value = temp->value;
+            root->right = removeNode(root->right, temp->value);
+        }
+    }
+    return root;
 }
 
 Node* Btree::min(Node* node){
-    while(node->left){
-        node = node->left;
+    Node* current = node;
+    while(current && current->left){
+        current = current->left;
     }
-    return node;
+    return current;
 }
 
 Node* Btree::max(Node* node){
-    while(node->right != nullptr){
-        node = node->right;
+    Node* current = node;
+    while(current && current->right){
+        current = current->right;
     }
-    return node;
+    return current;
 }
 
 Node* Btree::successor(Node* node){
@@ -123,6 +147,7 @@ void Btree::printTreeSmall(Node* node){
 
 void Btree::menu(){
     bool select_on {true};
+    Node* temp {nullptr};
     int selection {0};
     int value {0};
     while(select_on){
@@ -134,15 +159,17 @@ void Btree::menu(){
             std::cout << "Enter integer value to store: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            insertNode(value);
+            if(!m_root){m_root = insertNode(m_root, temp, value);}
+            else{insertNode(m_root, temp, value);}
             printTreeSmall(m_root);
+            temp = nullptr;
             break;
             
             case 2:
             std::cout << "Enter integer value to remove: " << std::endl;
             std::cin >> value;
             std::cout << std::endl;
-            removeNode(value);
+            m_root = removeNode(m_root, value);
             printTreeSmall(m_root);
             break;
 
