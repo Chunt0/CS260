@@ -32,7 +32,6 @@ Node* Btree::insertNode(Node* root, int value){
 
 Node* Btree::removeNode(Node* root, int value){
     if(!root){
-        std::cout << "Tree is empty" << std::endl;
         return root;
     }
     else{
