@@ -197,6 +197,46 @@ void Btree::printTreeInOrder(Node* node){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/* Function: printTreeInOrder(Node*)
+ * Description: Prints a Btree in order of smallest value int to largest value int.
+ * Precondition: Btree must exist.
+ * Postcondition: If Btree is null, returns null. Otherwise prints all values in tree
+ *     from smallest to largest.
+ * Analysis: O(h); h = height of tree
+ */
+void Btree::printTreePreOrder(Node* node){
+    if(!node){
+        return;
+    }
+    else{
+        std::cout << "Value: " << node->value << std::endl;
+        printTreePreOrder(node->left);
+        printTreePreOrder(node->right);
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: printTreeInOrder(Node*)
+ * Description: Prints a Btree in order of smallest value int to largest value int.
+ * Precondition: Btree must exist.
+ * Postcondition: If Btree is null, returns null. Otherwise prints all values in tree
+ *     from smallest to largest.
+ * Analysis: O(h); h = height of tree
+ */
+void Btree::printTreePostOrder(Node* node){
+    if(!node){
+        return;
+    }
+    else{
+        printTreePostOrder(node->left);
+        printTreePostOrder(node->right);
+        std::cout << "Value: " << node->value << std::endl;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: menu()
  * Description: Menu system for testing of Btree
  * Precondition: Btree must exist.
@@ -209,7 +249,7 @@ void Btree::menu(){
     int selection {0};
     int value {0};
     while(select_on){
-        std::cout << "\n1. Insert.\n2. Remove.\n3. Print list.\n4. Exit\n" << std::endl;
+        std::cout << "\n1. Insert.\n2. Remove.\n3. In Order Print.\n4. Pre Order Print\n5. Post Order Print\n6. Exit\n" << std::endl;
         std::cin >> selection;
         std::cout << "\n\n";
         switch(selection){
@@ -234,6 +274,14 @@ void Btree::menu(){
             break;
 
             case 4:
+            printTreePreOrder(m_root);
+            break;
+            
+            case 5:
+            printTreePostOrder(m_root);
+            break;
+
+            case 6:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
             break;

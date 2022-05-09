@@ -14,6 +14,8 @@ class Btree{
         Node* max(Node* node);
         void postOrderDelete(Node* root);
         void printTreeInOrder(Node* node);
+        void printTreePreOrder(Node* node);
+        void printTreePostOrder(Node* node);
 
 
     public:
