@@ -197,11 +197,11 @@ void Btree::printTreeInOrder(Node* node){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: printTreeInOrder(Node*)
- * Description: Prints a Btree in order of smallest value int to largest value int.
+/* Function: printTreePreOrder(Node*)
+ * Description: Prints a Btree in pre-order.
  * Precondition: Btree must exist.
  * Postcondition: If Btree is null, returns null. Otherwise prints all values in tree
- *     from smallest to largest.
+ *     pre-order.
  * Analysis: O(h); h = height of tree
  */
 void Btree::printTreePreOrder(Node* node){
@@ -217,11 +217,11 @@ void Btree::printTreePreOrder(Node* node){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: printTreeInOrder(Node*)
- * Description: Prints a Btree in order of smallest value int to largest value int.
+/* Function: printTreePostOrder(Node*)
+ * Description: Prints a Btree in post-order.
  * Precondition: Btree must exist.
  * Postcondition: If Btree is null, returns null. Otherwise prints all values in tree
- *     from smallest to largest.
+ *     in post-order.
  * Analysis: O(h); h = height of tree
  */
 void Btree::printTreePostOrder(Node* node){
