@@ -7,7 +7,7 @@
 
 /* Function: Btree()
  * Description: Default constructor. A Binary Tree is a data structure which only
- * requires a Node pointer, called root.
+ *     requires a Node pointer, called root.
  * Precondition: Must be called by driver program. Initializes a Btree object.
  * Postcondition: A Btree object is intiialized with it's m_root pointing to null. 
  * Analysis: O(1)
@@ -28,10 +28,10 @@ Btree::~Btree(){
 
 /* Function: postOrderDelete()
  * Description: A recursive function that moves from the root node of a Btree to
- * a leaf and then deletes that leaf, continues until all layers of the tree are deleted.
+ *     a leaf and then deletes that leaf, continues until all layers of the tree are deleted.
  * Precondition: A Btree object must exist.
  * Postcondition: All nodes in the tree are deleted, from the leaves to the root. 
- * If root was null, function is returned, nothing done.
+ *     If root was null, function is returned, nothing done.
  * Analysis:O(n*h); n = number of nodes, h = height of tree
  */
 void Btree::postOrderDelete(Node* root){
@@ -45,11 +45,11 @@ void Btree::postOrderDelete(Node* root){
 
 /* Function: insertNode(Node*, int)
  * Description: If root is null, node is created and becomes root. Else, the tree
- * is traversed based on the rule if value <= key, move to left child; else if 
- * value > key, move to right child. Once a nullptr is reached, new node is inserted.
+ *     is traversed based on the rule if value <= key, move to left child; else if 
+ *     value > key, move to right child. Once a nullptr is reached, new node is inserted.
  * Precondition: Btree must exist.
  * Postcondition: Btree aquires a new node of value int at an open child pointer 
- * that satisfies the rule.
+ *     that satisfies the rule.
  * Analysis:O(h); h = height of tree
  */
 Node* Btree::insertNode(Node* root, int value){
@@ -71,12 +71,12 @@ Node* Btree::insertNode(Node* root, int value){
 
 /* Function: removeNode(Node*, int)
  * Description: Searches the tree for an inputed value int, once found the node is
- * removed. There are three potential conditions to resolve to delete a node. If
- * the node has no children, the node has one child, or the node has two children.
- * See code comments for details.
+ *     removed. There are three potential conditions to resolve to delete a node. If
+ *     the node has no children, the node has one child, or the node has two children.
+ *     See code comments for details.
  * Precondition: Btree must exist, if there are nodes, these nodes can be deleted.
  * Postcondition: If value equals a key in the tree, that node will be deleted,
- * otherwise there will be no change to the tree.
+ *     otherwise there will be no change to the tree.
  * Analysis:O(h); h = heigt of tree
  */
 Node* Btree::removeNode(Node* root, int value){
@@ -128,9 +128,9 @@ Node* Btree::removeNode(Node* root, int value){
 
 /* Function: min(Node*)
  * Description: Finds the minimum value in a tree or subtree, depends on initial 
- * input node.
+ *     input node.
  * Precondition: This is an internal function that is utilized in the removeNode()
- * function, and perhaps others.
+ *     function, and perhaps others.
  * Postcondition: Returns the node pointer to the lowest value int in a tree or subtree.
  * Analysis:O(h); h= height of tree
  */
@@ -146,7 +146,7 @@ Node* Btree::min(Node* node){
 
 /* Function: max(Node*)
  * Description: Finds and returns the maximum value int in a tree or subtree
- * depending on the intial input node.
+ *     depending on the intial input node.
  * Precondition: This is an internal function currently not utilized.
  * Postcondition: Returns node pointer to the largest value in a tree or subtree.
  * Analysis: O(h); h = height of tree
@@ -164,7 +164,7 @@ Node* Btree::max(Node* node){
  * Description: Prints a Btree in order of smallest value int to largest value int.
  * Precondition: Btree must exist.
  * Postcondition: If Btree is null, returns null. Otherwise prints all values in tree
- * from smallest to largest.
+ *     from smallest to largest.
  * Analysis: O(h); h = height of tree
  */
 void Btree::printTreeInOrder(Node* node){
@@ -182,7 +182,7 @@ void Btree::printTreeInOrder(Node* node){
  * Description: Menu system for testing of Btree
  * Precondition: Btree must exist.
  * Postcondition: Allows a user to test insert, remove, and print methods of the 
- * Btree class
+ *     Btree class
  * Analysis: O(n); n = number of choice selection cycles user makes
  */
 void Btree::menu(){
