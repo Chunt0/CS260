@@ -270,14 +270,17 @@ void Btree::menu(){
             break;
 
             case 3:
+            std::cout << "Printing Tree in order:" << std::endl;
             printTreeInOrder(m_root);
             break;
 
             case 4:
+            std::cout << "Printing Tree in pre-order:" << std::endl;
             printTreePreOrder(m_root);
             break;
             
             case 5:
+            std::cout << "Printing Tree in post-order:" << std::endl;
             printTreePostOrder(m_root);
             break;
 
