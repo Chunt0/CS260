@@ -5,6 +5,8 @@
 
 #include "bin_tree.h"
 
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: Btree()
  * Description: Default constructor. A Binary Tree is a data structure which only
  *     requires a Node pointer, called root.
@@ -16,6 +18,8 @@ Btree::Btree(){
     m_root = nullptr;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: ~Btree()
  * Description: Destructor. Called when a Btree object goes out of scope.
  * Precondition: The Btree object must be created in a driver code.
@@ -25,6 +29,8 @@ Btree::Btree(){
 Btree::~Btree(){
     postOrderDelete(m_root);
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 /* Function: postOrderDelete()
  * Description: A recursive function that moves from the root node of a Btree to
@@ -42,6 +48,8 @@ void Btree::postOrderDelete(Node* root){
     postOrderDelete(root->right);
     delete root;
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 /* Function: insertNode(Node*, int)
  * Description: If root is null, node is created and becomes root. Else, the tree
@@ -68,6 +76,8 @@ Node* Btree::insertNode(Node* root, int value){
     }
     return root;
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 /* Function: removeNode(Node*, int)
  * Description: Searches the tree for an inputed value int, once found the node is
@@ -126,6 +136,8 @@ Node* Btree::removeNode(Node* root, int value){
     return root;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: min(Node*)
  * Description: Finds the minimum value in a tree or subtree, depends on initial 
  *     input node.
@@ -144,6 +156,8 @@ Node* Btree::min(Node* node){
     return node;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: max(Node*)
  * Description: Finds and returns the maximum value int in a tree or subtree
  *     depending on the intial input node.
@@ -160,6 +174,9 @@ Node* Btree::max(Node* node){
     }
     return node;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: printTreeInOrder(Node*)
  * Description: Prints a Btree in order of smallest value int to largest value int.
  * Precondition: Btree must exist.
@@ -177,6 +194,8 @@ void Btree::printTreeInOrder(Node* node){
         printTreeInOrder(node->right);
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 /* Function: menu()
  * Description: Menu system for testing of Btree
@@ -221,3 +240,5 @@ void Btree::menu(){
         }
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////
