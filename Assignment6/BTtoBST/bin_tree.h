@@ -29,6 +29,6 @@ class Btree{
         // Public Methods
         Node* insertNode(Node* root, int value);
         Node* removeNode(Node* root, int value);
-        void BTtoBST();
+        Node* BTtoBST(Node* root);
         void menu();
 };

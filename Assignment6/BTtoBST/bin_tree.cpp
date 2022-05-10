@@ -149,16 +149,18 @@ Node* Btree::removeNode(Node* root, int value){
  * Postcondition:
  * Analysis:
  */
-void Btree::BTtoBST(){
+Node* Btree::BTtoBST(Node* root){
     int index = 0;
     int* inorder = new int[m_size];
-    duplicateToArray(m_root, inorder, &index);
+    duplicateToArray(root, inorder, &index);
     
     index = 0;
 
-    arrayToBST(m_root, inorder, &index);
+    arrayToBST(root, inorder, &index);
 
     delete[] inorder;
+
+    return  root;
     
 }
 
@@ -344,27 +346,27 @@ void Btree::menu(){
             std::cout << "Printing Binary Tree in preorder:" << std::endl;
             printTreePreOrder(m_root);
             std::cout << "Converting Binary Tree to Binary Search Tree..." << std::endl;
-            BTtoBST();
+            m_root = BTtoBST(m_root);
             std::cout << "Printing Binary Search Tree in preorder:" << std::endl;
             printTreePreOrder(m_root);
             break;
 
-            case 3:
+            case 4:
             std::cout << "Printing Tree in order:" << std::endl;
             printTreeInOrder(m_root);
             break;
 
-            case 4:
+            case 5:
             std::cout << "Printing Tree in pre-order:" << std::endl;
             printTreePreOrder(m_root);
             break;
             
-            case 5:
+            case 6:
             std::cout << "Printing Tree in post-order:" << std::endl;
             printTreePostOrder(m_root);
             break;
 
-            case 6:
+            case 7:
             std::cout << "#########################\n" << std::endl;
             select_on = false;
             break;
