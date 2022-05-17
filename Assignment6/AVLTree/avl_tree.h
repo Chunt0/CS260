@@ -1,12 +1,11 @@
 /* Christopher Hunt
  * CS260
- * b_tree.h
+ * avl_tree.h
  */
+#ifndef AVL_TREE_H
+#define AVL_TREE_H
 
-#ifndef B_TREE_H
-#define B_TREE_H
-
-#include "bin_node.h"
+#include "avl_node.h"
 
 class Btree{
     private:

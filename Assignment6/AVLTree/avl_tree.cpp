@@ -1,9 +1,9 @@
 /* Christopher Hunt
  * CS260
- * b_tree.cpp
+ * avl_tree.cpp
  */
 
-#include "bin_tree.h"
+#include "avl_tree.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
