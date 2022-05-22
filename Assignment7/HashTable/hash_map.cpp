@@ -3,13 +3,15 @@
  * hash_map.cpp
  */
 
-#include "hash_map.h"
+#include "./hash_map.h"
 
 HashMap::HashMap(){
-    capacity = 10;
+    capacity = 13; // Prime
     size = 0;
+    map.reserve(capacity); // .reserve() sets the vectors capacity
+}
 
-    map.reserve(capacity);
+HashMap::~HashMap(){
 }
 
 int HashMap::get_capacity(){
