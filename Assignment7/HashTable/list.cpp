@@ -34,7 +34,7 @@ List::~List(){
  */
 void List::addNode(char* key, int value){
     Node* new_node = new Node;
-    Node* current;
+    Node* current = m_head;
     
     new_node->key = key;
     new_node->value = value;
@@ -58,13 +58,13 @@ void List::addNode(char* key, int value){
  * Description: Removes node at given index.
  * Analysis: O(n)
  */
-void List::removeNode(char key[]){
-    Node* deletePtr;
-    Node* current;
-    Node* temp;
+void List::removeNode(char* key){
+    Node* deletePtr = nullptr;
+    Node* current = nullptr;
+    Node* temp = nullptr;
     if(m_head != nullptr){
         // If index is the first element of the list
-        if(strcmp(m_head->key, key)){
+        if(strcmp(m_head->key, key) == 0){
             deletePtr = m_head;
             m_head = m_head->next;
             delete deletePtr;
@@ -76,13 +76,13 @@ void List::removeNode(char key[]){
                 current = current->next;
             }
             // If the index searched for is in the last position
-            if(current->next == nullptr && strcmp(current->key, key)){
+            if(current->next == nullptr && strcmp(current->key, key) == 0){
                 deletePtr = current;
                 temp->next = nullptr;
                 delete deletePtr;
             }
             // Else if 
-            else if(current->next != nullptr && current != nullptr && strcmp(current->key, key)){
+            else if(current->next != nullptr && current != nullptr && strcmp(current->key, key) == 0){
                 deletePtr = current;
                 temp->next = current->next;
                 delete deletePtr;
@@ -96,11 +96,11 @@ void List::removeNode(char key[]){
     }
 }
 
-int List::returnValue(char key[]){
+int List::returnValue(char* key){
     Node* current = m_head;
-    int keys_value{-1};
+    int keys_value = -1;
     while(current != nullptr){
-        if (strcmp(current->key, key)){
+        if (strcmp(current->key, key) == 0){
             keys_value = current->value;
         }
         else{
@@ -118,7 +118,7 @@ int List::returnValue(char key[]){
 void List::printList(){
     Node* current = m_head;
     while(current != nullptr){
-        std::cout << "Value: " << current->value << std::endl;
+        std::cout << "Key: " << current->key << " | Value: " << current->value << std::endl;
         current = current->next;
     }
 
@@ -130,10 +130,10 @@ void List::printList(){
  */
 void List::menu(){
     bool select_on = true;
-    int value;
-    int index;
-    int selection;
-    char key[3];
+    int value = 0;
+    int index = 0;
+    int selection = 0;
+    char* key = nullptr;
     while(select_on){
         std::cout << "\n1. Add Node\n2. Remove Node\n3. Print List\n4. Exit" << std::endl;
         std::cin >> selection;

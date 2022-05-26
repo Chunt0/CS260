@@ -20,9 +20,9 @@ class List{
         ~List();
 
         // Methods
-        void addNode(char key[], int value);
-        void removeNode(char key[]);
-        int returnValue(char key[]);
+        void addNode(char* key, int value);
+        void removeNode(char* key);
+        int returnValue(char* key);
         void printList();
         void menu();
 };

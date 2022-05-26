@@ -60,7 +60,7 @@ void HashMap::remove(char* key){
 }
 
 int HashMap::search(char* key){
-     int hashed_key;
+     int hashed_key = 0;
 
     // Convert 3 char key into an integer, then hash that value
     for (int i = 0; i < 3; i++){
@@ -86,7 +86,8 @@ void HashMap::printTable(){
 
 void HashMap::menu(){
     bool select_on {true};
-    int selection, value;
+    int selection = 0;
+    int value = 0;
     char key[3];
     while(select_on){
         std::cout << "\n1. Add key and value\n2. Remove key and value\n3. Search for key, return value\n4. Print table\n5. Exit\n" << std::endl;
