@@ -4,6 +4,7 @@
  */
 
 #include "list.h"
+#include <cstring>
 
 /* Constructor: AutoSortList()
  * Description: Initializes list.
@@ -31,7 +32,7 @@ List::~List(){
  * Description: Adds a node to the list in sorted order, smallest to largest.
  * Analysis: O(n)
  */
-void List::addNode(std::string key, int value){
+void List::addNode(char* key, int value){
     Node* new_node = new Node;
     Node* current;
     
@@ -52,18 +53,18 @@ void List::addNode(std::string key, int value){
 
 
 
-/* NEED TO FIX FOR HASH MAP!!!!!
+/*
  * Function: removeNode(int index)
  * Description: Removes node at given index.
  * Analysis: O(n)
  */
-void List::removeNode(std::string key){
+void List::removeNode(char key[]){
     Node* deletePtr;
     Node* current;
     Node* temp;
     if(m_head != nullptr){
         // If index is the first element of the list
-        if(m_head->key == key){
+        if(strcmp(m_head->key, key)){
             deletePtr = m_head;
             m_head = m_head->next;
             delete deletePtr;
@@ -75,13 +76,13 @@ void List::removeNode(std::string key){
                 current = current->next;
             }
             // If the index searched for is in the last position
-            if(current->next == nullptr && current->key == key){
+            if(current->next == nullptr && strcmp(current->key, key)){
                 deletePtr = current;
                 temp->next = nullptr;
                 delete deletePtr;
             }
             // Else if 
-            else if(current->next != nullptr && current != nullptr && current->key == key){
+            else if(current->next != nullptr && current != nullptr && strcmp(current->key, key)){
                 deletePtr = current;
                 temp->next = current->next;
                 delete deletePtr;
@@ -93,6 +94,21 @@ void List::removeNode(std::string key){
     else{
         std::cout << "List is empty." << std::endl;
     }
+}
+
+int List::returnValue(char key[]){
+    Node* current = m_head;
+    int keys_value{-1};
+    while(current != nullptr){
+        if (strcmp(current->key, key)){
+            keys_value = current->value;
+        }
+        else{
+            current = current->next;
+        }
+    }
+
+    return keys_value;
 }
 
 /* Function: print_list()
@@ -117,13 +133,13 @@ void List::menu(){
     int value;
     int index;
     int selection;
-    std::string key;
+    char key[3];
     while(select_on){
         std::cout << "\n1. Add Node\n2. Remove Node\n3. Print List\n4. Exit" << std::endl;
         std::cin >> selection;
         switch(selection){
             case 1:
-                std::cout << "\nEnter a key: " << std::endl;
+                std::cout << "\nEnter a 3-char key: " << std::endl;
                 std::cin >> key;
                 std::cout << "\nEnter a value: " << std::endl;
                 std::cin >> value;

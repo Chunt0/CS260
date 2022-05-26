@@ -20,8 +20,9 @@ class List{
         ~List();
 
         // Methods
-        void addNode(std::string key, int value); // Auto Sort algorithm lives here ^_^
-        void removeNode(std::string key);
+        void addNode(char key[], int value);
+        void removeNode(char key[]);
+        int returnValue(char key[]);
         void printList();
         void menu();
 };
