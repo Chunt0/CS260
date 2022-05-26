@@ -6,7 +6,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include<iostream>
 #include "node.h"
 
 class List{
@@ -21,8 +20,8 @@ class List{
         ~List();
 
         // Methods
-        void addNode(int key, int value); // Auto Sort algorithm lives here ^_^
-        void removeNode(int key);
+        void addNode(std::string key, int value); // Auto Sort algorithm lives here ^_^
+        void removeNode(std::string key);
         void printList();
         void menu();
 };

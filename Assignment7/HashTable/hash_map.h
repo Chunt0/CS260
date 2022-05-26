@@ -7,13 +7,14 @@
 #define HASH_MAP_H
 
 #include "./List/list.h"
+#include <string>
 #include <vector>
 
 
 class HashMap{
     private:
         // Attributes
-        std::vector<List*> map; // Creates a vector which contains linked lists which contain key, value pairs.
+        List* map[13]; // Creates a vector which contains linked lists which contain key, value pairs.
         int capacity;
         int size;
 
@@ -28,11 +29,11 @@ class HashMap{
         ~HashMap();
 
         // Public Methods
-        int get_capacity();
-        float get_load();
-        void add(int new_value);
-        void remove(int old_value);
-        int search(int candidate_value);
+        int getCapacity();
+        float getLoad();
+        void add(char key[], int value);
+        void remove(char key[]);
+        int search(char key[]);
 };
 
 #endif
