@@ -7,16 +7,13 @@
 #define HASH_MAP_H
 
 #include "list.h"
-#include <string>
-#include <vector>
 
 
 class HashMap{
     private:
         // Attributes
-        List* map[13];
-        int capacity;
-        int size;
+        static const int capacity = 13;
+        List* map[capacity];
 
         // Private Methods
         int hashByDiv(int key);
@@ -30,6 +27,7 @@ class HashMap{
         void add(char key[], int value);
         void remove(char key[]);
         int search(char key[]);
+        void printTable();
         void menu();
 };
 

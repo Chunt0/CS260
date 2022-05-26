@@ -6,14 +6,17 @@
 #include "./hash_map.h"
 
 HashMap::HashMap(){
-    capacity = 13; // Prime
-    size = 0;
     for(int i = 0; i < capacity; i++){
         map[i] = nullptr;
     }
 }
 
 HashMap::~HashMap(){
+    for (int i = 0; i < capacity; i++){
+        if(map[i] != nullptr){
+            delete map[i];
+        }
+    }
 }
 
 int HashMap::hashByDiv(int key){
@@ -21,16 +24,15 @@ int HashMap::hashByDiv(int key){
 }
 
 void HashMap::add(char* key, int value){
-    int hashed_key;
+    int hashed_key = 0;
 
     // Convert 3 char key into an integer, then hash that value
     for (int i = 0; i < 3; i++){
-        hashed_key = hashed_key + (int)key[i];
+        hashed_key = hashed_key + (int)key[i]; // Turn the ANSCII char into the corresponding int value
     }
 
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
-    std::cout << "Hashed key: " << hashed_key << std::endl;   
     // If the index in the map is null, create a new linked list and have that
     // index point to that list.
     if(map[hashed_key] == nullptr){
@@ -44,7 +46,7 @@ void HashMap::add(char* key, int value){
 }
 
 void HashMap::remove(char* key){
-    int hashed_key;
+    int hashed_key = 0;
 
     // Convert 3 char key into an integer, then hash that value
     for (int i = 0; i < 3; i++){
@@ -55,7 +57,6 @@ void HashMap::remove(char* key){
     hashed_key = hashByDiv(hashed_key);
 
     map[hashed_key]->removeNode(key);
-        
 }
 
 int HashMap::search(char* key){
@@ -74,12 +75,21 @@ int HashMap::search(char* key){
     return value;
 }
 
+void HashMap::printTable(){
+    for(int i = 0; i < capacity; i++){
+        if(map[i] != nullptr){
+            map[i]->printList();
+        
+        }
+    }
+}
+
 void HashMap::menu(){
     bool select_on {true};
     int selection, value;
     char key[3];
     while(select_on){
-        std::cout << "\n1. Add key and value\n2. Remove key and value\n3. Search for key, return value\n4. Exit\n" << std::endl;
+        std::cout << "\n1. Add key and value\n2. Remove key and value\n3. Search for key, return value\n4. Print table\n5. Exit\n" << std::endl;
         std::cin >> selection;
         switch(selection){
             case 1:
@@ -88,12 +98,14 @@ void HashMap::menu(){
                 std::cout << "Enter an integer value: " << std::endl;
                 std::cin >> value;
                 add(key, value);
+                printTable();
                 break;
 
             case 2:
                 std::cout << "Enter 3-letter key to remove: " << std::endl;
                 std::cin >> key;
                 remove(key);
+                printTable();
                 break;
 
             case 3:
@@ -104,6 +116,10 @@ void HashMap::menu(){
                 break;
 
             case 4:
+                printTable();
+                break;
+
+            case 5:
                 select_on = false;
                 std::cout << "Bye bye" << std::endl;
                 break;
