@@ -102,12 +102,12 @@ int List::returnValue(char* key){
     while(current != nullptr){
         if (strcmp(current->key, key) == 0){
             keys_value = current->value;
+            break;
         }
         else{
             current = current->next;
         }
     }
-
     return keys_value;
 }
 

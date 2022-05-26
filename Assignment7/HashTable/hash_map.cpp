@@ -96,7 +96,7 @@ void HashMap::menu(){
             case 1:
                 std::cout << "Enter a 3-letter key: " << std::endl;
                 std::cin >> key;
-                std::cout << "Enter an integer value: " << std::endl;
+                std::cout << "Enter a positive integer value: " << std::endl;
                 std::cin >> value;
                 add(key, value);
                 printTable();
