@@ -9,10 +9,25 @@ HashMap::HashMap(){} // Nothing to construct, Hashmap is already constructed in 
 
 HashMap::~HashMap(){} // Nothing to destructor, all dynamic memory allocation happens in the linked lists
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* 
+ * Function: hashByDiv(int key)
+ * Description: Takes an integer-ified key and performs the hash function
+ * Analysis: O(1)
+ */
 int HashMap::hashByDiv(int key){
     return key % capacity;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* 
+ * Function: add(std::string key, int value)
+ * Description: Takes a key string and an integer value, hashes the key, finds an 
+ *      index, adds key/value to linked list stored at corresponding index.
+ * Analysis: O(k) where k is the number of key/value pairs stored in that indexes linked list.
+ */
 void HashMap::add(std::string key, int value){
     int hashed_key = 0;
 
@@ -28,6 +43,14 @@ void HashMap::add(std::string key, int value){
     map[hashed_key].addNode(key, value);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* 
+ * Function: remove(std::string key)
+ * Description: Takes a key string, hashes the key, finds an index, removes key/value
+ *      in corresponding linked list.
+ * Analysis: O(k) where k is the number of key/value pairs stored in that indexes linked list.
+ */
 void HashMap::remove(std::string key){
     int hashed_key = 0;
 
@@ -43,6 +66,13 @@ void HashMap::remove(std::string key){
     map[hashed_key].removeNode(key);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* 
+ * Function: search(std:: string key)
+ * Description: Searches hash table to find specified key, returns value associated.
+ * Analysis: O(k) where k is the number of nodes in the linked list stored in the hashtable array.
+ */
 int HashMap::search(std::string key){
      int hashed_key = 0;
 
@@ -60,12 +90,25 @@ int HashMap::search(std::string key){
     return value;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * Function: printTable()
+ * Description: Prints every key/value pair stored in the hash table
+ * Analysis: O(n)
+ */
 void HashMap::printTable(){
     for(int i = 0; i < capacity; i++){
         map[i].printList();
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * Function: menu()
+ * Description: User interface to test hashmap
+ */
 void HashMap::menu(){
     bool select_on {true};
     int selection = 0;
@@ -76,7 +119,7 @@ void HashMap::menu(){
         std::cin >> selection;
         switch(selection){
             case 1:
-                std::cout << "Enter a 3-letter key: ";
+                std::cout << "Enter a key: ";
                 std::cin >> key;
                 std::cout << "Enter a positive integer value: ";
                 std::cin >> value;
@@ -85,14 +128,14 @@ void HashMap::menu(){
                 break;
 
             case 2:
-                std::cout << "Enter 3-letter key to remove: ";
+                std::cout << "Enter key to remove: ";
                 std::cin >> key;
                 remove(key);
                 printTable();
                 break;
 
             case 3:
-                std::cout << "Enter 3-letter key: ";
+                std::cout << "Enter key to retrieve value: ";
                 std::cin >> key;
                 value = search(key);
                 std::cout << "Key: " << key << " | Value: " << value << std::endl;
