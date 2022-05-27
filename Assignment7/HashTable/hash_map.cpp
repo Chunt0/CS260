@@ -5,9 +5,9 @@
 
 #include "./hash_map.h"
 
-HashMap::HashMap(){}
+HashMap::HashMap(){} // Nothing to construct, Hashmap is already constructed in header file 
 
-HashMap::~HashMap(){}
+HashMap::~HashMap(){} // Nothing to destructor, all dynamic memory allocation happens in the linked lists
 
 int HashMap::hashByDiv(int key){
     return key % capacity;
@@ -23,7 +23,8 @@ void HashMap::add(char* key, int value){
 
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
-
+    
+    // Index to the linked list and then add key and value to list
     map[hashed_key].addNode(key, value);
 }
 
@@ -37,7 +38,8 @@ void HashMap::remove(char* key){
 
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
-
+    
+    // Index to linked list that would contain the key/value pair and remove if found.
     map[hashed_key].removeNode(key);
 }
 
@@ -51,7 +53,8 @@ int HashMap::search(char* key){
 
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
-   
+    
+    // Index to linked list which may contain the key/value pair and return value if found.
     int value = map[hashed_key].returnValue(key);
 
     return value;
@@ -67,7 +70,7 @@ void HashMap::menu(){
     bool select_on {true};
     int selection = 0;
     int value = 0;
-    char key[3];
+    char key[4];
     while(select_on){
         std::cout << "\n1. Add key and value\n2. Remove key and value\n3. Search for key, return value\n4. Print table\n5. Exit\n" << std::endl;
         std::cin >> selection;

@@ -125,6 +125,7 @@ void List::printList(){
     Node* current = m_head;
     while(current != nullptr){
         std::cout << "Key: " << current->key << " | Value: " << current->value << std::endl;
+        std::cout << "Address of Key: " << &current->key << std::endl;
         current = current->next;
     }
 }
