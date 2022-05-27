@@ -123,8 +123,13 @@ void HashMap::menu(){
                 std::cin >> key;
                 std::cout << "Enter a positive integer value: ";
                 std::cin >> value;
-                add(key, value);
-                printTable();
+                if(value >= 0){
+                    add(key, value);
+                    printTable();
+                }
+                else{
+                    std::cout << "Value must be a positive integer." << std::endl;
+                }
                 break;
 
             case 2:
@@ -138,7 +143,12 @@ void HashMap::menu(){
                 std::cout << "Enter key to retrieve value: ";
                 std::cin >> key;
                 value = search(key);
-                std::cout << "Key: " << key << " | Value: " << value << std::endl;
+                if(value >= 0){
+                    std::cout << "Key: " << key << " | Value: " << value << std::endl;
+                }
+                else{
+                    std::cout << "Key not found." << std::endl;
+                }
                 break;
 
             case 4:
