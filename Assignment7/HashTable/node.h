@@ -7,7 +7,7 @@
 #include <iostream>
 
 struct Node{
-    char* key;
+    std::string key;
     int value;
     Node* next = nullptr;
 };

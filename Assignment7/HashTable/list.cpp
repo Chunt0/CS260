@@ -32,7 +32,7 @@ List::~List(){
  * Description: Adds a node to the list in sorted order, smallest to largest.
  * Analysis: O(n)
  */
-void List::addNode(char* key, int value){
+void List::addNode(std::string key, int value){
     Node* new_node = new Node;
     Node* current = m_head;
     
@@ -40,10 +40,10 @@ void List::addNode(char* key, int value){
     new_node->value = value;
 
     if(m_head != nullptr){
-        while(current->next != nullptr && strcmp(current->key, key) != 0){
+        while(current->next != nullptr && current->key.compare(key) != 0){
             current = current->next;
         }
-        if(current->next == nullptr && strcmp(current->key, key) != 0){
+        if(current->next == nullptr && current->key.compare(key) != 0){
             current->next = new_node;    
             m_size++;
         }
@@ -64,49 +64,51 @@ void List::addNode(char* key, int value){
  * Description: Removes node at given index.
  * Analysis: O(n)
  */
-void List::removeNode(char* key){
+void List::removeNode(std::string key){
     Node* deletePtr = nullptr;
     Node* current = nullptr;
     Node* temp = nullptr;
     if(m_head != nullptr){
         // If index is the first element of the list
-        if(strcmp(m_head->key, key) == 0){
+        if(m_head->key.compare(key) == 0){
             deletePtr = m_head;
             m_head = m_head->next;
             delete deletePtr;
         }
         else{
             current = m_head;
-            for(int i = 0; i < m_size; i++){
+            while(current != nullptr){
                 temp = current;
                 current = current->next;
-            }
-            // If the index searched for is in the last position
-            if(current->next == nullptr && strcmp(current->key, key) == 0){
-                deletePtr = current;
-                temp->next = nullptr;
-                delete deletePtr;
-            }
-            // Else if 
-            else if(current->next != nullptr && current != nullptr && strcmp(current->key, key) == 0){
-                deletePtr = current;
-                temp->next = current->next;
-                delete deletePtr;
+
+                // If the index searched for is in the last position
+                if(current->next == nullptr && current->key.compare(key) == 0){
+                    deletePtr = current;
+                    temp->next = nullptr;
+                    delete deletePtr;
+                    break;
+                }
+                // Else if 
+                else if(current->next != nullptr && current->key.compare(key) == 0){
+                    deletePtr = current;
+                    temp->next = current->next;
+                    delete deletePtr;
+                    break;
+                }
             }
         }
         m_size--;
     }
-
     else{
         std::cout << "List is empty." << std::endl;
     }
 }
 
-int List::returnValue(char* key){
+int List::returnValue(std::string key){
     Node* current = m_head;
     int keys_value = -1;
     while(current != nullptr){
-        if (strcmp(current->key, key) == 0){
+        if (current->key.compare(key) == 0){
             keys_value = current->value;
             break;
         }

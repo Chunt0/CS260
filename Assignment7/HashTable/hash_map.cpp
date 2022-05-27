@@ -13,7 +13,7 @@ int HashMap::hashByDiv(int key){
     return key % capacity;
 }
 
-void HashMap::add(char* key, int value){
+void HashMap::add(std::string key, int value){
     int hashed_key = 0;
 
     // Convert 3 char key into an integer, then hash that value
@@ -28,7 +28,7 @@ void HashMap::add(char* key, int value){
     map[hashed_key].addNode(key, value);
 }
 
-void HashMap::remove(char* key){
+void HashMap::remove(std::string key){
     int hashed_key = 0;
 
     // Convert 3 char key into an integer, then hash that value
@@ -43,7 +43,7 @@ void HashMap::remove(char* key){
     map[hashed_key].removeNode(key);
 }
 
-int HashMap::search(char* key){
+int HashMap::search(std::string key){
      int hashed_key = 0;
 
     // Convert 3 char key into an integer, then hash that value
@@ -70,7 +70,7 @@ void HashMap::menu(){
     bool select_on {true};
     int selection = 0;
     int value = 0;
-    char key[4];
+    std::string key;
     while(select_on){
         std::cout << "\n1. Add key and value\n2. Remove key and value\n3. Search for key, return value\n4. Print table\n5. Exit\n" << std::endl;
         std::cin >> selection;

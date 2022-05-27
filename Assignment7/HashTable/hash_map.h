@@ -24,9 +24,9 @@ class HashMap{
         ~HashMap();
 
         // Public Methods
-        void add(char* key, int value);
-        void remove(char* key);
-        int search(char* key);
+        void add(std::string key, int value);
+        void remove(std::string key);
+        int search(std::string key);
         void printTable();
         void menu();
 };
