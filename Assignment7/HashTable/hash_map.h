@@ -24,9 +24,9 @@ class HashMap{
         ~HashMap();
 
         // Public Methods
-        void add(char key[], int value);
-        void remove(char key[]);
-        int search(char key[]);
+        void add(char* key, int value);
+        void remove(char* key);
+        int search(char* key);
         void printTable();
         void menu();
 };
