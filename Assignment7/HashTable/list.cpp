@@ -4,7 +4,6 @@
  */
 
 #include "list.h"
-#include <cstring>
 
 /* Constructor: AutoSortList()
  * Description: Initializes list.
@@ -12,7 +11,6 @@
  */
 List::List(){
     m_head = nullptr;
-    m_size = 0;
 }
 
 /* Destructor: ~AutoSortList()
@@ -45,7 +43,6 @@ void List::addNode(std::string key, int value){
         }
         if(current->next == nullptr && current->key.compare(key) != 0){
             current->next = new_node;    
-            m_size++;
         }
         else{
             delete new_node;
@@ -53,7 +50,6 @@ void List::addNode(std::string key, int value){
     }
     else{
         m_head = new_node;
-        m_size++;
     }
 }
 
@@ -97,7 +93,6 @@ void List::removeNode(std::string key){
                 }
             }
         }
-        m_size--;
     }
     else{
         std::cout << "List is empty." << std::endl;
@@ -127,7 +122,6 @@ void List::printList(){
     Node* current = m_head;
     while(current != nullptr){
         std::cout << "Key: " << current->key << " | Value: " << current->value << std::endl;
-        std::cout << "Address of Key: " << &current->key << std::endl;
         current = current->next;
     }
 }
