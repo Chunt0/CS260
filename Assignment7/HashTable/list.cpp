@@ -5,7 +5,7 @@
 
 #include "list.h"
 
-/* Constructor: AutoSortList()
+/* Constructor: List()
  * Description: Initializes list.
  * Analysis: O(1)
  */
@@ -13,7 +13,7 @@ List::List(){
     m_head = nullptr;
 }
 
-/* Destructor: ~AutoSortList()
+/* Destructor: ~List()
  * Description: Traverses list and deletes each nodes
  * Analysis: O(n)
  */
@@ -26,7 +26,7 @@ List::~List(){
     }
 }
 
-/* Function: add_node(int value)
+/* Function: addNode(std::string, int value)
  * Description: Adds a node to the list in sorted order, smallest to largest.
  * Analysis: O(n)
  */
@@ -56,8 +56,8 @@ void List::addNode(std::string key, int value){
 
 
 /*
- * Function: removeNode(int index)
- * Description: Removes node at given index.
+ * Function: removeNode(std::string key)
+ * Description: Removes node of given key.
  * Analysis: O(n)
  */
 void List::removeNode(std::string key){
@@ -99,6 +99,10 @@ void List::removeNode(std::string key){
     }
 }
 
+/* Function: returnValue(std::string key)
+ * Description: Returns value of specified key
+ * Analysis: O(n)
+ */
 int List::returnValue(std::string key){
     Node* current = m_head;
     int keys_value = -1;
@@ -114,8 +118,8 @@ int List::returnValue(std::string key){
     return keys_value;
 }
 
-/* Function: print_list()
- * Description: Prints list to screen, index and value.
+/* Function: printList()
+ * Description: Prints list to screen, key and value.
  * Analysis: O(n)
  */
 void List::printList(){
@@ -148,20 +152,22 @@ void List::menu(){
                 addNode(key, value);
                 printList();
                 break;
+
             case 2:
                 std::cout << "\nEnter the key you want to remove: " << std::endl;
                 std::cin >> key;
                 removeNode(key);
                 printList();
                 break;
+
             case 3:
                 printList();
                 break;
+
             case 4:
                 std::cout << "\nBye Bye" << std::endl;
                 select_on = false;
                 break;
         }
-            
     }
 }
