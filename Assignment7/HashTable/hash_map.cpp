@@ -5,19 +5,9 @@
 
 #include "./hash_map.h"
 
-HashMap::HashMap(){
-    for(int i = 0; i < capacity; i++){
-        map[i] = nullptr;
-    }
-}
+HashMap::HashMap(){}
 
-HashMap::~HashMap(){
-    for (int i = 0; i < capacity; i++){
-        if(map[i] != nullptr){
-            delete map[i];
-        }
-    }
-}
+HashMap::~HashMap(){}
 
 int HashMap::hashByDiv(int key){
     return key % capacity;
@@ -33,16 +23,8 @@ void HashMap::add(char* key, int value){
 
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
-    // If the index in the map is null, create a new linked list and have that
-    // index point to that list.
-    if(map[hashed_key] == nullptr){
-        List* list = new List;
-        list->addNode(key, value);
-        map[hashed_key] = list;
-    }
-    else{
-        map[hashed_key]->addNode(key, value);
-    }
+
+    map[hashed_key].addNode(key, value);
 }
 
 void HashMap::remove(char* key){
@@ -56,7 +38,7 @@ void HashMap::remove(char* key){
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
 
-    map[hashed_key]->removeNode(key);
+    map[hashed_key].removeNode(key);
 }
 
 int HashMap::search(char* key){
@@ -70,17 +52,14 @@ int HashMap::search(char* key){
     // hashed_key will be an index between 0 and capacity-1
     hashed_key = hashByDiv(hashed_key);
    
-    int value = map[hashed_key]->returnValue(key);
+    int value = map[hashed_key].returnValue(key);
 
     return value;
 }
 
 void HashMap::printTable(){
     for(int i = 0; i < capacity; i++){
-        if(map[i] != nullptr){
-            map[i]->printList();
-        
-        }
+        map[i].printList();
     }
 }
 
@@ -94,23 +73,23 @@ void HashMap::menu(){
         std::cin >> selection;
         switch(selection){
             case 1:
-                std::cout << "Enter a 3-letter key: " << std::endl;
+                std::cout << "Enter a 3-letter key: ";
                 std::cin >> key;
-                std::cout << "Enter a positive integer value: " << std::endl;
+                std::cout << "Enter a positive integer value: ";
                 std::cin >> value;
                 add(key, value);
                 printTable();
                 break;
 
             case 2:
-                std::cout << "Enter 3-letter key to remove: " << std::endl;
+                std::cout << "Enter 3-letter key to remove: ";
                 std::cin >> key;
                 remove(key);
                 printTable();
                 break;
 
             case 3:
-                std::cout << "Enter 3-letter key: " << std::endl;
+                std::cout << "Enter 3-letter key: ";
                 std::cin >> key;
                 value = search(key);
                 std::cout << "Key: " << key << " | Value: " << value << std::endl;

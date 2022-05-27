@@ -40,15 +40,21 @@ void List::addNode(char* key, int value){
     new_node->value = value;
 
     if(m_head != nullptr){
-        while(current->next != nullptr){
+        while(current->next != nullptr && strcmp(current->key, key) != 0){
             current = current->next;
         }
-        current->next = new_node;
+        if(current->next == nullptr && strcmp(current->key, key) != 0){
+            current->next = new_node;    
+            m_size++;
+        }
+        else{
+            delete new_node;
+        }
     }
     else{
         m_head = new_node;
+        m_size++;
     }
-    m_size++;
 }
 
 
@@ -121,7 +127,6 @@ void List::printList(){
         std::cout << "Key: " << current->key << " | Value: " << current->value << std::endl;
         current = current->next;
     }
-
 }
 
 /* Function: menu()

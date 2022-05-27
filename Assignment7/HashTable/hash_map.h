@@ -13,7 +13,7 @@ class HashMap{
     private:
         // Attributes
         static const int capacity = 13;
-        List* map[capacity];
+        List map[capacity];
 
         // Private Methods
         int hashByDiv(int key);
