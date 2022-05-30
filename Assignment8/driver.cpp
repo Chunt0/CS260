@@ -5,23 +5,44 @@
 
 #include "vertex.h"
 
-int main(){
+void testNewNodeEmptyNeighbors(){
+    std::cout << "\n**********************************\n" << std::endl;
+    std::cout << "Testing new node with no neighbors." << std::endl;
+    Vertex vert1("vert1");
+    std::cout << "vert1.getName(): " << vert1.getName() << std::endl;
+    std::cout << "vert1.getNeighbors(): " << vert1.getNeighbors() << std::endl;
+    std::cout << vert1.to_string() << std::endl;
+}
+
+void testNewNodeOneNeighbor(){
+    std::cout << "\n**********************************\n" << std::endl;
+    std::cout << "Testing new node with one neighbors." << std::endl;
     Vertex vert1("vert1");
     Vertex vert2("vert2");
-    Vertex vert3("vert3");
-
-    vert1.addNeighbor(&vert2, 1);
-    vert1.addNeighbor(&vert3, 5);
-    vert2.addNeighbor(&vert1, 1);
-    vert2.addNeighbor(&vert3, 5);
-    std::cout << "vert1->getName(): " << vert1.getName() << std::endl;
-    std::cout << "vert1->getNeighbors(): " << vert1.getNeighbors() << std::endl;
-    std::cout << "vert2->getName(): " << vert2.getName() << std::endl;
-    std::cout << "vert2->getNeighbors(): " << vert2.getNeighbors() << std::endl;
+    vert1.addNeighbor(&vert2, 5);
+    std::cout << "vert1.getName(): " << vert1.getName() << std::endl;
+    std::cout << "vert1.getNeighbors(): " << vert1.getNeighbors() << std::endl;
     std::cout << vert1.to_string() << std::endl;
-    std::cout << vert2.to_string() << std::endl;
-    std::cout << vert3.to_string() << std::endl;
+}
 
+void testNewNodeTwoNeighbors(){
+    std::cout << "\n**********************************\n" << std::endl;
+    std::cout << "Testing new node with two neighbors." << std::endl;
+    Vertex vert1("vert1");
+    Vertex vert2("vert2");
+    vert1.addNeighbor(&vert2, 5);
+    Vertex vert3("vert3");
+    vert1.addNeighbor(&vert3, 9);
+    std::cout << "vert1.getName(): " << vert1.getName() << std::endl;
+    std::cout << "vert1.getNeighbors(): " << vert1.getNeighbors() << std::endl;
+    std::cout << vert1.to_string() << std::endl;
+}
+int main(){ 
+
+    testNewNodeEmptyNeighbors();
+    testNewNodeOneNeighbor();
+    testNewNodeTwoNeighbors();
+    std::cout << "\n**********************************\n" << std::endl;
 
     return 0;
 }
