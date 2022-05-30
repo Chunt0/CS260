@@ -9,9 +9,19 @@
 #include "vertex.h"
 
 class Edge{
-    Vertex* src;
-    Vertex* dest;
-    int weight;
+    private:
+        Vertex *m_src;
+        Vertex *m_dst;
+        int m_weight;
+
+    public:
+        Edge();
+        Edge(Vertex *src, Vertex *dst, int weight);
+        ~Edge();
+
+        Vertex* getSrc();
+        Vertex* getDst();
+        int getWeight();
 };
 
 #endif

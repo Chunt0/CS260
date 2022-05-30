@@ -9,10 +9,25 @@
 #include "edge.h"
 #include <string>
 #include <vector>
+#include <iostream>
 
 class Vertex{
-    std::string name;
-    std::vector<Edge*> neighbors; 
+    private:
+        std::string m_name;
+        std::vector<Edge*> *m_neighbors; 
+
+    public:
+        Vertex();
+        Vertex(std::string name);
+        Vertex(std::string name, std::vector<Edge*> neighbors);
+        ~Vertex();
+
+        std::string getName();
+        std::vector<Edge*> *getNeighbors();
+
+        void addNode(Vertex* new_vertex, int weight);
+
+
 };
 
 #endif
