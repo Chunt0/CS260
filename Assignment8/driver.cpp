@@ -12,6 +12,7 @@ void testNewNodeEmptyNeighbors(){
     std::cout << "vert1.getName(): " << vert1.getName() << std::endl;
     std::cout << "vert1.getNeighbors(): " << vert1.getNeighbors() << std::endl;
     std::cout << vert1.to_string() << std::endl;
+    std::cout << "\n**********************************\n" << std::endl;
 }
 
 void testNewNodeOneNeighbor(){
@@ -23,6 +24,7 @@ void testNewNodeOneNeighbor(){
     std::cout << "vert1.getName(): " << vert1.getName() << std::endl;
     std::cout << "vert1.getNeighbors(): " << vert1.getNeighbors() << std::endl;
     std::cout << vert1.to_string() << std::endl;
+    std::cout << "\n**********************************\n" << std::endl;
 }
 
 void testNewNodeTwoNeighbors(){
@@ -36,13 +38,13 @@ void testNewNodeTwoNeighbors(){
     std::cout << "vert1.getName(): " << vert1.getName() << std::endl;
     std::cout << "vert1.getNeighbors(): " << vert1.getNeighbors() << std::endl;
     std::cout << vert1.to_string() << std::endl;
+    std::cout << "\n**********************************\n" << std::endl;
 }
 int main(){ 
 
     testNewNodeEmptyNeighbors();
     testNewNodeOneNeighbor();
     testNewNodeTwoNeighbors();
-    std::cout << "\n**********************************\n" << std::endl;
 
     return 0;
 }
