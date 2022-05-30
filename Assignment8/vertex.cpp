@@ -37,3 +37,12 @@ void Vertex::addNeighbor(Vertex *new_vertex, int weight){
     m_neighbors->push_back(new_edge);
 }
 
+std::string Vertex::to_string(std::string sep){
+    for (auto elem : *m_neighbors){
+        std::cout << elem << sep;
+    }
+
+    std::cout << std::endl;
+    return "";
+}
+

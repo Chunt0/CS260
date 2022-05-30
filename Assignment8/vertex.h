@@ -27,8 +27,7 @@ class Vertex{
         std::vector<Edge*>* getNeighbors();
 
         void addNeighbor(Vertex* new_vertex, int weight);
-
-
+        std::string to_string(std::string sep = " ");
 };
 
 #endif
