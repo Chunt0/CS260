@@ -38,11 +38,11 @@ void Vertex::addNeighbor(Vertex *new_vertex, int weight){
 }
 
 std::string Vertex::to_string(std::string sep){
+    std::string result = m_name + ":\tneighbors: ";
     for (auto elem : *m_neighbors){
-        std::cout << elem << sep;
+        result +="(" + elem->m_dst->m_name + ", " + std::to_string(elem->m_weight) + ")" + sep;
     }
 
-    std::cout << std::endl;
-    return "";
+    return result;
 }
 

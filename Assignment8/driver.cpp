@@ -18,8 +18,9 @@ int main(){
     std::cout << "vert1->getNeighbors(): " << vert1.getNeighbors() << std::endl;
     std::cout << "vert2->getName(): " << vert2.getName() << std::endl;
     std::cout << "vert2->getNeighbors(): " << vert2.getNeighbors() << std::endl;
-    std::cout << "vert1->to_string(): " << vert1.to_string();
-    std::cout << "vert2->to_string(): " << vert2.to_string();
+    std::cout << vert1.to_string() << std::endl;
+    std::cout << vert2.to_string() << std::endl;
+    std::cout << vert3.to_string() << std::endl;
 
 
     return 0;
