@@ -14,18 +14,17 @@
 class Vertex{
     private:
         std::string m_name;
-        std::vector<Edge*> *m_neighbors; 
+        std::vector<Edge*>* m_neighbors; 
 
     public:
-        Vertex();
         Vertex(std::string name);
-        Vertex(std::string name, std::vector<Edge*> neighbors);
+        Vertex(std::string name, std::vector<Edge*> *neighbors);
         ~Vertex();
 
         std::string getName();
-        std::vector<Edge*> *getNeighbors();
+        std::vector<Edge*>* getNeighbors();
 
-        void addNode(Vertex* new_vertex, int weight);
+        void addNeighbor(Vertex* new_vertex, int weight);
 
 
 };
