@@ -11,6 +11,8 @@
 #include <vector>
 #include <iostream>
 
+struct Edge;
+
 class Vertex{
     private:
         std::string m_name;

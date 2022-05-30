@@ -32,10 +32,7 @@ std::vector<Edge*>* Vertex::getNeighbors(){
 }
 
 void Vertex::addNeighbor(Vertex *new_vertex, int weight){
-    Edge *new_edge = new Edge;
-    new_edge->m_src = this;
-    new_edge->m_dst = new_vertex;
-    new_edge->m_weight = weight;
+    Edge *new_edge = new Edge(this, new_vertex, weight);
 
     m_neighbors->push_back(new_edge);
 }
