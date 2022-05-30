@@ -7,19 +7,22 @@
 #define EDGE_H
 
 #include "vertex.h"
+#include <string>
 
 class Vertex;
 
-struct Edge{
-    Vertex *m_src;
-    Vertex *m_dst;
-    int m_weight;
+class Edge{
+    public:
+        Vertex *m_src;
+        Vertex *m_dst;
+        int m_weight;
 
-    Edge(Vertex *src, Vertex *dst, int weight){
-        m_src = src;
-        m_dst = dst;
-        m_weight = weight;
-    }
+        Edge(Vertex *src, Vertex *dst, int weight){
+            m_src = src;
+            m_dst = dst;
+            m_weight = weight;
+        }
+
 };
 
 #endif

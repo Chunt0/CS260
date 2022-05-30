@@ -11,7 +11,7 @@
 #include <vector>
 #include <iostream>
 
-struct Edge;
+class Edge;
 
 class Vertex{
     private:
@@ -26,7 +26,7 @@ class Vertex{
         std::string getName();
         std::vector<Edge*>* getNeighbors();
 
-        void addNeighbor(Vertex* new_vertex, int weight);
+        void addNeighbor(Vertex *new_vertex, int weight);
         std::string to_string(std::string sep = " ");
 };
 
