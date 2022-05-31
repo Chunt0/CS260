@@ -40,7 +40,7 @@ void Vertex::addNeighbor(Vertex *new_vertex, int weight){
 std::string Vertex::to_string(std::string sep){
     std::string result = m_name + ": Neighbors: ";
     for (auto elem : *m_neighbors){
-        result += "(" + elem->m_src->getName() + ", " + elem->m_dst->getName() + ", " + std::to_string(elem->m_weight) + ")" + sep;
+        result += elem->to_string() + sep;
     }
 
     return result;

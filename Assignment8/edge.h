@@ -12,17 +12,14 @@
 class Vertex;
 
 class Edge{
-    public:
+    private:
         Vertex *m_src;
         Vertex *m_dst;
         int m_weight;
 
-        Edge(Vertex *src, Vertex *dst, int weight){
-            m_src = src;
-            m_dst = dst;
-            m_weight = weight;
-        }
-
+    public:
+        Edge(Vertex *src, Vertex *dst, int weight);
+        std::string to_string();
 };
 
 #endif
