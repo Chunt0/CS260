@@ -16,13 +16,16 @@ class Graph{
     GraphMap *m_vertices;
     
     public:
+    // Constructor and Deconstructor
     Graph();
     ~Graph();
 
+    // Getters
     GraphMap* getVerts();
     int getVertCount();
     int getEdgeCount();
 
+    // Public Methods
     bool vertexInGraph(std::string name);
     void addVertex(std::string name);
     void removeVertex(std::string name);
