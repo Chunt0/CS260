@@ -9,6 +9,6 @@ int main(){
     Graph graph;
 
     graph.menu();
-
+    
     return 0;
 }
