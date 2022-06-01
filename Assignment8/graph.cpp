@@ -58,6 +58,7 @@ void Graph::printGraphTraversal(){
     for(auto elem : *m_vertices){
         std::cout << elem.second->to_string() << std::endl;
     }
+    std::cout << std::endl;
 }
 
 std::string Graph::to_string(std::string sep){
