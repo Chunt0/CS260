@@ -7,18 +7,38 @@
 
 using GraphMap = std::unordered_map<std::string, Vertex*>;
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: Graph()
+ * Description: Constructors a Graph object.
+ * Analysis: O(1)
+ */
 Graph::Graph(){
     m_vertices = new GraphMap;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: ~Graph()
+ * Description: Deconstructors a Graph object.
+ * Analysis: O(n)
+ */
 Graph::~Graph(){
     GraphMap::iterator graph_it;
+
+    // Iterates over unsorted_map object that contains all of Graph's data.
     for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
         delete graph_it->second;
     }   
     delete m_vertices;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: vertexInGraph(std::string name)
+ * Description: Checks the map if a particular key is stored in the graph, returns bool. 
+ * Analysis: O(1)
+ */
 bool Graph::vertexInGraph(std::string name){
     bool is_in = false;
     if(m_vertices->find(name) != m_vertices->end()){
@@ -27,6 +47,13 @@ bool Graph::vertexInGraph(std::string name){
     return is_in;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: addVertex(std::string name)
+ * Description: Takes a string and turns it into a Vertex object and adds it to 
+ *     the Graph.
+ * Analysis: O(1)
+ */
 void Graph::addVertex(std::string name){
     Vertex *vert = new Vertex(name);
 
@@ -39,6 +66,13 @@ void Graph::addVertex(std::string name){
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: removeVertex(std::string name)
+ * Description: Checks to see if key is in Graph. If so the Vertex object is deleted,
+ *     and the key/value pair is erased from the Graph.
+ * Analysis: O(1)
+ */
 void Graph::removeVertex(std::string name){
     if(vertexInGraph(name) == true){
         delete (*m_vertices)[name];
@@ -50,25 +84,59 @@ void Graph::removeVertex(std::string name){
     }
 }
 
-void Graph::shortestPath(Vertex *src, Vertex *dst){}
+////////////////////////////////////////////////////////////////////////////////
 
-void Graph::minSpanTree(){}
+/* Function: shortestPath(Vertex *src, Vertex *dst)
+ * Description: Finds the shortest path from a source Vertex to a destination Vertex. 
+ * Analysis:
+ */
+void Graph::shortestPath(Vertex *src, Vertex *dst){
 
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: minSpanTree()
+ * Description: 
+ * Analysis:
+ */
+void Graph::minSpanTree(){
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: Graph()
+ * Description: Constructors a Graph object.
+ * Analysis: O(1)
+ */
 void Graph::printGraphTraversal(){
     for(auto elem : *m_vertices){
-        std::cout << "\t" << elem.second->to_string() << std::endl;
+        std::cout << "\t" << elem.second->toString() << std::endl;
     }
     std::cout << std::endl;
 }
 
-std::string Graph::to_string(std::string sep){
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: Graph()
+ * Description: Constructors a Graph object.
+ * Analysis: O(1)
+ */
+std::string Graph::toString(std::string sep){
     std::string result = "";
     for (auto elem : *m_vertices){
-        result += elem.second->to_string() + sep;
+        result += elem.second->toString() + sep;
     } 
     return result;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: Graph()
+ * Description: Constructors a Graph object.
+ * Analysis: O(1)
+ */
 void Graph::menu(){
     bool select_on {true};
     int selection = 0;

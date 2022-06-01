@@ -19,7 +19,7 @@ class Edge{
 
     public:
         Edge(Vertex *src, Vertex *dst, int weight = 1);
-        std::string to_string();
+        std::string toString();
 };
 
 #endif

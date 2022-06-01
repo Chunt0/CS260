@@ -29,7 +29,7 @@ class Graph{
     void shortestPath(Vertex* src, Vertex* dst);
     void minSpanTree();
     void printGraphTraversal();
-    std::string to_string(std::string sep=" ");
+    std::string toString(std::string sep=" ");
     void menu();
 
 };
