@@ -106,9 +106,9 @@ void Graph::minSpanTree(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: Graph()
- * Description: Constructors a Graph object.
- * Analysis: O(1)
+/* Function: printGraphTracersal()
+ * Description: Iterates over GraphMap and prints all Vertices and their adjacency lists.
+ * Analysis: O(n)
  */
 void Graph::printGraphTraversal(){
     for(auto elem : *m_vertices){
@@ -119,8 +119,8 @@ void Graph::printGraphTraversal(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: Graph()
- * Description: Constructors a Graph object.
+/* Function: toString()
+ * Description: Stringifies Graph object.
  * Analysis: O(1)
  */
 std::string Graph::toString(std::string sep){
@@ -133,9 +133,8 @@ std::string Graph::toString(std::string sep){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: Graph()
- * Description: Constructors a Graph object.
- * Analysis: O(1)
+/* Function: menu()
+ * Description: Allows user to test Graph objects methods.
  */
 void Graph::menu(){
     bool select_on {true};
