@@ -56,7 +56,7 @@ void Graph::minSpanTree(){}
 
 void Graph::printGraphTraversal(){
     for(auto elem : *m_vertices){
-        std::cout << elem.second->to_string() << std::endl;
+        std::cout << "\t" << elem.second->to_string() << std::endl;
     }
     std::cout << std::endl;
 }
