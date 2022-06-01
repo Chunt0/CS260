@@ -13,11 +13,15 @@ using GraphMap = std::unordered_map<std::string, Vertex*>;
 
 class Graph{
     private:
-    GraphMap m_vertices;
+    GraphMap *m_vertices;
     
     public:
     Graph();
     ~Graph();
+
+    GraphMap* getVerts();
+    int getVertCount();
+    int getEdgeCount();
 
     bool vertexInGraph(std::string name);
     void addVertex(std::string name);
