@@ -14,6 +14,9 @@ using GraphMap = std::unordered_map<std::string, Vertex*>;
 class Graph{
     private:
     GraphMap *m_vertices;
+
+    // Private Getters
+    Vertex* getVert(std::string name);
     
     public:
     // Constructor and Deconstructor
@@ -21,14 +24,16 @@ class Graph{
     ~Graph();
 
     // Getters
-    GraphMap* getVerts();
+    GraphMap* getVert();
     int getVertCount();
     int getEdgeCount();
 
     // Public Methods
     bool vertexInGraph(std::string name);
     void addVertex(std::string name);
+    void addEdge(std::string src_name, std::string dst_name);
     void removeVertex(std::string name);
+    void removeEdge(std::string src_name, std::string dst_name);
     void shortestPath(Vertex* src, Vertex* dst);
     void minSpanTree();
     void printGraphTraversal();

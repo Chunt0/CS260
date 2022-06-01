@@ -3,6 +3,8 @@
  * graph.cpp
  */
 
+// This is an undirected graph
+
 #include "graph.h"
 
 using GraphMap = std::unordered_map<std::string, Vertex*>;
@@ -35,6 +37,24 @@ Graph::~Graph(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/* Function: getVert(std::string name)
+ * Description: Searchs Graph for Vertex, returns Vertex pointer to that Vertex object. 
+ * Analysis: O(1)
+ */
+Vertex* Graph::getVert(std::string name){
+    Vertex *vert = nullptr;
+    if(vertexInGraph(name) == true){
+        vert = (*m_vertices)[name];
+    }
+    else{
+        std::cout << "Vertex " << name << " not in Graph." << std::endl;
+    }
+
+    return vert;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: vertexInGraph(std::string name)
  * Description: Checks the map if a particular key is stored in the graph, returns bool. 
  * Analysis: O(1)
@@ -55,14 +75,33 @@ bool Graph::vertexInGraph(std::string name){
  * Analysis: O(1)
  */
 void Graph::addVertex(std::string name){
-    Vertex *vert = new Vertex(name);
+    int num;
+    std::string dst_name;
+    Vertex *temp, *vert = new Vertex(name);
 
     if(vertexInGraph(name) == false){
         m_vertices->emplace(name, vert); // Add new vertex to graph
+        
         std::cout << name << " has been added to the Graph." << std::endl;
     }
     else{
         std::cout << name << " is already in the Graph." << std::endl;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: addEdge(std::string name)
+ * Description: Adds an Edge between two Vertices.
+ * Analysis: O(1)
+ */
+void Graph::addEdge(std::string src_name, std::string dst_name){
+    Vertex *src_temp = getVert(src_name);
+    Vertex *dst_temp = getVert(dst_name);
+    if(src_temp != nullptr && dst_temp != nullptr){
+        src_temp->addNeighbor(dst_temp, 1);
+        dst_temp->addNeighbor(src_temp, 1);
     }
 }
 
@@ -139,10 +178,10 @@ std::string Graph::toString(std::string sep){
 void Graph::menu(){
     bool select_on {true};
     int selection = 0;
-    std::string name;
+    std::string name, src_name, dst_name;
     while(select_on){
         std::cout << "\n************************************************\n" << std::endl; 
-        std::cout << "\n1. Add Vertex\n2. Remove Vertex\n3. Print Graph Vertices\n4. Exit\n" << std::endl;
+        std::cout << "\n1. Add Vertex\n2. Remove Vertex\n3. Add Edge\n4. Print Graph Vertices\n5. Exit\n" << std::endl;
         std::cout << "\n************************************************\n" << std::endl; 
         std::cin >> selection;
         switch(selection){
@@ -161,11 +200,19 @@ void Graph::menu(){
                 break;
 
             case 3:
+                printGraphTraversal();
+                std::cout << "Enter Vertex keystring: ";
+                std::cin >> src_name;
+                std::cout << "Enter Vertex keystring: ";
+                std::cin >> dst_name;
+                addEdge(src_name, dst_name);
+
+            case 4:
                 std::cout << "Printing Graph..." << std::endl;
                 printGraphTraversal();
                 break;
 
-            case 4:
+            case 5:
                 std::cout << "\nBye Bye\n" << std::endl;
                 select_on = false;
                 break;
