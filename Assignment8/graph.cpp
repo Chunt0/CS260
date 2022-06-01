@@ -125,6 +125,18 @@ void Graph::removeVertex(std::string name){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/* Function: removeEdge(std::string src_name, std::string dst_name)
+ * Description: Checks to see if key is in Graph. If so the Vertex object is deleted,
+ *     and the key/value pair is erased from the Graph.
+ * Analysis: O(1)
+ */
+void Graph::removeEdge(std::string src_name, std::string dst_name){
+        Vertex* src, dst;
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: shortestPath(Vertex *src, Vertex *dst)
  * Description: Finds the shortest path from a source Vertex to a destination Vertex. 
  * Analysis:
