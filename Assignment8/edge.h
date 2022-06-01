@@ -18,7 +18,7 @@ class Edge{
         int m_weight;
 
     public:
-        Edge(Vertex *src, Vertex *dst, int weight);
+        Edge(Vertex *src, Vertex *dst, int weight = 1);
         std::string to_string();
 };
 
