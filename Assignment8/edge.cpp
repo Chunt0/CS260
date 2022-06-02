@@ -19,6 +19,36 @@ Edge::Edge(Vertex *src, Vertex *dst, int weight){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/* Function: getDst()
+ * Description: Gets m_src.
+ * Analysis: O(1)
+ */
+Vertex* Edge::getDst(){
+    return m_dst;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: getSrc()
+ * Description: Gets m_src.
+ * Analysis: O(1)
+ */
+Vertex* Edge::getSrc(){
+    return m_src;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: getWeight()
+ * Description: Gets weight.
+ * Analysis: O(1)
+ */
+int Edge::getWeight(){
+    return m_weight;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: toString()
  * Description: Stringifies Edge object attributes.
  * Analysis: O(1)

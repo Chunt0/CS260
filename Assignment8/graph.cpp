@@ -114,6 +114,20 @@ void Graph::addEdge(std::string src_name, std::string dst_name){
  */
 void Graph::removeVertex(std::string name){
     if(vertexInGraph(name) == true){
+        std::vector<Edge*>::iterator edge_it;
+        std::vector<Edge*> *dst_edges = nullptr;
+        std::vector<Edge*> *edges = (*m_vertices)[name]->getNeighbors(); // Get vector of Edges
+        
+        // Go through vector of Edges, deleted the dst vertex connection.
+        for(int i = 0; i < edges->size(); ++i){
+            dst_edges = (*edges)[i]->getDst()->getNeighbors();
+            for(edge_it = dst_edges->begin(); edge_it < dst_edges->end(); ++edge_it){
+                if((*edge_it)->getDst()->getName() == name){
+                    dst_edges->erase(edge_it);
+                    break;
+                }
+            }
+        }
         delete (*m_vertices)[name];
         m_vertices->erase(name);
         std::cout << name << " has been removed from the Graph." << std::endl;
@@ -131,8 +145,22 @@ void Graph::removeVertex(std::string name){
  * Analysis: O(1)
  */
 void Graph::removeEdge(std::string src_name, std::string dst_name){
-        Vertex* src, dst;
+    std::vector<Edge*> *src = (*m_vertices)[src_name]->getNeighbors();
+    std::vector<Edge*> *dst = (*m_vertices)[dst_name]->getNeighbors();
+    std::vector<Edge*>::iterator edge_it;
 
+    for(edge_it = (*src).begin(); edge_it < (*src).end(); ++edge_it){
+        if((*edge_it)->getDst()->getName() == dst_name){
+            (*src).erase(edge_it);
+            break;
+        }
+    }
+    for(edge_it = (*dst).begin(); edge_it < (*dst).end(); ++edge_it){
+        if((*edge_it)->getDst()->getName() == src_name){
+            (*dst).erase(edge_it);
+            break;
+        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,7 +221,7 @@ void Graph::menu(){
     std::string name, src_name, dst_name;
     while(select_on){
         std::cout << "\n************************************************\n" << std::endl; 
-        std::cout << "\n1. Add Vertex\n2. Remove Vertex\n3. Add Edge\n4. Print Graph Vertices\n5. Exit\n" << std::endl;
+        std::cout << "\n1. Add Vertex\n2. Remove Vertex\n3. Add Edge\n4. Remove Edge\n5. Print Graph Vertices\n6. Exit\n" << std::endl;
         std::cout << "\n************************************************\n" << std::endl; 
         std::cin >> selection;
         switch(selection){
@@ -218,13 +246,25 @@ void Graph::menu(){
                 std::cout << "Enter Vertex keystring: ";
                 std::cin >> dst_name;
                 addEdge(src_name, dst_name);
+                printGraphTraversal();
+                break;
 
             case 4:
-                std::cout << "Printing Graph..." << std::endl;
+                printGraphTraversal();
+                std::cout << "Enter Vertex keystring: ";
+                std::cin >> src_name;
+                std::cout << "Enter Vertex keystring: ";
+                std::cin >> dst_name;
+                removeEdge(src_name, dst_name);
                 printGraphTraversal();
                 break;
 
             case 5:
+                std::cout << "Printing Graph..." << std::endl;
+                printGraphTraversal();
+                break;
+
+            case 6:
                 std::cout << "\nBye Bye\n" << std::endl;
                 select_on = false;
                 break;

@@ -18,7 +18,15 @@ class Edge{
         int m_weight;
 
     public:
+        // Constructor
         Edge(Vertex *src, Vertex *dst, int weight = 1);
+        
+        // Getters
+        Vertex* getDst();
+        Vertex* getSrc();
+        int getWeight();
+
+        // Public Methods
         std::string toString();
 };
 
