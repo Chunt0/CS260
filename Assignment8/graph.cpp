@@ -17,6 +17,8 @@ using GraphMap = std::unordered_map<std::string, Vertex*>;
  */
 Graph::Graph(){
     m_vertices = new GraphMap;
+    m_num_vertices = 0;
+    m_num_edges = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,6 +57,17 @@ Vertex* Graph::getVert(std::string name){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/* Function: vertsConnected(std::string src_name, std::string dst_name)
+ * Description:  
+ * Analysis:
+ */
+bool Graph::vertsConnected(std::string src_name, std::string dst_name){
+    bool is_in;
+    return is_in;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: vertexInGraph(std::string name)
  * Description: Checks the map if a particular key is stored in the graph, returns bool. 
  * Analysis: O(1)
@@ -77,14 +90,16 @@ bool Graph::vertexInGraph(std::string name){
 void Graph::addVertex(std::string name){
     int num;
     std::string dst_name;
-    Vertex *temp, *vert = new Vertex(name);
+    Vertex *vert = new Vertex(name);
 
     if(vertexInGraph(name) == false){
         m_vertices->emplace(name, vert); // Add new vertex to graph
         
+        m_num_vertices++;
         std::cout << name << " has been added to the Graph." << std::endl;
     }
     else{
+        delete vert;
         std::cout << name << " is already in the Graph." << std::endl;
     }
 }
@@ -99,9 +114,11 @@ void Graph::addVertex(std::string name){
 void Graph::addEdge(std::string src_name, std::string dst_name){
     Vertex *src_temp = getVert(src_name);
     Vertex *dst_temp = getVert(dst_name);
+    std::vector<Edge*>::iterator edge_it;
     if(src_temp != nullptr && dst_temp != nullptr){
         src_temp->addNeighbor(dst_temp, 1);
         dst_temp->addNeighbor(src_temp, 1);
+        m_num_edges++;
     }
 }
 
@@ -131,6 +148,7 @@ void Graph::removeVertex(std::string name){
         }
         delete (*m_vertices)[name];
         m_vertices->erase(name);
+        m_num_vertices--;
         std::cout << name << " has been removed from the Graph." << std::endl;
     }
     else{
@@ -161,6 +179,7 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
         if((*edge_it)->getDst()->getName() == src_name){
             delete *edge_it;
             (*dst).erase(edge_it);
+            m_num_edges--;
             break;
         }
     }
@@ -193,6 +212,7 @@ void Graph::minSpanTree(){
  * Analysis: O(n)
  */
 void Graph::printGraphTraversal(){
+    std::cout << "Vertices: " << m_num_vertices << " | Edges: " << m_num_edges << std::endl;
     for(auto elem : *m_vertices){
         std::cout << "\t" << elem.second->toString() << std::endl;
     }
