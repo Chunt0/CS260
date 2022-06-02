@@ -124,12 +124,12 @@ void Graph::addVertex(std::string name){
  * Description: Adds an Edge between two Vertices.
  * Analysis: O(1)
  */
-void Graph::addEdge(std::string src_name, std::string dst_name){
+void Graph::addEdge(std::string src_name, std::string dst_name, int weight){
     Vertex *src_temp = getVert(src_name);
     Vertex *dst_temp = getVert(dst_name);
     if(src_temp != nullptr && dst_temp != nullptr && !vertsConnected(src_name, dst_name) && src_name != dst_name){
-        src_temp->addNeighbor(dst_temp, 1);
-        dst_temp->addNeighbor(src_temp, 1);
+        src_temp->addNeighbor(dst_temp, weight);
+        dst_temp->addNeighbor(src_temp, weight);
         m_num_edges++;
     }
 }
@@ -258,7 +258,7 @@ std::string Graph::toString(std::string sep){
  */
 void Graph::menu(){
     bool select_on {true};
-    int selection = 0;
+    int selection = 0, weight = 1;
     std::string name, src_name, dst_name;
     while(select_on){
         std::cout << "\n************************************************\n" << std::endl; 
@@ -281,7 +281,9 @@ void Graph::menu(){
                 std::cin >> src_name;
                 std::cout << "Enter Vertex keystring: ";
                 std::cin >> dst_name;
-                addEdge(src_name, dst_name);
+                std::cout << "Enter a weight (must be an integer): ";
+                std::cin >> weight;
+                addEdge(src_name, dst_name, weight);
                 printGraphTraversal();
                 break;
 
