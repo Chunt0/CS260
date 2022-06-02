@@ -123,6 +123,7 @@ void Graph::removeVertex(std::string name){
             dst_edges = (*edges)[i]->getDst()->getNeighbors();
             for(edge_it = dst_edges->begin(); edge_it < dst_edges->end(); ++edge_it){
                 if((*edge_it)->getDst()->getName() == name){
+                    delete *edge_it;
                     dst_edges->erase(edge_it);
                     break;
                 }
@@ -151,12 +152,14 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
 
     for(edge_it = (*src).begin(); edge_it < (*src).end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == dst_name){
+            delete *edge_it;
             (*src).erase(edge_it);
             break;
         }
     }
     for(edge_it = (*dst).begin(); edge_it < (*dst).end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == src_name){
+            delete *edge_it;
             (*dst).erase(edge_it);
             break;
         }
@@ -221,11 +224,12 @@ void Graph::menu(){
     std::string name, src_name, dst_name;
     while(select_on){
         std::cout << "\n************************************************\n" << std::endl; 
-        std::cout << "\n1. Add Vertex\n2. Remove Vertex\n3. Add Edge\n4. Remove Edge\n5. Print Graph Vertices\n6. Exit\n" << std::endl;
+        std::cout << "\n1. Add Vertex\n2. Add Edge\n3. Remove Vertex\n4. Remove Edge\n5. Print Graph Vertices\n6. Exit\n" << std::endl;
         std::cout << "\n************************************************\n" << std::endl; 
         std::cin >> selection;
         switch(selection){
             case 1:
+                std::cout << "~~~~Add Vertex~~~~\n" << std::endl;
                 std::cout << "Enter Vertex Keystring : ";
                 std::cin >> name;
                 addVertex(name);
@@ -233,13 +237,7 @@ void Graph::menu(){
                 break;
 
             case 2:
-                std::cout << "Enter Vertex Keystring : ";
-                std::cin >> name;
-                removeVertex(name);
-                printGraphTraversal();
-                break;
-
-            case 3:
+                std::cout << "~~~~Add Edge~~~~\n" << std::endl;
                 printGraphTraversal();
                 std::cout << "Enter Vertex keystring: ";
                 std::cin >> src_name;
@@ -249,7 +247,16 @@ void Graph::menu(){
                 printGraphTraversal();
                 break;
 
+            case 3:
+                std::cout << "~~~~Remove Vertex~~~~\n" << std::endl;
+                std::cout << "Enter Vertex Keystring : ";
+                std::cin >> name;
+                removeVertex(name);
+                printGraphTraversal();
+                break;
+
             case 4:
+                std::cout << "~~~~Remove Edge~~~~\n" << std::endl;
                 printGraphTraversal();
                 std::cout << "Enter Vertex keystring: ";
                 std::cin >> src_name;
