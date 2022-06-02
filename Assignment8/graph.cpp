@@ -58,17 +58,20 @@ Vertex* Graph::getVert(std::string name){
 ////////////////////////////////////////////////////////////////////////////////
 
 /* Function: vertsConnected(std::string src_name, std::string dst_name)
- * Description:  
- * Analysis:
+ * Description: Checks to see if vertices are connected
+ * Analysis: O(E) -> where E is the number of Edge's in edge list.
  */
 bool Graph::vertsConnected(std::string src_name, std::string dst_name){
     bool is_connected = false;
     Vertex *src_vert = getVert(src_name);
     std::vector<Edge*>::iterator edge_it;
 
+    // src_vert->getNeighbors()->begin() returns an iterator over sources edge list
     for(edge_it = src_vert->getNeighbors()->begin(); edge_it < src_vert->getNeighbors()->end(); ++edge_it){
-        if((*edge_it)->getDst()->getName() == dst_name){
-            is_connected = true;
+        // Checks the sources edge list. If an Edge objects destination matches dst_name
+        // then the Vertices are connected.
+        if((*edge_it)->getDst()->getName() == dst_name){ 
+                is_connected = true;
         }        
     }
     return is_connected;
@@ -82,6 +85,8 @@ bool Graph::vertsConnected(std::string src_name, std::string dst_name){
  */
 bool Graph::vertexInGraph(std::string name){
     bool is_in = false;
+
+    // If name is in the map .find() will return an iterator to the pair, is_in = true.
     if(m_vertices->find(name) != m_vertices->end()){
         is_in = true;
     }
@@ -134,7 +139,7 @@ void Graph::addEdge(std::string src_name, std::string dst_name){
 /* Function: removeVertex(std::string name)
  * Description: Checks to see if key is in Graph. If so the Vertex object is deleted,
  *     and the key/value pair is erased from the Graph.
- * Analysis: O(1)
+ * Analysis: O(E) -> where E is the number of edges the vertex has.
  */
 void Graph::removeVertex(std::string name){
     if(vertexInGraph(name) == true){
@@ -143,18 +148,20 @@ void Graph::removeVertex(std::string name){
         std::vector<Edge*> *edges = (*m_vertices)[name]->getNeighbors(); // Get vector of Edges
         
         // Go through vector of Edges, deleted the dst vertex connection.
+        // For each Edge the Vertex has, go to the destination vertex and delete
+        // the corresponding Edge in it's edge list.
         for(int i = 0; i < edges->size(); ++i){
-            dst_edges = (*edges)[i]->getDst()->getNeighbors();
+            dst_edges = (*edges)[i]->getDst()->getNeighbors(); 
             for(edge_it = dst_edges->begin(); edge_it < dst_edges->end(); ++edge_it){
                 if((*edge_it)->getDst()->getName() == name){
-                    delete *edge_it;
-                    dst_edges->erase(edge_it);
+                    delete *edge_it; // Delete the Edge object of the destination.
+                    dst_edges->erase(edge_it); // Remove it from the edge list
                     break;
                 }
             }
         }
-        delete (*m_vertices)[name];
-        m_vertices->erase(name);
+        delete (*m_vertices)[name]; // Delete the Vertex from memory
+        m_vertices->erase(name); // Remove that entry from the graph's vertices map
         m_num_vertices--;
         std::cout << name << " has been removed from the Graph." << std::endl;
     }
@@ -168,13 +175,15 @@ void Graph::removeVertex(std::string name){
 /* Function: removeEdge(std::string src_name, std::string dst_name)
  * Description: Checks to see if key is in Graph. If so the Vertex object is deleted,
  *     and the key/value pair is erased from the Graph.
- * Analysis: O(1)
+ * Analysis: O(E1*E2) -> where E1 is the number of edges in src's edge list and 
+ *     E2 is the number edges in dst's edge list.
  */
 void Graph::removeEdge(std::string src_name, std::string dst_name){
     std::vector<Edge*> *src = (*m_vertices)[src_name]->getNeighbors();
     std::vector<Edge*> *dst = (*m_vertices)[dst_name]->getNeighbors();
     std::vector<Edge*>::iterator edge_it;
-
+    
+    // Get src's edge list and search for the edge connected to dst, delete and remove.
     for(edge_it = (*src).begin(); edge_it < (*src).end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == dst_name){
             delete *edge_it;
@@ -182,6 +191,8 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
             break;
         }
     }
+
+    // Get dst's edge list and search for the edge connected to src, delete and remove.
     for(edge_it = (*dst).begin(); edge_it < (*dst).end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == src_name){
             delete *edge_it;
