@@ -62,8 +62,16 @@ Vertex* Graph::getVert(std::string name){
  * Analysis:
  */
 bool Graph::vertsConnected(std::string src_name, std::string dst_name){
-    bool is_in;
-    return is_in;
+    bool is_connected = false;
+    Vertex *src_vert = getVert(src_name);
+    std::vector<Edge*>::iterator edge_it;
+
+    for(edge_it = src_vert->getNeighbors()->begin(); edge_it < src_vert->getNeighbors()->end(); ++edge_it){
+        if((*edge_it)->getDst()->getName() == dst_name){
+            is_connected = true;
+        }        
+    }
+    return is_connected;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,8 +122,7 @@ void Graph::addVertex(std::string name){
 void Graph::addEdge(std::string src_name, std::string dst_name){
     Vertex *src_temp = getVert(src_name);
     Vertex *dst_temp = getVert(dst_name);
-    std::vector<Edge*>::iterator edge_it;
-    if(src_temp != nullptr && dst_temp != nullptr){
+    if(src_temp != nullptr && dst_temp != nullptr && !vertsConnected(src_name, dst_name) && src_name != dst_name){
         src_temp->addNeighbor(dst_temp, 1);
         dst_temp->addNeighbor(src_temp, 1);
         m_num_edges++;
