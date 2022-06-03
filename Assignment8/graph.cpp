@@ -103,8 +103,6 @@ bool Graph::vertexInGraph(std::string name){
  * Analysis: O(1)
  */
 void Graph::addVertex(std::string name){
-    int num;
-    std::string dst_name;
     Vertex *vert = new Vertex(name);
 
     if(vertexInGraph(name) == false){
@@ -130,9 +128,9 @@ void Graph::addEdge(std::string src_name, std::string dst_name, int weight, int 
     Vertex *src_temp = getVert(src_name);
     Vertex *dst_temp = getVert(dst_name);
     if(src_temp != nullptr && dst_temp != nullptr && !vertsConnected(src_name, dst_name) && src_name != dst_name){
-        src_temp->addNeighbor(dst_temp, weight);
+        src_temp->addNeighbor(dst_temp, weight); // Add a new edge to Vertex's edge list
         if(undirected == 1){
-            dst_temp->addNeighbor(src_temp, weight);
+            dst_temp->addNeighbor(src_temp, weight); // Add a edge to destination Vertex if graph is undirected
         }
         m_num_edges++;
     }
