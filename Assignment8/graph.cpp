@@ -256,9 +256,9 @@ void Graph::minSpanTree(){
  * Analysis: O(n)
  */
 void Graph::printGraphTraversal(){
-    std::cout << "Vertices: " << m_num_vertices << " | Edges: " << m_num_edges << std::endl;
+    std::cout << "\tVertices: " << m_num_vertices << " | Edges: " << m_num_edges << std::endl;
     for(auto elem : *m_vertices){
-        std::cout << "\t" << elem.second->toString() << std::endl;
+        std::cout << "\tVertex: " << elem.second->toString() << std::endl;
     }
     std::cout << std::endl;
 }
