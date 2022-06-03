@@ -8,7 +8,6 @@
 #include "graph.h"
 
 
-using DijkMap = std::unordered_map<Vertex*, std::pair<int, Vertex*>>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -213,7 +212,7 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
  * Description: Finds the shortest path from a source Vertex to a destination Vertex. 
  * Analysis:
  */
-void Graph::dijkShortestPath(std::string src_name, std::string dst_name){
+DijMap* Graph::dijShortestPath(std::string src_name, std::string dst_name){
     if(vertexInGraph(src_name) && vertexInGraph(dst_name)){
         int min = INT_MAX;
         Vertex *src = (*m_vertices)[src_name];
@@ -221,21 +220,43 @@ void Graph::dijkShortestPath(std::string src_name, std::string dst_name){
 
         // Build min path map
         GraphMap::iterator graph_it;
-        DijkMap verts;
+        DijMap *verts = new DijMap; // unordered_map<Vertex*, pair<int, Vertex*>> 
         for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
             if(graph_it->second == src){
-                verts.emplace(graph_it->second, std::make_pair(0, nullptr)); // Set source as zero
+                verts->emplace(graph_it->second, std::make_pair(0, nullptr)); // Set source as zero
             }
             else{
-                verts.emplace(graph_it->second, std::make_pair(min, nullptr)); // Setting every other vertex to INT_MAX
+                verts->emplace(graph_it->second, std::make_pair(min, nullptr)); // Setting every other vertex to INT_MAX
             }
         }
         
         // BEGIN ALGO
+        DijSet visited, unvisited; // unordered_set<Vertex*> 
+        for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
+            unvisited.insert(graph_it->second); // Copy all Vertices to unvisited set
+        }
+
+        Vertex *current = src, *neighbor = nullptr;
+        int weight;
+        std::vector<Edge*>::iterator edge_it;
+        while(unvisited.empty() == false){
+            std::vector<Edge*> *edge_list = current->getNeighbors(); // Get current vertex's edge list
+            for(edge_it = edge_list->begin(); edge_it != edge_list->end(); ++edge_list){
+                neighbor = (*edge_it)->getDst(); 
+                weight = (*edge_it)->getWeight(); 
+                if(unvisited.find(neighbor) != unvisited.end()){
+                    
+                }
+            }
+        }    
+
+        return verts;
         
     }
     else{
+        DijMap *null = nullptr;
         std::cout << "Source or Destination is not in graph." << std::endl;
+        return null;
     }
 }
 
@@ -245,7 +266,7 @@ void Graph::dijkShortestPath(std::string src_name, std::string dst_name){
  * Description: 
  * Analysis:
  */
-void Graph::minSpanTree(){
+void Graph::krusMinSpanTree(){
 
 }
 
@@ -257,10 +278,10 @@ void Graph::minSpanTree(){
  */
 void Graph::printGraphTraversal(){
     std::cout << "\tVertices: " << m_num_vertices << " | Edges: " << m_num_edges << std::endl;
-    for(auto elem : *m_vertices){
-        std::cout << "\tVertex: " << elem.second->toString() << std::endl;
-    }
-    std::cout << std::endl;
+    //for(auto elem : *m_vertices){
+    //    std::cout << "\tVertex: " << elem.second->toString() << std::endl;
+    //}
+    std::cout << toString() << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -269,10 +290,10 @@ void Graph::printGraphTraversal(){
  * Description: Stringifies Graph object.
  * Analysis: O(1)
  */
-std::string Graph::toString(std::string sep){
+std::string Graph::toString(){
     std::string result = "";
     for (auto elem : *m_vertices){
-        result += elem.second->toString() + sep;
+        result += "\t" + elem.second->toString() + "\n";
     } 
     return result;
 }

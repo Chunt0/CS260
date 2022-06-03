@@ -8,10 +8,13 @@
 
 #include "vertex.h"
 #include <unordered_map>
+#include <unordered_set>
 #include <climits> // for INT_MAX
 #include <utility> // for <pair> and make_pair()
 
 using GraphMap = std::unordered_map<std::string, Vertex*>;
+using DijMap = std::unordered_map<Vertex*, std::pair<int, Vertex*>>;
+using DijSet = std::unordered_set<Vertex*>;
 
 class Graph{
     private:
@@ -39,10 +42,10 @@ class Graph{
     void addEdge(std::string src_name, std::string dst_name, int weight = 1, int undirected = 1);
     void removeVertex(std::string name);
     void removeEdge(std::string src_name, std::string dst_name, int undirected);
-    void dijkShortestPath(std::string src_name, std::string dst_name);
-    void minSpanTree();
+    DijMap* dijShortestPath(std::string src_name, std::string dst_name);
+    void krusMinSpanTree();
     void printGraphTraversal();
-    std::string toString(std::string sep=" ");
+    std::string toString();
     void menu();
 
 };
