@@ -38,7 +38,7 @@ class Graph{
     void addVertex(std::string name);
     void addEdge(std::string src_name, std::string dst_name, int weight, int undirected);
     void removeVertex(std::string name);
-    void removeEdge(std::string src_name, std::string dst_name);
+    void removeEdge(std::string src_name, std::string dst_name, int undirected);
     void shortestPath(Vertex* src, Vertex* dst);
     void minSpanTree();
     void printGraphTraversal();

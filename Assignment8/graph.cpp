@@ -8,7 +8,7 @@
 #include "graph.h"
 
 
-using DijkMap = std::unordered_map<std::string, int>;
+using DijkMap = std::unordered_map<Vertex*, int>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -182,7 +182,7 @@ void Graph::removeVertex(std::string name){
  * Analysis: O(E1*E2) -> where E1 is the number of edges in src's edge list and 
  *     E2 is the number edges in dst's edge list.
  */
-void Graph::removeEdge(std::string src_name, std::string dst_name){
+void Graph::removeEdge(std::string src_name, std::string dst_name, int undirected){
     std::vector<Edge*> *src = (*m_vertices)[src_name]->getNeighbors();
     std::vector<Edge*> *dst = (*m_vertices)[dst_name]->getNeighbors();
     std::vector<Edge*>::iterator edge_it;
@@ -191,18 +191,20 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
     for(edge_it = src->begin(); edge_it != src->end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == dst_name){
             delete *edge_it;
-            (*src).erase(edge_it);
+            src->erase(edge_it);
             break;
         }
     }
 
     // Get dst's edge list and search for the edge connected to src, delete and remove.
-    for(edge_it = dst->begin(); edge_it != dst->end(); ++edge_it){
-        if((*edge_it)->getDst()->getName() == src_name){
-            delete *edge_it;
-            (*dst).erase(edge_it);
-            m_num_edges--;
-            break;
+    if(undirected == 1){
+        for(edge_it = dst->begin(); edge_it != dst->end(); ++edge_it){
+            if((*edge_it)->getDst()->getName() == src_name){
+                delete *edge_it;
+                dst->erase(edge_it);
+                m_num_edges--;
+                break;
+            }
         }
     }
 }
@@ -215,11 +217,17 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
  */
 void Graph::shortestPath(Vertex *src, Vertex *dst){
     int min = INT_MAX;
+
+    // Build min path map
     GraphMap::iterator graph_it;
     DijkMap verts;
-    
     for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
-        verts.emplace(graph_it->first, min); // Setting each paths 
+        if(graph_it->second == src){
+            verts.emplace(graph_it->second, 0); // Set source as zero
+        }
+        else{
+            verts.emplace(graph_it->second, min); // Setting every other vertex to INT_MAX
+        }
     }
 
     if(vertexInGraph(src->getName()) && vertexInGraph(dst->getName())){
@@ -321,7 +329,9 @@ void Graph::menu(){
                 std::cin >> src_name;
                 std::cout << "Enter Destination Vertex keystring: ";
                 std::cin >> dst_name;
-                removeEdge(src_name, dst_name);
+                std::cout << "If your graph is undirected -> enter 1: ";
+                std::cin >> undirected;
+                removeEdge(src_name, dst_name, undirected);
                 printGraphTraversal();
                 break;
 
