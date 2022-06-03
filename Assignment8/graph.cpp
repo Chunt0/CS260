@@ -6,8 +6,11 @@
 // This is an undirected graph
 
 #include "graph.h"
+#include <climits>
+#include <unordered_set>
 
 using GraphMap = std::unordered_map<std::string, Vertex*>;
+using DijkMap = std::unordered_map<std::string, int>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +70,7 @@ bool Graph::vertsConnected(std::string src_name, std::string dst_name){
     std::vector<Edge*>::iterator edge_it;
 
     // src_vert->getNeighbors()->begin() returns an iterator over sources edge list
-    for(edge_it = src_vert->getNeighbors()->begin(); edge_it < src_vert->getNeighbors()->end(); ++edge_it){
+    for(edge_it = src_vert->getNeighbors()->begin(); edge_it != src_vert->getNeighbors()->end(); ++edge_it){
         // Checks the sources edge list. If an Edge objects destination matches dst_name
         // then the Vertices are connected.
         if((*edge_it)->getDst()->getName() == dst_name){ 
@@ -124,12 +127,14 @@ void Graph::addVertex(std::string name){
  * Description: Adds an Edge between two Vertices.
  * Analysis: O(1)
  */
-void Graph::addEdge(std::string src_name, std::string dst_name, int weight){
+void Graph::addEdge(std::string src_name, std::string dst_name, int weight, int undirected){
     Vertex *src_temp = getVert(src_name);
     Vertex *dst_temp = getVert(dst_name);
     if(src_temp != nullptr && dst_temp != nullptr && !vertsConnected(src_name, dst_name) && src_name != dst_name){
         src_temp->addNeighbor(dst_temp, weight);
-        dst_temp->addNeighbor(src_temp, weight);
+        if(undirected == 1){
+            dst_temp->addNeighbor(src_temp, weight);
+        }
         m_num_edges++;
     }
 }
@@ -152,7 +157,7 @@ void Graph::removeVertex(std::string name){
         // the corresponding Edge in it's edge list.
         for(int i = 0; i < edges->size(); ++i){
             dst_edges = (*edges)[i]->getDst()->getNeighbors(); 
-            for(edge_it = dst_edges->begin(); edge_it < dst_edges->end(); ++edge_it){
+            for(edge_it = dst_edges->begin(); edge_it != dst_edges->end(); ++edge_it){
                 if((*edge_it)->getDst()->getName() == name){
                     delete *edge_it; // Delete the Edge object of the destination.
                     dst_edges->erase(edge_it); // Remove it from the edge list
@@ -184,7 +189,7 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
     std::vector<Edge*>::iterator edge_it;
     
     // Get src's edge list and search for the edge connected to dst, delete and remove.
-    for(edge_it = (*src).begin(); edge_it < (*src).end(); ++edge_it){
+    for(edge_it = src->begin(); edge_it != src->end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == dst_name){
             delete *edge_it;
             (*src).erase(edge_it);
@@ -193,7 +198,7 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
     }
 
     // Get dst's edge list and search for the edge connected to src, delete and remove.
-    for(edge_it = (*dst).begin(); edge_it < (*dst).end(); ++edge_it){
+    for(edge_it = dst->begin(); edge_it != dst->end(); ++edge_it){
         if((*edge_it)->getDst()->getName() == src_name){
             delete *edge_it;
             (*dst).erase(edge_it);
@@ -210,7 +215,20 @@ void Graph::removeEdge(std::string src_name, std::string dst_name){
  * Analysis:
  */
 void Graph::shortestPath(Vertex *src, Vertex *dst){
+    int min = INT_MAX;
+    GraphMap::iterator graph_it;
+    DijkMap verts;
+    
+    for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
+        verts.emplace(graph_it->first, min); // Setting each paths 
+    }
 
+    if(vertexInGraph(src->getName()) && vertexInGraph(dst->getName())){
+        
+    }
+    else{
+        std::cout << "Source or Destination is not in graph." << std::endl;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -258,7 +276,7 @@ std::string Graph::toString(std::string sep){
  */
 void Graph::menu(){
     bool select_on {true};
-    int selection = 0, weight = 1;
+    int selection = 0, weight = 1, undirected = 0;
     std::string name, src_name, dst_name;
     while(select_on){
         std::cout << "\n************************************************\n" << std::endl; 
@@ -277,13 +295,15 @@ void Graph::menu(){
             case 2:
                 std::cout << "~~~~Add Edge~~~~\n" << std::endl;
                 printGraphTraversal();
-                std::cout << "Enter Vertex keystring: ";
+                std::cout << "Enter Source Vertex keystring: ";
                 std::cin >> src_name;
-                std::cout << "Enter Vertex keystring: ";
+                std::cout << "Enter Destination Vertex keystring: ";
                 std::cin >> dst_name;
                 std::cout << "Enter a weight (must be an integer): ";
                 std::cin >> weight;
-                addEdge(src_name, dst_name, weight);
+                std::cout << "If your graph is undirected -> enter 1: ";
+                std::cin >> undirected;
+                addEdge(src_name, dst_name, weight, undirected);
                 printGraphTraversal();
                 break;
 
@@ -298,9 +318,9 @@ void Graph::menu(){
             case 4:
                 std::cout << "~~~~Remove Edge~~~~\n" << std::endl;
                 printGraphTraversal();
-                std::cout << "Enter Vertex keystring: ";
+                std::cout << "Enter Source Vertex keystring: ";
                 std::cin >> src_name;
-                std::cout << "Enter Vertex keystring: ";
+                std::cout << "Enter Destination Vertex keystring: ";
                 std::cin >> dst_name;
                 removeEdge(src_name, dst_name);
                 printGraphTraversal();

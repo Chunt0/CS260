@@ -63,17 +63,16 @@ std::vector<Edge*>* Vertex::getNeighbors(){
     return m_neighbors;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: addNeighbor(Vertex *dst, int weight)
  * Description: Creates a new Edge object with current vertex as source and dst
  *     as the adjacent vertex. A weight can be applied. Edge *new_edge is pushed 
  *     to the back of m_neighbors vector.
  * Analysis: O(1)
  */
-
-////////////////////////////////////////////////////////////////////////////////
-
 void Vertex::addNeighbor(Vertex *dst, int weight){
-    Edge *new_edge = new Edge(this, dst, weight);
+    Edge *new_edge = new Edge(dst, weight);
 
     m_neighbors->push_back(new_edge);
 }

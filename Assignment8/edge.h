@@ -13,17 +13,15 @@ class Vertex;
 
 class Edge{
     private:
-        Vertex *m_src;
         Vertex *m_dst;
         int m_weight;
 
     public:
         // Constructor
-        Edge(Vertex *src, Vertex *dst, int weight = 1);
+        Edge(Vertex *dst, int weight = 1);
         
         // Getters
         Vertex* getDst();
-        Vertex* getSrc();
         int getWeight();
 
         // Public Methods

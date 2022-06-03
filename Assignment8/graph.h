@@ -34,7 +34,7 @@ class Graph{
     bool vertexInGraph(std::string name);
     bool vertsConnected(std::string src_name, std::string dst_name);
     void addVertex(std::string name);
-    void addEdge(std::string src_name, std::string dst_name, int weight);
+    void addEdge(std::string src_name, std::string dst_name, int weight, int undirected);
     void removeVertex(std::string name);
     void removeEdge(std::string src_name, std::string dst_name);
     void shortestPath(Vertex* src, Vertex* dst);

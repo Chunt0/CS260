@@ -11,8 +11,7 @@
  * Description: Constructor of Edge object.
  * Analysis: O(1)
  */
-Edge::Edge(Vertex *src, Vertex *dst, int weight){
-    m_src = src;
+Edge::Edge(Vertex *dst, int weight){
     m_dst = dst;
     m_weight = weight;
 }
@@ -25,16 +24,6 @@ Edge::Edge(Vertex *src, Vertex *dst, int weight){
  */
 Vertex* Edge::getDst(){
     return m_dst;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
-/* Function: getSrc()
- * Description: Gets m_src.
- * Analysis: O(1)
- */
-Vertex* Edge::getSrc(){
-    return m_src;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,5 +43,5 @@ int Edge::getWeight(){
  * Analysis: O(1)
  */
 std::string Edge::toString(){
-    return "(" + m_src->getName() + ", " + m_dst->getName() + ", " + std::to_string(m_weight) + ")";
+    return "(" + m_dst->getName() + ", " + std::to_string(m_weight) + ")";
 }
