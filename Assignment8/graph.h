@@ -8,8 +8,8 @@
 
 #include "vertex.h"
 #include <unordered_map>
-#include <climits>
-#include <unordered_set>
+#include <climits> // for INT_MAX
+#include <utility> // for <pair> and make_pairs()
 
 using GraphMap = std::unordered_map<std::string, Vertex*>;
 
@@ -39,7 +39,7 @@ class Graph{
     void addEdge(std::string src_name, std::string dst_name, int weight, int undirected);
     void removeVertex(std::string name);
     void removeEdge(std::string src_name, std::string dst_name, int undirected);
-    void shortestPath(Vertex* src, Vertex* dst);
+    void dijkShortestPath(std::string src_name, std::string dst_name);
     void minSpanTree();
     void printGraphTraversal();
     std::string toString(std::string sep=" ");

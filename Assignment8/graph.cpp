@@ -8,7 +8,7 @@
 #include "graph.h"
 
 
-using DijkMap = std::unordered_map<Vertex*, int>;
+using DijkMap = std::unordered_map<Vertex*, std::pair<int, Vertex*>>;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -215,22 +215,25 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
  * Description: Finds the shortest path from a source Vertex to a destination Vertex. 
  * Analysis:
  */
-void Graph::shortestPath(Vertex *src, Vertex *dst){
-    int min = INT_MAX;
+void Graph::dijkShortestPath(std::string src_name, std::string dst_name){
+    if(vertexInGraph(src_name) && vertexInGraph(dst_name)){
+        int min = INT_MAX;
+        Vertex *src = (*m_vertices)[src_name];
+        Vertex *dst = (*m_vertices)[dst_name];
 
-    // Build min path map
-    GraphMap::iterator graph_it;
-    DijkMap verts;
-    for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
-        if(graph_it->second == src){
-            verts.emplace(graph_it->second, 0); // Set source as zero
+        // Build min path map
+        GraphMap::iterator graph_it;
+        DijkMap verts;
+        for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
+            if(graph_it->second == src){
+                verts.emplace(graph_it->second, std::make_pair(0, nullptr)); // Set source as zero
+            }
+            else{
+                verts.emplace(graph_it->second, std::make_pair(min, nullptr)); // Setting every other vertex to INT_MAX
+            }
         }
-        else{
-            verts.emplace(graph_it->second, min); // Setting every other vertex to INT_MAX
-        }
-    }
-
-    if(vertexInGraph(src->getName()) && vertexInGraph(dst->getName())){
+        
+        // BEGIN ALGO
         
     }
     else{
