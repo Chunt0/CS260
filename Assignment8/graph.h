@@ -8,6 +8,8 @@
 
 #include "vertex.h"
 #include <unordered_map>
+#include <climits>
+#include <unordered_set>
 
 using GraphMap = std::unordered_map<std::string, Vertex*>;
 

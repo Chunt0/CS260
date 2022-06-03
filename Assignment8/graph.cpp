@@ -6,10 +6,8 @@
 // This is an undirected graph
 
 #include "graph.h"
-#include <climits>
-#include <unordered_set>
 
-using GraphMap = std::unordered_map<std::string, Vertex*>;
+
 using DijkMap = std::unordered_map<std::string, int>;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +69,7 @@ bool Graph::vertsConnected(std::string src_name, std::string dst_name){
 
     // src_vert->getNeighbors()->begin() returns an iterator over sources edge list
     for(edge_it = src_vert->getNeighbors()->begin(); edge_it != src_vert->getNeighbors()->end(); ++edge_it){
+
         // Checks the sources edge list. If an Edge objects destination matches dst_name
         // then the Vertices are connected.
         if((*edge_it)->getDst()->getName() == dst_name){ 
