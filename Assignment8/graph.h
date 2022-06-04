@@ -43,7 +43,7 @@ class Graph{
     void addEdge(std::string src_name, std::string dst_name, int weight = 1, int undirected = 1);
     void removeVertex(std::string name);
     void removeEdge(std::string src_name, std::string dst_name, int undirected);
-    DijMap* dijShortestPath(std::string src_namee);
+    DijMap* dijShortestPath(std::string src_name);
     void krusMinSpanTree();
     void printGraphTraversal();
     std::string toString();
