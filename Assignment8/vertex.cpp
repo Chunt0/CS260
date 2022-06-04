@@ -65,16 +65,6 @@ std::vector<Edge*>* Vertex::getNeighbors(){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: compareWeigts()
- * Description: Used as a helper function for std::sort, invoked in addNeighbor().
- * Analysis: O(1)
- */
-bool compareWeights(Edge* edge1, Edge* edge2){
-    return (edge1->getWeight() < edge2->getWeight());
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 /* Function: addNeighbor(Vertex *dst, int weight)
  * Description: Creates a new Edge object with current vertex as source and dst
  *     as the adjacent vertex. A weight can be applied. Edge *new_edge is pushed 
@@ -86,7 +76,6 @@ void Vertex::addNeighbor(Vertex *dst, int weight){
     Edge *new_edge = new Edge(dst, weight);
 
     m_neighbors->push_back(new_edge);
-    std::sort(m_neighbors->begin(), m_neighbors->end(), compareWeights);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
