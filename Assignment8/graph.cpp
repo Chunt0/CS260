@@ -237,17 +237,27 @@ DijMap* Graph::dijShortestPath(std::string src_name, std::string dst_name){
         }
 
         Vertex *current = src, *neighbor = nullptr;
-        int weight;
+        int old_weight, new_weight;
+        std::pair<int, Vertex*> *update = nullptr;
         std::vector<Edge*>::iterator edge_it;
         while(unvisited.empty() == false){
             std::vector<Edge*> *edge_list = current->getNeighbors(); // Get current vertex's edge list
             for(edge_it = edge_list->begin(); edge_it != edge_list->end(); ++edge_list){
                 neighbor = (*edge_it)->getDst(); 
-                weight = (*edge_it)->getWeight(); 
+                old_weight = (*edge_it)->getWeight(); // Get the sum of shortest weights to get to current vertex 
                 if(unvisited.find(neighbor) != unvisited.end()){
-                    
+                    new_weight = (*verts)[current].first + old_weight; // Get new weight by adding previous weight with weight along edge.
+                    if(new_weight < old_weight){
+                        // Swap out the old weight for the new weight and add current as this vertex's predecessor
+                        update = new std::pair<int, Vertex*>(new_weight, current);
+                        (*verts)[neighbor].swap(*update);
+                        delete update;
+                    }
                 }
             }
+            // Move Vertex to visited set
+            visited.insert(current);
+            unvisited.erase(current);
         }    
 
         return verts;
