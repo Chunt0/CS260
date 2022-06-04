@@ -208,15 +208,26 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// Utility function
+/* Function: compareWeigts()
+ * Description: Used as a helper function for std::sort, invoked in addNeighbor().
+ * Analysis: O(1)
+ */
+
+bool compareWeights(Edge* edge1, Edge* edge2){
+    return (edge1->getWeight() < edge2->getWeight());
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: shortestPath(Vertex *src, Vertex *dst)
  * Description: Finds the shortest path from a source Vertex to a destination Vertex. 
  * Analysis:
  */
-DijMap* Graph::dijShortestPath(std::string src_name, std::string dst_name){
-    if(vertexInGraph(src_name) && vertexInGraph(dst_name)){
+DijMap* Graph::dijShortestPath(std::string src_name){
+    if(vertexInGraph(src_name)){
         int min = INT_MAX;
         Vertex *src = (*m_vertices)[src_name];
-        Vertex *dst = (*m_vertices)[dst_name];
 
         // Build min path map
         GraphMap::iterator graph_it;
@@ -242,7 +253,7 @@ DijMap* Graph::dijShortestPath(std::string src_name, std::string dst_name){
         std::queue<Vertex*> priority_queue;
         priority_queue.push(src);
         
-        int old_weight, new_weight;
+        int old_weight, new_weight, edge_weight;
         std::pair<int, Vertex*> *update = nullptr;
         std::vector<Edge*>::iterator edge_it;
         
@@ -251,9 +262,22 @@ DijMap* Graph::dijShortestPath(std::string src_name, std::string dst_name){
             priority_queue.pop(); // Remove that vertex from the queue
 
             std::vector<Edge*> *edge_list = current->getNeighbors(); // Get current vertex's edge list
-            for(int i = 0; i < edge_list->size(); ++i){
-                neighbor = (*edge_list)[i]->getDst(); 
-                old_weight = (*edge_list)[i]->getWeight(); // Get the sum of shortest weights to get to current vertex 
+            std::sort(edge_list->begin(), edge_list->end(), compareWeights); // Sort Edge List by smallest weight to largest
+            for(edge_it = edge_list->begin(); edge_it != edge_list->end(); ++edge_it){
+                old_weight = (*verts)[neighbor].first;
+                neighbor = (*edge_it)->getDst(); 
+                edge_weight = (*edge_it)->getWeight();
+                priority_queue.push(neighbor); // Since the edge list is sorted, we can push each neighbor to the queue as they come
+                new_weight = (*verts)[current].first + edge_weight;
+                // If new weight is smaller than old weight
+                // Make new pair of the sum of weights to that vertex and the predecessor vertex
+                // Update the DijMap and clean up memory.
+                if (new_weight < old_weight){
+                    update = new std::pair<int, Vertex*>(new_weight, current);
+                    swap((*verts)[neighbor],*update);
+                    delete update;
+                }
+                priority_queue.push(neighbor); // Add this neighbor to the priority queue
             }
             // Move Vertex to visited set
             visited.insert(current);
@@ -265,7 +289,7 @@ DijMap* Graph::dijShortestPath(std::string src_name, std::string dst_name){
     }
     else{
         DijMap *null = nullptr;
-        std::cout << "Source or Destination is not in graph." << std::endl;
+        std::cout << "Source is not in graph." << std::endl;
         return null;
     }
 }
@@ -379,3 +403,6 @@ void Graph::menu(){
         }
     }
 }
+
+
+
