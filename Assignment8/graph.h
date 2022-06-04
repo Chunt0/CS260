@@ -9,6 +9,7 @@
 #include "vertex.h"
 #include <unordered_map>
 #include <unordered_set>
+#include <queue> // make a FIFO queue for Dijkstra's algo
 #include <climits> // for INT_MAX
 #include <utility> // for <pair> and make_pair()
 
