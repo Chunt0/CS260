@@ -210,7 +210,7 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
 
 // Utility function for dijShortestPath
 /* Function: compareWeigts()
- * Description: Used as a helper function for std::sort, invoked in addNeighbor().
+ * Description: Used as a helper function for std::sort, used on line 270
  * Analysis: O(1)
  */
 
@@ -222,7 +222,8 @@ bool compareWeights(Edge* edge1, Edge* edge2){
 
 /* Function: dijShortestPath(std::string src_name)
  * Description: Finds the shortest path from a source Vertex to all other vertices. 
- * Analysis:
+ * Analysis: O(V*V*V*E) --> where V is the number of Vertices in Graph and E is 
+ *     the number of edges connected to each specific vertex
  */
 DijMap* Graph::dijShortestPath(std::string src_name){
     if(vertexInGraph(src_name)){
