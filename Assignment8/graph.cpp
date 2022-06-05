@@ -249,16 +249,17 @@ DijMap* Graph::dijShortestPath(std::string src_name){
             unvisited.insert(graph_it->second); // Copy all Vertices to unvisited set
         }
 
-        // Initialize Priority Queue starting with source. Vertices will be added
-        // As Dijkstra's Algorithm goes through
+        // Intitialize some crucial variables
         int old_path_sum, new_path_sum, edge_weight;
         Vertex *current = nullptr, *neighbor = nullptr;
         std::pair<int, Vertex*> *update = nullptr;
 
+        // Initialize Priority Queue starting with source. Vertices will be added
+        // As Dijkstra's Algorithm proceeds through itself
         std::queue<Vertex*> priority_queue;
         priority_queue.push(src);
         
-        
+        // Dijkstra's Algorithm
         while(unvisited.empty() == false){
             // Grab Vertex in front of FIFO queue, then pop off
             current = priority_queue.front(); 
@@ -268,7 +269,7 @@ DijMap* Graph::dijShortestPath(std::string src_name){
             std::vector<Edge*> *edge_list = current->getNeighbors(); 
             std::sort(edge_list->begin(), edge_list->end(), compareWeights); 
             
-            // Iterate through sorted edge_list.
+            // Iterate through sorted edge_list, and do the calculations
             std::vector<Edge*>::iterator edge_it;
             for(edge_it = edge_list->begin(); edge_it != edge_list->end(); ++edge_it){
                 neighbor = (*edge_it)->getDst(); 
@@ -276,7 +277,7 @@ DijMap* Graph::dijShortestPath(std::string src_name){
                 edge_weight = (*edge_it)->getWeight();
                 new_path_sum = (*verts)[current].first + edge_weight;
                 
-                // If new weight is smaller than old weight
+                // If new_path_sum is smaller than old_path_sum
                 // Make new pair of the sum of weights to that vertex and the predecessor vertex
                 // Update the DijMap and clean up memory.
                 if (new_path_sum < old_path_sum){
@@ -288,12 +289,15 @@ DijMap* Graph::dijShortestPath(std::string src_name){
                 // Add this neighbor to the priority queue
                 priority_queue.push(neighbor);
             }
-            // Move Vertex to visited set
+            // Move Vertex to visited set, erase from unvisited
             visited.insert(current);
             unvisited.erase(current);
         }    
+
         return verts;
     }
+
+    // If source is not in the graph, a nullptr will be returned
     else{
         DijMap *null = nullptr;
         std::cout << "Source is not in graph." << std::endl;
