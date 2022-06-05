@@ -17,6 +17,7 @@
  */
 Graph::Graph(){
     m_vertices = new GraphMap;
+    m_krus_edges = new std::vector<KrusEdges>;
     m_num_vertices = 0;
     m_num_edges = 0;
 }
@@ -29,12 +30,14 @@ Graph::Graph(){
  */
 Graph::~Graph(){
     GraphMap::iterator graph_it;
+    std::vector<KrusEdges>::iterator vec_it;
 
     // Iterates over unsorted_map object that contains all of Graph's data.
     for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
         delete graph_it->second;
     }   
     delete m_vertices;
+    delete m_krus_edges;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,6 +134,8 @@ void Graph::addEdge(std::string src_name, std::string dst_name, int weight, int 
         if(undirected == 1){
             dst_temp->addNeighbor(src_temp, weight); // Add a edge to destination Vertex if graph is undirected
         }
+        KrusEdges edge {weight, src_temp, dst_temp};
+        m_krus_edges->push_back(edge);
         m_num_edges++;
     }
 }
@@ -180,30 +185,41 @@ void Graph::removeVertex(std::string name){
  *     E2 is the number edges in dst's edge list.
  */
 void Graph::removeEdge(std::string src_name, std::string dst_name, int undirected){
-    std::vector<Edge*> *src = (*m_vertices)[src_name]->getNeighbors();
-    std::vector<Edge*> *dst = (*m_vertices)[dst_name]->getNeighbors();
-    std::vector<Edge*>::iterator edge_it;
-    
-    // Get src's edge list and search for the edge connected to dst, delete and remove.
-    for(edge_it = src->begin(); edge_it != src->end(); ++edge_it){
-        if((*edge_it)->getDst()->getName() == dst_name){
-            delete *edge_it;
-            src->erase(edge_it);
-            break;
-        }
-    }
-
-    // Get dst's edge list and search for the edge connected to src, delete and remove.
-    if(undirected == 1){
-        for(edge_it = dst->begin(); edge_it != dst->end(); ++edge_it){
-            if((*edge_it)->getDst()->getName() == src_name){
+    if(vertexInGraph(src_name) && vertexInGraph(dst_name)){
+        std::vector<Edge*> *src = (*m_vertices)[src_name]->getNeighbors();
+        std::vector<Edge*> *dst = (*m_vertices)[dst_name]->getNeighbors();
+        std::vector<Edge*>::iterator edge_it;
+        
+        // Get src's edge list and search for the edge connected to dst, delete and remove.
+        for(edge_it = src->begin(); edge_it != src->end(); ++edge_it){
+            if((*edge_it)->getDst()->getName() == dst_name){
                 delete *edge_it;
-                dst->erase(edge_it);
+                src->erase(edge_it);
                 break;
             }
         }
+
+        // Get dst's edge list and search for the edge connected to src, delete and remove.
+        if(undirected == 1){
+            for(edge_it = dst->begin(); edge_it != dst->end(); ++edge_it){
+                if((*edge_it)->getDst()->getName() == src_name){
+                    delete *edge_it;
+                    dst->erase(edge_it);
+                    break;
+                }
+            }
+        }
+        // Delete from m_krus_edges
+        Vertex *src_vertex = getVert(src_name);
+        Vertex *dst_vertex = getVert(dst_name);
+        std::vector<KrusEdges>::iterator vec_it;
+        for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
+            if((vec_it->src == src_vertex || vec_it->src == dst_vertex) && (vec_it->dst == src_vertex || vec_it->dst == dst_vertex)){
+                m_krus_edges->erase(vec_it);            
+            }
+        }
+        m_num_edges--;
     }
-    m_num_edges--;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
