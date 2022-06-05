@@ -229,8 +229,11 @@ DijMap* Graph::dijShortestPath(std::string src_name){
         // Build minimum path map
         Vertex *src = (*m_vertices)[src_name];
         GraphMap::iterator graph_it;
-        DijMap *verts = new DijMap; // unordered_map<Vertex*, pair<int, Vertex*>> 
 
+        // You must delete this later! Deleted at line 333
+        DijMap *verts = new DijMap; // unordered_map<Vertex*, pair<int, Vertex*>>
+
+        // Fill out the base DijMap
         for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
             if(graph_it->second == src){
                 verts->emplace(graph_it->second, std::make_pair(0, nullptr)); // Set source as zero
@@ -304,15 +307,15 @@ DijMap* Graph::dijShortestPath(std::string src_name){
  * Description: Prints shortest path to a destination from a source.
  * Analysis:
  */
-void Graph::printDijShortestPath(DijMap *map, std::string dst_name){
+void Graph::printDijShortestPath(DijMap *verts, std::string dst_name){
     std::vector<std::string> path;
     if(vertexInGraph(dst_name)){
         Vertex *current = (*m_vertices)[dst_name]; // Get the destinations vertex and set it to current
-        Vertex *previous = (*map)[current].second; // Look for that vertex in the map and retrieve it's previous vertex
+        Vertex *previous = (*verts)[current].second; // Look for that vertex in the map and retrieve it's previous vertex
         while(current != nullptr){
             path.push_back(current->getName());
             current = previous;
-            previous = (*map)[current].second;
+            previous = (*verts)[current].second;
         }
         std::vector<std::string>::reverse_iterator vec_it = path.rbegin();
         for(; vec_it != path.rend(); ++vec_it){
@@ -327,7 +330,7 @@ void Graph::printDijShortestPath(DijMap *map, std::string dst_name){
     else{
         std::cout << dst_name << " is not in the Graph." << std::endl;
     }
-    delete map;
+    delete verts; // This is where I delete the DijMap created at line 232
 }
 
 ////////////////////////////////////////////////////////////////////////////////
