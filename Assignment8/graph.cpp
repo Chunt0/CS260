@@ -199,16 +199,16 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
             if((*edge_it)->getDst()->getName() == src_name){
                 delete *edge_it;
                 dst->erase(edge_it);
-                m_num_edges--;
                 break;
             }
         }
     }
+    m_num_edges--;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// Utility function
+// Utility function for dijShortestPath
 /* Function: compareWeigts()
  * Description: Used as a helper function for std::sort, invoked in addNeighbor().
  * Analysis: O(1)
@@ -220,13 +220,12 @@ bool compareWeights(Edge* edge1, Edge* edge2){
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: shortestPath(Vertex *src, Vertex *dst)
- * Description: Finds the shortest path from a source Vertex to a destination Vertex. 
+/* Function: dijShortestPath(std::string src_name)
+ * Description: Finds the shortest path from a source Vertex to all other vertices. 
  * Analysis:
  */
 DijMap* Graph::dijShortestPath(std::string src_name){
     if(vertexInGraph(src_name)){
-        int min = INT_MAX;
         Vertex *src = (*m_vertices)[src_name];
 
         // Build min path map
@@ -237,7 +236,7 @@ DijMap* Graph::dijShortestPath(std::string src_name){
                 verts->emplace(graph_it->second, std::make_pair(0, nullptr)); // Set source as zero
             }
             else{
-                verts->emplace(graph_it->second, std::make_pair(min, nullptr)); // Setting every other vertex to INT_MAX
+                verts->emplace(graph_it->second, std::make_pair(INT_MAX, nullptr)); // Setting every other vertex to INT_MAX
             }
         }
         
@@ -264,7 +263,7 @@ DijMap* Graph::dijShortestPath(std::string src_name){
             std::vector<Edge*> *edge_list = current->getNeighbors(); // Get current vertex's edge list
             std::sort(edge_list->begin(), edge_list->end(), compareWeights); // Sort Edge List by smallest weight to largest
             for(edge_it = edge_list->begin(); edge_it != edge_list->end(); ++edge_it){
-                old_weight = (*verts)[neighbor].first;
+                old_weight = (*verts)[neighbor].first; // should be INT_MAX
                 neighbor = (*edge_it)->getDst(); 
                 edge_weight = (*edge_it)->getWeight();
                 priority_queue.push(neighbor); // Since the edge list is sorted, we can push each neighbor to the queue as they come
@@ -274,7 +273,7 @@ DijMap* Graph::dijShortestPath(std::string src_name){
                 // Update the DijMap and clean up memory.
                 if (new_weight < old_weight){
                     update = new std::pair<int, Vertex*>(new_weight, current);
-                    swap((*verts)[neighbor],*update);
+                    (*verts)[neighbor].swap(*update);
                     delete update;
                 }
                 priority_queue.push(neighbor); // Add this neighbor to the priority queue
@@ -284,6 +283,7 @@ DijMap* Graph::dijShortestPath(std::string src_name){
             unvisited.erase(current);
         }    
 
+        std::cout << "Returning verts" << std::endl;
         return verts;
         
     }
@@ -291,6 +291,31 @@ DijMap* Graph::dijShortestPath(std::string src_name){
         DijMap *null = nullptr;
         std::cout << "Source is not in graph." << std::endl;
         return null;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/* Function: printDijShortestPath()
+ * Description: Prints shortest path to a destination from a source.
+ * Analysis:
+ */
+void Graph::printDijShortestPath(DijMap *path, std::string src_name, std::string dst_name){
+    if(vertexInGraph(dst_name)){
+        Vertex *src = (*m_vertices)[src_name];
+        Vertex *current = (*m_vertices)[dst_name];
+        Vertex *previous = (*path)[current].second;
+        std::string result = current->getName();
+        while(previous != nullptr){
+            previous = (*path)[current].second;
+            result += " <-- " + previous->getName();
+            current = previous;
+            std::cout << previous->getName() << std::endl;
+        }
+        std::cout << result << std::endl;
+    }
+    else{
+        std::cout << dst_name << " is not in the Graph." << std::endl;
     }
 }
 
@@ -312,9 +337,6 @@ void Graph::krusMinSpanTree(){
  */
 void Graph::printGraphTraversal(){
     std::cout << "\tVertices: " << m_num_vertices << " | Edges: " << m_num_edges << std::endl;
-    //for(auto elem : *m_vertices){
-    //    std::cout << "\tVertex: " << elem.second->toString() << std::endl;
-    //}
     std::cout << toString() << std::endl;
 }
 
@@ -341,9 +363,10 @@ void Graph::menu(){
     bool select_on {true};
     int selection = 0, weight = 1, undirected = 0;
     std::string name, src_name, dst_name;
+    DijMap *shortest_path;
     while(select_on){
         std::cout << "\n************************************************\n" << std::endl; 
-        std::cout << "\n1. Add Vertex\n2. Add Edge\n3. Remove Vertex\n4. Remove Edge\n5. Print Graph Vertices\n6. Exit\n" << std::endl;
+        std::cout << "\n1. Add Vertex\n2. Add Edge\n3. Remove Vertex\n4. Remove Edge\n5. Dijkstras Shortest Path\n6. Kruskals Minimum Spanning Tree\n7. Print Graph Vertices\n8. Exit\n" << std::endl;
         std::cout << "\n************************************************\n" << std::endl; 
         std::cin >> selection;
         switch(selection){
@@ -392,11 +415,29 @@ void Graph::menu(){
                 break;
 
             case 5:
+                std::cout << "~~~~Dijkstra's Shortest Path~~~~\n" << std::endl;
+                printGraphTraversal();
+                std::cout << "Enter Source Vertex keystring: ";
+                std::cin >> src_name;
+                std::cout << "Enter Destination Vertex keystring: ";
+                std::cin >> dst_name;
+                shortest_path = dijShortestPath(src_name);
+                /*if(shortest_path != nullptr){
+                    std::cout << "Printing Shortest Path..." << std::endl;
+                    printDijShortestPath(shortest_path, src_name, dst_name);
+                }*/
+                break;
+
+            case 6:
+                // Kruskals
+                break;
+
+            case 7:
                 std::cout << "Printing Graph..." << std::endl;
                 printGraphTraversal();
                 break;
 
-            case 6:
+            case 8:
                 std::cout << "\nBye Bye\n" << std::endl;
                 select_on = false;
                 break;
