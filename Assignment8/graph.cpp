@@ -226,11 +226,11 @@ bool compareWeights(Edge* edge1, Edge* edge2){
  */
 DijMap* Graph::dijShortestPath(std::string src_name){
     if(vertexInGraph(src_name)){
+        // Build minimum path map
         Vertex *src = (*m_vertices)[src_name];
-
-        // Build min path map
         GraphMap::iterator graph_it;
         DijMap *verts = new DijMap; // unordered_map<Vertex*, pair<int, Vertex*>> 
+
         for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
             if(graph_it->second == src){
                 verts->emplace(graph_it->second, std::make_pair(0, nullptr)); // Set source as zero
@@ -246,46 +246,50 @@ DijMap* Graph::dijShortestPath(std::string src_name){
             unvisited.insert(graph_it->second); // Copy all Vertices to unvisited set
         }
 
-        // Initialize Priority Queue starting with source. Vertecise will be added
+        // Initialize Priority Queue starting with source. Vertices will be added
         // As Dijkstra's Algorithm goes through
+        int old_path_sum, new_path_sum, edge_weight;
         Vertex *current = nullptr, *neighbor = nullptr;
+        std::pair<int, Vertex*> *update = nullptr;
+
         std::queue<Vertex*> priority_queue;
         priority_queue.push(src);
         
-        int old_weight, new_weight, edge_weight;
-        std::pair<int, Vertex*> *update = nullptr;
-        std::vector<Edge*>::iterator edge_it;
         
         while(unvisited.empty() == false){
-            current = priority_queue.front(); // Get the priority Vertex
-            priority_queue.pop(); // Remove that vertex from the queue
+            // Grab Vertex in front of FIFO queue, then pop off
+            current = priority_queue.front(); 
+            priority_queue.pop();
 
-            std::vector<Edge*> *edge_list = current->getNeighbors(); // Get current vertex's edge list
-            std::sort(edge_list->begin(), edge_list->end(), compareWeights); // Sort Edge List by smallest weight to largest
+            // Get the current Vertex's edge_list and sort it by smallest to largest weight
+            std::vector<Edge*> *edge_list = current->getNeighbors(); 
+            std::sort(edge_list->begin(), edge_list->end(), compareWeights); 
+            
+            // Iterate through sorted edge_list.
+            std::vector<Edge*>::iterator edge_it;
             for(edge_it = edge_list->begin(); edge_it != edge_list->end(); ++edge_it){
-                old_weight = (*verts)[neighbor].first; // should be INT_MAX
                 neighbor = (*edge_it)->getDst(); 
+                old_path_sum = (*verts)[neighbor].first; // should be INT_MAX
                 edge_weight = (*edge_it)->getWeight();
-                priority_queue.push(neighbor); // Since the edge list is sorted, we can push each neighbor to the queue as they come
-                new_weight = (*verts)[current].first + edge_weight;
+                new_path_sum = (*verts)[current].first + edge_weight;
+                
                 // If new weight is smaller than old weight
                 // Make new pair of the sum of weights to that vertex and the predecessor vertex
                 // Update the DijMap and clean up memory.
-                if (new_weight < old_weight){
-                    update = new std::pair<int, Vertex*>(new_weight, current);
+                if (new_path_sum < old_path_sum){
+                    update = new std::pair<int, Vertex*>(new_path_sum, current);
                     (*verts)[neighbor].swap(*update);
                     delete update;
                 }
-                priority_queue.push(neighbor); // Add this neighbor to the priority queue
+
+                // Add this neighbor to the priority queue
+                priority_queue.push(neighbor);
             }
             // Move Vertex to visited set
             visited.insert(current);
             unvisited.erase(current);
         }    
-
-        std::cout << "Returning verts" << std::endl;
         return verts;
-        
     }
     else{
         DijMap *null = nullptr;
@@ -300,28 +304,35 @@ DijMap* Graph::dijShortestPath(std::string src_name){
  * Description: Prints shortest path to a destination from a source.
  * Analysis:
  */
-void Graph::printDijShortestPath(DijMap *path, std::string src_name, std::string dst_name){
+void Graph::printDijShortestPath(DijMap *map, std::string dst_name){
+    std::vector<std::string> path;
     if(vertexInGraph(dst_name)){
-        Vertex *src = (*m_vertices)[src_name];
-        Vertex *current = (*m_vertices)[dst_name];
-        Vertex *previous = (*path)[current].second;
-        std::string result = current->getName();
-        while(previous != nullptr){
-            previous = (*path)[current].second;
-            result += " <-- " + previous->getName();
+        Vertex *current = (*m_vertices)[dst_name]; // Get the destinations vertex and set it to current
+        Vertex *previous = (*map)[current].second; // Look for that vertex in the map and retrieve it's previous vertex
+        while(current != nullptr){
+            path.push_back(current->getName());
             current = previous;
-            std::cout << previous->getName() << std::endl;
+            previous = (*map)[current].second;
         }
-        std::cout << result << std::endl;
+        std::vector<std::string>::reverse_iterator vec_it = path.rbegin();
+        for(; vec_it != path.rend(); ++vec_it){
+            if(vec_it != path.rend()-1){
+                std::cout << *vec_it + " --> ";
+            }
+            else{
+                std::cout << *vec_it << std::endl;
+            }
+        }
     }
     else{
         std::cout << dst_name << " is not in the Graph." << std::endl;
     }
+    delete map;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Function: minSpanTree()
+/* Function: krusMinSpanTree()
  * Description: 
  * Analysis:
  */
@@ -422,10 +433,10 @@ void Graph::menu(){
                 std::cout << "Enter Destination Vertex keystring: ";
                 std::cin >> dst_name;
                 shortest_path = dijShortestPath(src_name);
-                /*if(shortest_path != nullptr){
+                if(shortest_path != nullptr){
                     std::cout << "Printing Shortest Path..." << std::endl;
-                    printDijShortestPath(shortest_path, src_name, dst_name);
-                }*/
+                    printDijShortestPath(shortest_path, dst_name);
+                }
                 break;
 
             case 6:

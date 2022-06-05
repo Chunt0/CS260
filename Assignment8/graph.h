@@ -44,7 +44,7 @@ class Graph{
     void removeVertex(std::string name);
     void removeEdge(std::string src_name, std::string dst_name, int undirected);
     DijMap* dijShortestPath(std::string src_name);
-    void printDijShortestPath(DijMap* paths, std::string src_name, std::string dst_name);
+    void printDijShortestPath(DijMap* map, std::string dst_name);
     void krusMinSpanTree();
     void printGraphTraversal();
     std::string toString();
