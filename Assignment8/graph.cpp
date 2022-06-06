@@ -17,7 +17,7 @@
  */
 Graph::Graph(){
     m_vertices = new GraphMap;
-    m_krus_edges = new std::vector<KrusEdges>;
+    m_krus_edges = new std::vector<KrusEdges*>;
     m_num_vertices = 0;
     m_num_edges = 0;
 }
@@ -30,13 +30,16 @@ Graph::Graph(){
  */
 Graph::~Graph(){
     GraphMap::iterator graph_it;
-    std::vector<KrusEdges>::iterator vec_it;
+    std::vector<KrusEdges*>::iterator vec_it;
 
     // Iterates over unsorted_map object that contains all of Graph's data.
     for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
         delete graph_it->second;
     }   
     delete m_vertices;
+    for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
+        delete *vec_it;
+    }
     delete m_krus_edges;
 }
 
@@ -134,7 +137,7 @@ void Graph::addEdge(std::string src_name, std::string dst_name, int weight, int 
         if(undirected == 1){
             dst_temp->addNeighbor(src_temp, weight); // Add a edge to destination Vertex if graph is undirected
         }
-        KrusEdges edge {weight, src_temp, dst_temp};
+        KrusEdges *edge = new KrusEdges {weight, src_temp, dst_temp};
         m_krus_edges->push_back(edge);
         m_num_edges++;
     }
@@ -162,7 +165,19 @@ void Graph::removeVertex(std::string name){
                 if((*edge_it)->getDst()->getName() == name){
                     delete *edge_it; // Delete the Edge object of the destination.
                     dst_edges->erase(edge_it); // Remove it from the edge list
+                    m_num_edges--;
                     break;
+                }
+
+                // Delete from m_krus_edges
+                Vertex *src_vertex = getVert(name);
+                Vertex *dst_vertex = (*edge_it)->getDst();
+                std::vector<KrusEdges*>::iterator vec_it;
+                for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
+                    if((*vec_it)->src == src_vertex || (*vec_it)->src == dst_vertex && (*vec_it)->dst == src_vertex || (*vec_it)->dst == dst_vertex){
+                        delete *vec_it;
+                        m_krus_edges->erase(vec_it);            
+                    }
                 }
             }
         }
@@ -212,9 +227,10 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
         // Delete from m_krus_edges
         Vertex *src_vertex = getVert(src_name);
         Vertex *dst_vertex = getVert(dst_name);
-        std::vector<KrusEdges>::iterator vec_it;
+        std::vector<KrusEdges*>::iterator vec_it;
         for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
-            if((vec_it->src == src_vertex || vec_it->src == dst_vertex) && (vec_it->dst == src_vertex || vec_it->dst == dst_vertex)){
+            if(((*vec_it)->src == src_vertex || (*vec_it)->src == dst_vertex) && ((*vec_it)->dst == src_vertex || (*vec_it)->dst == dst_vertex)){
+                delete *vec_it;
                 m_krus_edges->erase(vec_it);            
             }
         }
@@ -356,12 +372,30 @@ void Graph::printDijShortestPath(DijMap *verts, std::string dst_name){
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
+// Utility function for krusMinSpanTree()
+/* Function: smallerWeights()
+ * Description: Used as a helper function for std::sort, used on line 270
+ * Analysis: O(1)
+ */
+
+bool smallerWeights(KrusEdges *edge1, KrusEdges *edge2){
+    return (edge1->weight < edge2->weight);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /* Function: krusMinSpanTree()
  * Description: 
  * Analysis:
  */
 void Graph::krusMinSpanTree(){
+    sort(m_krus_edges->begin(), m_krus_edges->end(), smallerWeights);
 
+    std::vector<KrusEdges*>::iterator vec_it;
+    for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
+        std::cout << (*vec_it)->weight << std::endl;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -464,7 +498,9 @@ void Graph::menu(){
                 break;
 
             case 6:
-                // Kruskals
+                std::cout << "~~~~Kruskal's Minimum Spanning Tree~~~~\n" << std::endl;
+                printGraphTraversal();
+                krusMinSpanTree();
                 break;
 
             case 7:

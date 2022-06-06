@@ -26,7 +26,7 @@ struct KrusEdges{
 class Graph{
     private:
     GraphMap *m_vertices;
-    std::vector<KrusEdges> *m_krus_edges;
+    std::vector<KrusEdges*> *m_krus_edges;
     int m_num_vertices;
     int m_num_edges;
 
