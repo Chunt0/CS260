@@ -26,7 +26,7 @@ int main(){
     graph.addEdge("2", "8", 2, 1);
     graph.addEdge("2", "3", 7, 1);
     graph.addEdge("2", "5", 4, 1);
-    graph.addEdge("3", "5", 14, 1);
+    graph.addEdge("5", "3", 14, 1);
     graph.addEdge("3", "4", 9, 1);
     graph.addEdge("4", "5", 10, 1);
     graph.addEdge("7", "8", 7, 1);
