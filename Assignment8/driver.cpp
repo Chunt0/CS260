@@ -9,30 +9,30 @@ int main(){
     Graph graph;
     
     // Build out graph
-    graph.addVertex("0");
-    graph.addVertex("1");
-    graph.addVertex("2");
-    graph.addVertex("3");
-    graph.addVertex("4");
-    graph.addVertex("5");
-    graph.addVertex("6");
-    graph.addVertex("7");
-    graph.addVertex("8");
+    graph.addVertex("a"); // 0
+    graph.addVertex("b"); // 1
+    graph.addVertex("c"); // 2
+    graph.addVertex("d"); // 3
+    graph.addVertex("e"); // 4
+    graph.addVertex("f"); // 5
+    graph.addVertex("g"); // 6
+    graph.addVertex("h"); // 7
+    graph.addVertex("i"); // 8
     
-    graph.addEdge("0", "1", 4, 1);
-    graph.addEdge("0", "7", 8, 1);
-    graph.addEdge("1", "2", 8, 1);
-    graph.addEdge("1", "7", 11, 1);
-    graph.addEdge("2", "8", 2, 1);
-    graph.addEdge("2", "3", 7, 1);
-    graph.addEdge("2", "5", 4, 1);
-    graph.addEdge("5", "3", 14, 1);
-    graph.addEdge("3", "4", 9, 1);
-    graph.addEdge("4", "5", 10, 1);
-    graph.addEdge("7", "8", 7, 1);
-    graph.addEdge("7", "6", 1, 1);
-    graph.addEdge("6", "8", 6, 1);
-    graph.addEdge("6", "5", 2, 1);
+    graph.addEdge("a", "b", 4, 1);
+    graph.addEdge("a", "h", 8, 1);
+    graph.addEdge("b", "c", 8, 1);
+    graph.addEdge("b", "h", 11, 1);
+    graph.addEdge("c", "i", 2, 1);
+    graph.addEdge("c", "d", 7, 1);
+    graph.addEdge("c", "f", 4, 1);
+    graph.addEdge("f", "d", 14, 1);
+    graph.addEdge("d", "e", 9, 1);
+    graph.addEdge("e", "f", 10, 1);
+    graph.addEdge("h", "i", 7, 1);
+    graph.addEdge("h", "g", 1, 1);
+    graph.addEdge("g", "i", 6, 1);
+    graph.addEdge("g", "f", 2, 1);
 
     graph.menu();
     
