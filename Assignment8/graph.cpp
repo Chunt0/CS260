@@ -165,17 +165,14 @@ void Graph::removeVertex(std::string name){
             Vertex *dst_vertex = (*edge_it)->getDst();
             std::vector<KrusEdges*>::iterator vec_it;
             for(int i = 0; i < m_krus_edges->size(); ++i){
-                    if((*m_krus_edges)[i]->src == src_vertex || (*m_krus_edges)[i]->src == dst_vertex) 
-                        && ((*m_krus_edges)at(i)->dst == src_vertex || (*m_krus_edges)at(i)->dst == dst_vertex){
+                    if(((*m_krus_edges)[i]->src == src_vertex || (*m_krus_edges)[i]->src == dst_vertex) && ((*m_krus_edges)[i]->dst == src_vertex || (*m_krus_edges)[i]->dst == dst_vertex)){
                         std::cout << "deleteing from m_krus_edges..." << std::endl;
-                        delete *vec_it;
-                        *vec_it = nullptr;
-                        m_krus_edges->erase(vec_it.begin()+i);            
+                        delete (*m_krus_edges)[i];
+                        m_krus_edges->erase(m_krus_edges->begin()+i);            
                         break;
                     }
                 }
             }
-        }
             
         // Delete all corresponding edge's from destination's edge lists
         std::vector<Edge*> *dst_edges = nullptr;
@@ -240,16 +237,12 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
             }
         }
         // Delete from m_krus_edges
-        std::vector<KrusEdges*>::iterator vec_it;
-        for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
-            if(*vec_it != nullptr){
-                if(((*vec_it)->src == src_vertex || (*vec_it)->src == dst_vertex) && ((*vec_it)->dst == src_vertex || (*vec_it)->dst == dst_vertex)){
-                    delete *vec_it;
-                    *vec_it = nullptr;
-                    m_krus_edges->erase(vec_it);            
-                    std::cout << "deleteing from m_krus_edges..." << std::endl;
-                    m_num_edges--;
-                }
+        for(int i = 0; i < m_krus_edges->size(); ++i){
+            if(((*m_krus_edges)[i]->src == src_vertex || (*m_krus_edges)[i]->src == dst_vertex) && ((*m_krus_edges)[i]->dst == src_vertex || (*m_krus_edges)[i]->dst == dst_vertex)){
+                delete (*m_krus_edges)[i];
+                m_krus_edges->erase(m_krus_edges->begin()+i);            
+                std::cout << "deleteing from m_krus_edges..." << std::endl;
+                m_num_edges--;
             }
         }
     }
