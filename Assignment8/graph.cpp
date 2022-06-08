@@ -403,10 +403,14 @@ bool smallerWeights(KrusEdges *edge1, KrusEdges *edge2){
 void Graph::krusMinSpanTree(){
     sort(m_krus_edges->begin(), m_krus_edges->end(), smallerWeights);
 
+/*  
     std::vector<KrusEdges*>::iterator vec_it;
     for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
         std::cout << (*vec_it)->weight << std::endl;
     }
+*/
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
