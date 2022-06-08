@@ -243,6 +243,7 @@ void Graph::removeEdge(std::string src_name, std::string dst_name, int undirecte
                 m_krus_edges->erase(m_krus_edges->begin()+i);            
                 std::cout << "deleteing from m_krus_edges..." << std::endl;
                 m_num_edges--;
+                break;
             }
         }
     }
