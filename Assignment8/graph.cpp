@@ -401,11 +401,88 @@ bool smallerWeights(KrusEdges *edge1, KrusEdges *edge2){
  * Analysis:
  */
 void Graph::krusMinSpanTree(){
-    sort(m_krus_edges->begin(), m_krus_edges->end(), smallerWeights);
+    KrusMap krus_map;
+    std::vector<KrusEdges*> min_span_tree;
 
+    // Sort Edges from smallest to largest
+    sort(m_krus_edges->begin(), m_krus_edges->end(), smallerWeights);
+    
+    // Fill out KrusMap with starting values
+    GraphMap::iterator graph_it;
+    for(graph_it = m_vertices->begin(); graph_it != m_vertices->end(); ++graph_it){
+        // key = Vertex* vertex | value =  std::pair(Vertex* parent, int rank)
+        krus_map.emplace(graph_it->second, std::make_pair(nullptr, 0));
+    }
+
+    // Iterate through m_krus_edges -> smallest weight to largest weight
+    for(int i = 0; i < m_krus_edges->size(); ++i){
+        // If the edge makes a circuit -> pass; else -> add to minimum spanning tree
+        Vertex* vert1 = (*m_krus_edges)[i]->src;
+        Vertex* vert2 = (*m_krus_edges)[i]->dst;
+        Vertex* abs_root1 = nullptr;
+        Vertex* abs_root2 = nullptr;
+        
+        // Find both nodes absolute root
+        if(krus_map[vert1].first == nullptr && krus_map[vert2].first == nullptr){
+            int rank1 = krus_map[vert1].second;
+            int rank2 = krus_map[vert2].second;
+            if (rank1 == rank2){
+                krus_map[vert1] = std::make_pair(vert2, 0);
+                krus_map[vert2] = std::make_pair(nullptr, 1);// Since graph is undirected it doesn't matter which vertex points to which
+                min_span_tree.push_back((*m_krus_edges)[i]); // Add them to min_span_tree
+            }
+            else if(rank1 > rank2){
+                krus_map[vert2] = std::make_pair(vert1, 0);
+                krus_map[vert1] = std::make_pair(nullptr, 1);// Since graph is undirected it doesn't matter which vertex points to which
+                min_span_tree.push_back((*m_krus_edges)[i]); // Add them to min_span_tree
+            }
+            else if(rank1 < rank2){
+                krus_map[vert1] = std::make_pair(vert2, 0);
+                krus_map[vert2] = std::make_pair(nullptr, 1);// Since graph is undirected it doesn't matter which vertex points to which
+                min_span_tree.push_back((*m_krus_edges)[i]); // Add them to min_span_tree
+            }
+        }
+        else{
+            Vertex* current1 = vert1;
+            Vertex* current2 = vert2;
+            // Find absolute parent of vert1
+            while(krus_map[current1].first != nullptr){
+                current1 = krus_map[current1].first;
+            }
+            abs_root1 = current1;
+            
+            // Find absolute parent of vert2
+            while(krus_map[current2].first != nullptr){
+                current2 = krus_map[current2].first;
+            }
+            abs_root2 = current2;
+            
+            if(abs_root1 != abs_root2){
+                int rank1 = krus_map[abs_root1].second;
+                int rank2 = krus_map[abs_root2].second;
+                if(rank1 == rank2){
+                    krus_map[abs_root1] = std::make_pair(abs_root2, rank1);
+                    krus_map[abs_root2] = std::make_pair(nullptr, ++rank2);
+                    min_span_tree.push_back((*m_krus_edges)[i]);
+                }  
+                else if(rank1 > rank2){
+                    krus_map[abs_root2] = std::make_pair(abs_root1, rank2);
+                    krus_map[abs_root1] = std::make_pair(nullptr, ++rank1);
+                    min_span_tree.push_back((*m_krus_edges)[i]);
+                }
+                else if(rank1 < rank2){
+                    krus_map[abs_root1] = std::make_pair(abs_root2, rank1);
+                    krus_map[abs_root2] = std::make_pair(nullptr, ++rank2);
+                    min_span_tree.push_back((*m_krus_edges)[i]);
+                }
+                
+            }
+        }
+    }
+    std::cout << "\nKruskal's Minimum Spanning Tree:" << std::endl;
     std::vector<KrusEdges*>::iterator vec_it;
-    for(vec_it = m_krus_edges->begin(); vec_it != m_krus_edges->end(); ++vec_it){
-        std::cout << (*vec_it)->weight << std::endl;
+    for(vec_it = min_span_tree.begin(); vec_it < min_span_tree.end(); ++vec_it){
+        std::cout << "Vertex 1: " << (*vec_it)->src->getName() << " | Vertex 2: " << (*vec_it)->dst->getName() << " | Weight: " << (*vec_it)->weight << std::endl;
     }
 }
 

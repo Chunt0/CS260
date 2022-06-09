@@ -16,6 +16,7 @@
 using GraphMap = std::unordered_map<std::string, Vertex*>;
 using DijMap = std::unordered_map<Vertex*, std::pair<int, Vertex*>>;
 using DijSet = std::unordered_set<Vertex*>;
+using KrusMap = std::unordered_map<Vertex*, std::pair<Vertex*, int>>;
 
 struct KrusEdges{
     int weight;
